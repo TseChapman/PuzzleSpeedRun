@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using ASL;
 
 public class LevelEndPosition : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class LevelEndPosition : MonoBehaviour
     private void Start()
     {
         m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
+        GetComponent<ASLObject>()._LocallySetFloatCallback((string id, float[] data) =>
+        {
+            OnWin.Invoke();
+        });
     }
 
     private void CheckDistance()
@@ -45,7 +50,10 @@ public class LevelEndPosition : MonoBehaviour
         {
             Debug.Log("Level passed");
             m_isLevelEnded = true;
-            OnWin.Invoke();
+            GetComponent<ASLObject>().SendAndSetClaim(() =>
+            {
+                GetComponent<ASLObject>().SendFloatArray(new float[1]);
+            });
         }
     }
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5597783492510836443}
   - component: {fileID: 7662476698252910121}
+  - component: {fileID: 93093164684034445}
   m_Layer: 0
   m_Name: LevelEndPosition
   m_TagString: Untagged
@@ -45,3 +46,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mazeSystem: {fileID: 0}
   endLevelDistance: 1
+  OnWin:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &93093164684034445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971780424520000285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
