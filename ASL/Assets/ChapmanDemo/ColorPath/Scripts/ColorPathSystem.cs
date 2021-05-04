@@ -15,7 +15,43 @@ public class ColorPathSystem : MonoBehaviour
 
     public bool CheckAnswer()
     {
-        return true;
+        bool isCorrect = true;
+        for (int row = 0; row < NUM_CUBE_PER_ROW; row++)
+        {
+            for (int col = 0; col < NUM_CUBE_PER_COL; col++)
+            {
+                Color color = colorCubesArr[row * 10 + col].GetComponent<Renderer>().material.color;
+                if (color == Color.red && m_correctAnswer[row,col] != 'r')
+                {
+                    isCorrect = false;
+                    break;
+                }
+                else if (color == Color.green && m_correctAnswer[row, col] != 'g')
+                {
+                    isCorrect = false;
+                    break;
+                }
+                else if (color == Color.blue && m_correctAnswer[row, col] != 'b')
+                {
+                    isCorrect = false;
+                    break;
+                }
+                else if (color == Color.yellow && m_correctAnswer[row, col] != 'y')
+                {
+                    isCorrect = false;
+                    break;
+                }
+                else if (color == Color.white)
+                {
+                    isCorrect = false;
+                    break;
+                }
+            }
+            if (!isCorrect)
+                break;
+        }
+        Debug.Log("IsCorrect = " + isCorrect);
+        return isCorrect;
     }
 
     private string GetPath()
@@ -52,11 +88,5 @@ public class ColorPathSystem : MonoBehaviour
         string path = GetPath();
         bool isValidInput = ParseFile(path);
         Debug.Log("Is ColorPath file a valid input = " + isValidInput.ToString());
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
     }
 }
