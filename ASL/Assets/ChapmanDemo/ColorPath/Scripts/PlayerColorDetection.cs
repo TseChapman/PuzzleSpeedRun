@@ -33,6 +33,7 @@ public class PlayerColorDetection : MonoBehaviour
         if (obj.tag == "ColorCube")
         {
             //Debug.Log("OnPath");
+            if (obj.GetComponent<Renderer>().material.color == m_pathColor) return;
             obj.GetComponent<ASL.ASLObject>().SendAndSetClaim(() => 
             {
                 obj.GetComponent<ASL.ASLObject>().SendAndSetObjectColor(m_pathColor, m_pathColor);
