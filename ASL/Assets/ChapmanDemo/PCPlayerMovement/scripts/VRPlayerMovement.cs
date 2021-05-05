@@ -5,7 +5,7 @@ using ASL;
 using System.Text;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Teleport;
-public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
+public class VRPlayerMovement : MonoBehaviour{
 
 
     public Transform playerMeshTransform;  //Stores playerMesh  
@@ -24,7 +24,7 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
     private Vector3 onObjectPos; //Player position when on the top of the pickable object
     PCPlayerItemInteraction pcPlayerItemInteraction;
     private bool spawnPointSet = false; //True if player System set its spawn point
-
+    public Camera mainCam;
     public bool continousMovementOn = true;
     private bool disabledLeftTeleport = false;
     Quaternion cameraRotation;
@@ -45,8 +45,6 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
             tryGettingPlayerMesh();
         }
         movePlayerMesh();
-        if(continousMovementOn)
-        tryUndoLeftHandTeleport();
         getCameraDirection();
         
 
@@ -54,25 +52,8 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
 
     private void getCameraDirection()
     {
-        float _rotationAngle = Camera.main.transform.rotation.eulerAngles.y;
+        float _rotationAngle = mainCam.transform.rotation.eulerAngles.y;
         cameraRotation = Quaternion.Euler(0, _rotationAngle, 0);
-    }
-
-    private void tryUndoLeftHandTeleport()
-    {
-       // if (!disabledLeftTeleport)
-       // {
-            GameObject leftHandTeleporter1 = GameObject.Find("Left_ParabolicTeleportPointer(Clone)");
-            GameObject leftHandTeleporter2 = GameObject.Find("Left_ParabolicTeleportPointer(Clone)_Cursor");
-            Debug.Log("trying getting leftHandTeleport");
-            if (leftHandTeleporter1 && leftHandTeleporter2)
-            {
-                disabledLeftTeleport = true;
-                leftHandTeleporter1.SetActive(false);
-                leftHandTeleporter2.SetActive(false);
-                Debug.Log("Disabled leftHandTeleporter");
-            }
-       // }
     }
 
 
@@ -97,12 +78,7 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
         transform.position = randomInitPoint;
         ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity);
     }
-    /*
-    private static void InitCallBack(GameObject _gameobject)
-    {
-        playerMeshTransform = _gameobject.transform;
-    }*/
-  
+    
     //This will look for any playerMesh initiate and store it to the playerMeshTransform
     void tryGettingPlayerMesh()
     {
@@ -120,12 +96,6 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
     void movePlayerMovementbyJoystick() {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-
-        /*rigid body movement system was changed to CharacterController system
-        Vector3 movePos = transform.right * x + transform.forward * y;
-        Vector3 newMovePos = new Vector3(movePos.x, playerBody.velocity.y, movePos.z);
-        playerBody.velocity = newMovePos;
-        transform.position = playerBody.position;*/
         Vector3 move = transform.right * x + transform.forward * y;
         controller.Move(Quaternion.Inverse(transform.rotation) * cameraRotation * move * movementSensitivity * Time.deltaTime);        
     }
@@ -135,7 +105,7 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
     {
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
         onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
-        Debug.Log("GROUNDED: " + grounded);
+        //Debug.Log("GROUNDED: " + grounded);
         /*
         if (onObject && !pcPlayerItemInteraction.pickedUpItem)
         {
@@ -178,53 +148,6 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
             }
         }
       
-    }
-
-    public void OnTeleportCanceled(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Cancelled");
-        isTeleporting = false;
-        controller.transform.position = transform.position;
-        controller.enabled = true;
-        Debug.Log("Teleport Cancelled Ended");
-    }
-
-    public void OnTeleportCompleted(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Completed");
-        isTeleporting = false;
-        controller.transform.position = transform.position;
-        controller.enabled = true;
-        Debug.Log("Teleport Completed Ended");
-    }
-
-    public void OnTeleportRequest(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Request");
-        isTeleporting = true;
-        controller.enabled = false;
-        Debug.Log("Teleport Request Ended");
-    }
-
-    public void OnTeleportStarted(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Started");
-        isTeleporting = true;
-        controller.enabled = false;
-        Debug.Log("Teleport Started Ended");
-    }
-    void OnEnable()
-    {
-        // This is the critical call that registers this class for events. Without this
-        // class's IMixedRealityTeleportHandler interface will not be called.
-        CoreServices.TeleportSystem.RegisterHandler<IMixedRealityTeleportHandler>(this);
-    }
-
-    void OnDisable()
-    {
-        // Unregistering when disabled is important, otherwise this class will continue
-        // to receive teleportation events.
-        CoreServices.TeleportSystem.UnregisterHandler<IMixedRealityTeleportHandler>(this);
     }
 
 }
