@@ -5,6 +5,8 @@ using ASL;
 using System.Text;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Teleport;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 public class VRPlayerMovement : MonoBehaviour{
 
 
@@ -15,6 +17,7 @@ public class VRPlayerMovement : MonoBehaviour{
     public LayerMask groundLayerMask; //Layer Mask for ground
     public LayerMask playerMeshLayerMask; //Layer Mask for player mesh
     public LayerMask pickAbleItemLayerMask; //Layer Mask for pickable Items
+    private float PlayerScale = 1f;
     private bool grounded; //Check if the player is on the ground 
     private bool onObject = false; //check if the player is on top of the pickable object
     private CharacterController controller; //Stores player's Character controller component
@@ -23,15 +26,22 @@ public class VRPlayerMovement : MonoBehaviour{
     private ASLTransformSync myASL;
     private Vector3 onObjectPos; //Player position when on the top of the pickable object
     PCPlayerItemInteraction pcPlayerItemInteraction;
+    public bool isGrabbing { get; set; } = false;
     private bool spawnPointSet = false; //True if player System set its spawn point
-    public Camera mainCam;
     public bool continousMovementOn = true;
     private bool disabledLeftTeleport = false;
     Quaternion cameraRotation;
     private bool isTeleporting = false;
+    private XRRig rig;
+    public XRNode inputSource;
+    public float additionalHeight = 0.2f;
+    private Vector2 inputAxis;
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        rig = GetComponent<XRRig>();
+        PlayerScale = transform.localScale.y;
+        controller.center = new Vector3(0, PlayerScale, 0);
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
         initPlayerMeshToThePoint();
@@ -44,29 +54,21 @@ public class VRPlayerMovement : MonoBehaviour{
         {
             tryGettingPlayerMesh();
         }
+        InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
+        device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
         movePlayerMesh();
-        getCameraDirection();
         
-
-    }
-
-    private void getCameraDirection()
-    {
-        float _rotationAngle = mainCam.transform.rotation.eulerAngles.y;
-        cameraRotation = Quaternion.Euler(0, _rotationAngle, 0);
     }
 
 
     private void FixedUpdate()
     {
-        controller.center = new Vector3(0,transform.position.y,0);
-
         if (spawnPointSet)
         {
-            if (!isTeleporting) {
-                movePlayerMovementbyJoystick();
-                fallPlayer();
-            }
+                characterControllerFollowHeadset();
+            getCameraDirection();
+            movePlayerMovementbyJoystick();
+            fallPlayer();
         }
     }
     
@@ -89,44 +91,58 @@ public class VRPlayerMovement : MonoBehaviour{
             playerMeshTransform = hitColliders[0].transform;      
         }       
     }
-   
+
+
+    private void getCameraDirection()
+    {
+        cameraRotation = Quaternion.Euler(0, rig.cameraGameObject.transform.eulerAngles.y, 0);
+    }
 
 
     //This method will allow the user to move the player with their keyboard
     void movePlayerMovementbyJoystick() {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 move = transform.right * x + transform.forward * y;
-        controller.Move(Quaternion.Inverse(transform.rotation) * cameraRotation * move * movementSensitivity * Time.deltaTime);        
+        Vector3 move = cameraRotation * new Vector3(inputAxis.x, 0, inputAxis.y);
+        controller.Move(move * movementSensitivity * Time.fixedDeltaTime);        
     }
 
     //This method will make player to fall to the ground if the player is not on the ground
     void fallPlayer()
     {
-        grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
-        onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
-        //Debug.Log("GROUNDED: " + grounded);
-        /*
-        if (onObject && !pcPlayerItemInteraction.pickedUpItem)
+        Vector3 rayStart = transform.TransformPoint(controller.center);
+        float rayLength = controller.center.y + 0.01f;
+        grounded = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayerMask);
+        onObject = Physics.CheckSphere(new Vector3(controller.transform.position.x, controller.transform.position.y - 1, controller.transform.position.z), .5f, pickAbleItemLayerMask);
+
+        Debug.Log("on object:" + onObject + "on ground:" + grounded +  " is Grabbing:" + isGrabbing);
+
+        if (!isGrabbing)
         {
-            onObjectPos = transform.position;
+            onObjectPos = controller.transform.position;
         }
 
-        if (onObject && pcPlayerItemInteraction.pickedUpItem)
+        if (isGrabbing && (grounded || onObject))
         {
-            transform.position = new Vector3(transform.position.x, onObjectPos.y, transform.position.z);
-        }*/
+            //Debug.Log("PREVENT GOING UP");
+            controller.transform.position = new Vector3(controller.transform.position.x, onObjectPos.y, controller.transform.position.z);
+        }
+
+
         if (grounded)
             fallingSpeed = 0;
         else
             fallingSpeed += gravity * Time.fixedDeltaTime;
         controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
-        if (transform.position.y < -99f)
+        if (transform.position.y < -99f) //fall too much..
         {
             transform.position = spawnPoint;
         }
     }
-    // Update is called once per frame
+    void characterControllerFollowHeadset()
+    {
+        controller.height = rig.cameraInRigSpaceHeight + additionalHeight;
+        Vector3 capsuleCenter = transform.InverseTransformPoint(rig.cameraGameObject.transform.position);
+        controller.center = new Vector3(capsuleCenter.x, controller.height / 2 + controller.skinWidth , capsuleCenter.z);
+    }
 
   
     //Move the player to where ASL is initialized
@@ -137,13 +153,13 @@ public class VRPlayerMovement : MonoBehaviour{
         {
             if (!playerMeshTransform.GetComponent<ASLPlayerSync>())
             {
-                transform.position = playerMeshTransform.position + new Vector3(0,2,0);
+                transform.position = playerMeshTransform.position + new Vector3(0, PlayerScale, 0);
                 
             }
             else
             {
                 spawnPointSet = true;
-                playerMeshTransform.position = controller.transform.position + controller.center;
+                playerMeshTransform.position = new Vector3(rig.cameraGameObject.transform.position.x ,controller.transform.position.y, rig.cameraGameObject.transform.position.z) + new Vector3(0, PlayerScale ,0);
                 playerMeshTransform.rotation = cameraRotation;
             }
         }
