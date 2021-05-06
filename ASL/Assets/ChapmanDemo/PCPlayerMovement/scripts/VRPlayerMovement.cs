@@ -111,22 +111,8 @@ public class VRPlayerMovement : MonoBehaviour{
         Vector3 rayStart = transform.TransformPoint(controller.center);
         float rayLength = controller.center.y + 0.01f;
         grounded = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayerMask);
-        onObject = Physics.CheckSphere(new Vector3(controller.transform.position.x, controller.transform.position.y - 1, controller.transform.position.z), .5f, pickAbleItemLayerMask);
-
-        Debug.Log("on object:" + onObject + "on ground:" + grounded +  " is Grabbing:" + isGrabbing);
-
-        if (!isGrabbing)
-        {
-            onObjectPos = controller.transform.position;
-        }
-
-        if (isGrabbing && (grounded || onObject))
-        {
-            //Debug.Log("PREVENT GOING UP");
-            controller.transform.position = new Vector3(controller.transform.position.x, onObjectPos.y, controller.transform.position.z);
-        }
-
-
+        Physics.IgnoreLayerCollision(17, 7, isGrabbing); //pickableItem player
+        Physics.IgnoreLayerCollision(17, 13, isGrabbing); //pickableItem child layer
         if (grounded)
             fallingSpeed = 0;
         else
