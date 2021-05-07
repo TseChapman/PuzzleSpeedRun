@@ -53,6 +53,7 @@ public class LaserSensor : MonoBehaviour
     void Start()
     {
         ActiveHits = new List<Hit>();
+
     }
 
     void FixedUpdate()

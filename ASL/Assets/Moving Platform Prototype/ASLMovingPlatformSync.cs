@@ -49,14 +49,6 @@ public class ASLMovingPlatformSync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<Rigidbody>() != null && GetComponent<Rigidbody>().isKinematic && GetComponent<MeshRenderer>() != null)
-        {
-            GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-        else if (GetComponent<MeshRenderer>() != null)
-        {
-            GetComponent<MeshRenderer>().material.color = Color.green;
-        }
         GameLiftManager glm = GameLiftManager.GetInstance();
         if (glm == null)
         {
