@@ -2168,6 +2168,7 @@ MonoBehaviour:
   keyColor: {r: 0, g: 0.47058824, b: 1, a: 1}
   keyTwoColor: {r: 0.5686275, g: 0, b: 1, a: 1}
   buttonColor: {r: 0.5686275, g: 0, b: 1, a: 1}
+  handLayer: 18
 --- !u!114 &748923317054793165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2329,6 +2330,7 @@ MonoBehaviour:
   keyColor: {r: 0, g: 0.39215687, b: 0, a: 1}
   keyTwoColor: {r: 0, g: 0.47058824, b: 1, a: 1}
   buttonColor: {r: 0, g: 0.47058824, b: 1, a: 1}
+  handLayer: 18
 --- !u!1 &5484742971815529717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,6 +2442,7 @@ MonoBehaviour:
   keyOne: {fileID: 8473259827737553877}
   keyColor: {r: 1, g: 0, b: 0, a: 1}
   buttonColor: {r: 1, g: 0, b: 0, a: 1}
+  handLayer: 18
 --- !u!1 &5517187655055783623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2981,6 +2984,7 @@ MonoBehaviour:
   keyColor: {r: 1, g: 0, b: 0, a: 1}
   keyTwoColor: {r: 0, g: 0.39215687, b: 0, a: 1}
   buttonColor: {r: 0, g: 0.39215687, b: 0, a: 1}
+  handLayer: 18
 --- !u!1 &6530266212389324492
 GameObject:
   m_ObjectHideFlags: 0
@@ -11021,3 +11025,4 @@ MonoBehaviour:
   keyColor: {r: 1, g: 0, b: 0, a: 1}
   keyTwoColor: {r: 0, g: 0.39215687, b: 0, a: 1}
   buttonColor: {r: 0, g: 0.39215687, b: 0, a: 1}
+  handLayer: 0

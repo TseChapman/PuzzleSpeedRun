@@ -9,6 +9,7 @@ public class VRPresence : MonoBehaviour
     public List<GameObject> VRPlayer;
     public List<GameObject> VRHands;
     public bool VRorPC = false;
+    public GameObject VRCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class VRPresence : MonoBehaviour
             {
                 item.SetActive(true);
             }
+            VRCamera.tag = "MainCamera";
         } else
         {
             Debug.Log("Entering PC mode ");

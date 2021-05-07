@@ -450,6 +450,7 @@ MonoBehaviour:
   - {fileID: 91478501}
   - {fileID: 766780095}
   VRorPC: 0
+  VRCamera: {fileID: 2034036077}
 --- !u!4 &363367105
 Transform:
   m_ObjectHideFlags: 0

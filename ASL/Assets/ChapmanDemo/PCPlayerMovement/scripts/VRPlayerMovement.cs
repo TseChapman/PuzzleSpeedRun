@@ -125,7 +125,7 @@ public class VRPlayerMovement : MonoBehaviour{
         grounded = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayerMask);
         foreach (int i in pickAbleLayerNum)
         {
-            Physics.IgnoreLayerCollision(gameObject.layer, i, pcPlayerItemInteraction.pickedUpItem != null);
+            Physics.IgnoreLayerCollision(gameObject.layer, i, isGrabbing);
         }
         if (grounded)
             fallingSpeed = 0;
