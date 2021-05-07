@@ -12,6 +12,7 @@ public class PCPlayerMovement : MonoBehaviour
     public LayerMask groundLayerMask; //Layer Mask for ground
     public LayerMask playerMeshLayerMask; //Layer Mask for player mesh
     public LayerMask pickAbleItemLayerMask; //Layer Mask for pickable Items
+    public LayerMask pickAbleItemChildLayerMask; //Layer Mask for pickable Items
     private bool grounded; //Check if the player is on the ground 
     private bool onObject = false; //check if the player is on top of the pickable object
     private CharacterController controller; //Stores player's Character controller component
@@ -22,6 +23,7 @@ public class PCPlayerMovement : MonoBehaviour
     PCPlayerItemInteraction pcPlayerItemInteraction;
     public GameObject vrPresenceObject;
     private VRPresence vrPresence;
+    public int[] pickAbleLayerNum;
     private bool spawnPointSet = false; //True if player System set its spawn point
 
     void Start()
@@ -97,15 +99,11 @@ public class PCPlayerMovement : MonoBehaviour
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
         onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
 
-        if (onObject && !pcPlayerItemInteraction.pickedUpItem)
+        foreach(int i in pickAbleLayerNum)
         {
-            onObjectPos = transform.position;
+            Physics.IgnoreLayerCollision(gameObject.layer, i, pcPlayerItemInteraction.pickedUpItem != null);
         }
-
-        if (onObject && pcPlayerItemInteraction.pickedUpItem)
-        {
-            transform.position = new Vector3(transform.position.x, onObjectPos.y, transform.position.z);
-        }
+       
         if (grounded)
             fallingSpeed = 0;
         else

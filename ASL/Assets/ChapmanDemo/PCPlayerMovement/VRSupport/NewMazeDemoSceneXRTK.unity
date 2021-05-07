@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 323262809}
-  m_IndirectSpecularColor: {r: 0.4368852, g: 0.48453736, b: 0.56479335, a: 1}
+  m_IndirectSpecularColor: {r: 0.17292488, g: 0.2161083, b: 0.29807773, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -604,8 +604,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pickAbleLayerNum.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: pickAbleItemLayerMask.m_Bits
       value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pickAbleLayerNum.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pickAbleLayerNum.Array.data[1]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pickAbleLayerNum.Array.data[2]
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pickAbleLayerNum.Array.data[3]
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953683, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: throwingForce
@@ -1523,11 +1543,15 @@ MonoBehaviour:
   pickAbleItemLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  pickAbleItemChildLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   gravity: -9.81
   continousMovementOn: 1
   inputSource: 4
   additionalHeight: 0.2
   vrPresenceObject: {fileID: 363367103}
+  pickAbleLayerNum: 070000000d0000000e0000000f000000
 --- !u!114 &2046396747
 MonoBehaviour:
   m_ObjectHideFlags: 0

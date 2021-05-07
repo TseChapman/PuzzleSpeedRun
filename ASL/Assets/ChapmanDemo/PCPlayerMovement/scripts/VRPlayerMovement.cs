@@ -17,6 +17,7 @@ public class VRPlayerMovement : MonoBehaviour{
     public LayerMask groundLayerMask; //Layer Mask for ground
     public LayerMask playerMeshLayerMask; //Layer Mask for player mesh
     public LayerMask pickAbleItemLayerMask; //Layer Mask for pickable Items
+    public LayerMask pickAbleItemChildLayerMask; //Layer Mask for pickable Items
     private float PlayerScale = 1f;
     private bool grounded; //Check if the player is on the ground 
     private bool onObject = false; //check if the player is on top of the pickable object
@@ -38,6 +39,7 @@ public class VRPlayerMovement : MonoBehaviour{
     private Vector2 inputAxis;
     public GameObject vrPresenceObject;
     private VRPresence vrPresence;
+    public int[] pickAbleLayerNum;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -121,8 +123,10 @@ public class VRPlayerMovement : MonoBehaviour{
         Vector3 rayStart = transform.TransformPoint(controller.center);
         float rayLength = controller.center.y + 0.01f;
         grounded = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayerMask);
-        Physics.IgnoreLayerCollision(17, 7, isGrabbing); //pickableItem player
-        Physics.IgnoreLayerCollision(17, 13, isGrabbing); //pickableItem child layer
+        foreach (int i in pickAbleLayerNum)
+        {
+            Physics.IgnoreLayerCollision(gameObject.layer, i, pcPlayerItemInteraction.pickedUpItem != null);
+        }
         if (grounded)
             fallingSpeed = 0;
         else
