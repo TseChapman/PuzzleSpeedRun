@@ -449,6 +449,7 @@ MonoBehaviour:
   VRHands:
   - {fileID: 91478501}
   - {fileID: 766780095}
+  VRorPC: 0
 --- !u!4 &363367105
 Transform:
   m_ObjectHideFlags: 0
@@ -587,12 +588,24 @@ PrefabInstance:
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: PlayerMeshPrefab
+      value: 
+      objectReference: {fileID: 5821943898315724089, guid: c61708e4eb75baa418802537a4954cbe, type: 3}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: vrPresenceObject
+      value: 
+      objectReference: {fileID: 363367103}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: movementSensitivity
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: playerRandomSpwanRange
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953682, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pickAbleItemLayerMask.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953683, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: throwingForce
@@ -701,52 +714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad05360ef71d6eb439c770c16eac96fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &734627742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 734627736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackingType: 0
-  m_UpdateType: 0
-  m_PositionAction:
-    m_Name: Main Camera - TPD - Position
-    m_Type: 0
-    m_ExpectedControlType: Vector3
-    m_Id: 
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 
-      m_Path: <XRHMD>/centerEyePosition
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Main Camera - TPD - Position
-      m_Flags: 0
-  m_RotationAction:
-    m_Name: Main Camera - TPD - Rotation
-    m_Type: 0
-    m_ExpectedControlType: Quaternion
-    m_Id: 
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 
-      m_Path: <XRHMD>/centerEyeRotation
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Main Camera - TPD - Rotation
-      m_Flags: 0
 --- !u!1 &766780095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e0d018c8516634ea5b5cae5c3279ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMeshTransform: {fileID: 0}
   spawnPoint: {x: 0, y: 0, z: 0}
   movementSensitivity: 3
   groundLayerMask:
@@ -1561,6 +1527,7 @@ MonoBehaviour:
   continousMovementOn: 1
   inputSource: 4
   additionalHeight: 0.2
+  vrPresenceObject: {fileID: 363367103}
 --- !u!114 &2046396747
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class VRPlayerMovement : MonoBehaviour{
 
 
-    public Transform playerMeshTransform;  //Stores playerMesh  
+    public static Transform playerMeshTransform;  //Stores playerMesh  
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 3f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
@@ -36,6 +36,8 @@ public class VRPlayerMovement : MonoBehaviour{
     public XRNode inputSource;
     public float additionalHeight = 0.2f;
     private Vector2 inputAxis;
+    public GameObject vrPresenceObject;
+    private VRPresence vrPresence;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -44,16 +46,17 @@ public class VRPlayerMovement : MonoBehaviour{
         controller.center = new Vector3(0, PlayerScale, 0);
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
+        vrPresence = vrPresenceObject.GetComponent<VRPresence>();
         initPlayerMeshToThePoint();
         
     }
 
     void Update()
     {
-        if (playerMeshTransform == null)
-        {
-            tryGettingPlayerMesh();
-        }
+        //if (playerMeshTransform == null)
+        //{
+         //   tryGettingPlayerMesh();
+        //}
         InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
         movePlayerMesh();
@@ -75,13 +78,20 @@ public class VRPlayerMovement : MonoBehaviour{
     //This method move the player to the spawn point and instatiate playerMesh
     void initPlayerMeshToThePoint()
     {
+        if (!vrPresence.VRorPC) return;
         Vector3 randomInitPoint = new Vector3(Random.Range(-50, 50), Random.Range(-50,50), Random.Range(-50, 50));
-        //controller.Move(randomInitPoint);
-        transform.position = randomInitPoint;
-        ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity);
+        controller.Move(randomInitPoint);
+        //playerMesh = Instantiate(PlayerMeshPrefab, randomInitPoint, Quaternion.identity);
+        ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity, null, null, InitCallBack);
     }
-    
+
+    private static void InitCallBack(GameObject _gameobject)
+    {
+        playerMeshTransform = _gameobject.transform;
+    }
+
     //This will look for any playerMesh initiate and store it to the playerMeshTransform
+    /*
     void tryGettingPlayerMesh()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.02f, playerMeshLayerMask);
@@ -91,7 +101,7 @@ public class VRPlayerMovement : MonoBehaviour{
             playerMeshTransform = hitColliders[0].transform;      
         }       
     }
-
+    */
 
     private void getCameraDirection()
     {

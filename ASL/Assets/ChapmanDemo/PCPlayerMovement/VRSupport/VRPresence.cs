@@ -8,6 +8,7 @@ public class VRPresence : MonoBehaviour
     public GameObject PCPlayer;
     public List<GameObject> VRPlayer;
     public List<GameObject> VRHands;
+    public bool VRorPC = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,5 +36,6 @@ public class VRPresence : MonoBehaviour
                 Destroy(item);
             }
         }
+        VRorPC = true;
     }
 }
