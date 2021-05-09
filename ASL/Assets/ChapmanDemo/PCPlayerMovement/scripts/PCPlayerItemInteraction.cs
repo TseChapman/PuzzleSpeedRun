@@ -54,7 +54,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
             // Does the ray intersect any objects excluding the player layer
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitInfo, 5f, ~pickableLayer & ~pickableChildLayer & ~nonInterativeLayer))
             {
-                Debug.Log(hitInfo.collider.gameObject.name);
+                //Debug.Log(hitInfo.collider.gameObject.name);
                 pickUpObjectDistance = hitInfo.distance - .3f;
                 if (pickUpObjectDistance < 0)
                     pickUpObjectDistance = 0;
@@ -64,15 +64,18 @@ public class PCPlayerItemInteraction : MonoBehaviour {
         }
 
         //pick up item
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) )
         {   if (pickedUpItem == null)
             {
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableLayer))
                 {
                     Debug.Log("Did Hit " + hit.transform.name);
+                    if (!hit.collider.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
+                     {
                     pickedUpItem = hit.collider.gameObject;
-                    pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                        pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    }
                 } else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
                 {
                     Transform t = hit.transform.parent;
@@ -81,13 +84,17 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         if ((1 << t.gameObject.layer) == pickableLayer.value)
                         {
                             Debug.Log("Did Hit " + t.name);
-                            pickedUpItem = t.gameObject;
-                            pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                            break;
+                            if (!t.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
+                            {
+                                pickedUpItem = t.gameObject;
+                                pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                                break;
+                            }
                         }
                         t = t.parent;
                     }
                 }
+                if (pickedUpItem) pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().pickUp(); 
             } else {
                 leaveObejct();
             }
@@ -133,6 +140,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     {
         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         pickedUpItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().release();
         pickedUpItem = null;
     }
 }
