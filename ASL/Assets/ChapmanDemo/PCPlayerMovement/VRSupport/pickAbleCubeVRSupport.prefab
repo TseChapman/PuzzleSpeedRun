@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 6897473568823701478}
   - component: {fileID: 7656041581544204703}
   - component: {fileID: 6358922181650225519}
-  - component: {fileID: 4109321582355562113}
   - component: {fileID: 3234919733287968542}
+  - component: {fileID: -6632299279536689429}
   m_Layer: 7
   m_Name: pickAbleCubeVRSupport
   m_TagString: Untagged
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4109321582355562113
+--- !u!114 &3234919733287968542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +150,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8143339478281835716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e47d3bd6c308204389dc51ee8f4b383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6632299279536689429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143339478281835716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23dc50abca6daa2489b2dad4294b543c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -172,34 +184,10 @@ MonoBehaviour:
       m_Calls: []
   m_OnSelectEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: isPicked, Assembly-CSharp
-        m_MethodName: isPickedUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSelectExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: isPicked, Assembly-CSharp
-        m_MethodName: isReleased
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSelectCanceled:
     m_PersistentCalls:
       m_Calls: []
@@ -242,18 +230,6 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
---- !u!114 &3234919733287968542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143339478281835716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e47d3bd6c308204389dc51ee8f4b383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3129003336586132196
 PrefabInstance:
   m_ObjectHideFlags: 0
