@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "1WMHH835V90484",
     "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
@@ -7,7 +7,20 @@
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "1WMHH835V90484",
+            "name": "com.oculus.shellenv",
+            "processId": 3367,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH835V90484",
+            "name": "com.oculus.xrstreamingclient",
+            "processId": 3954,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {

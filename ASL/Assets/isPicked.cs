@@ -13,7 +13,8 @@ public class isPicked : MonoBehaviour
     private bool madeInitialClaim;
     private bool floatChangedRemotely;
     private int lockHolder;
-
+    public bool testInteractiveOn = false;
+    public bool testInteractiveInteracting = false;
     void Start()
     {
         GetComponent<ASLObject>()._LocallySetFloatCallback((string _id, float[] f) =>
@@ -56,8 +57,32 @@ public class isPicked : MonoBehaviour
            
         
     }
+    private void testInteractiveOnTEST()
+    {
+        if(testInteractiveOn)
+        {
+            if (testInteractiveInteracting)
+            {
+                remoteFloat = 1;
+                Debug.Log("isPickedScript. other person start intereacting ");
+                floatChangedRemotely = true;
+            } else
+            {
+                remoteFloat = 0;
+                Debug.Log("isPickedScript. other person stopped intereacting ");
+                floatChangedRemotely = true;
+            }
+
+
+
+
+            testInteractiveOn = false;
+        }
+        
+    }
     private void Update()
     {
+        testInteractiveOnTEST();
         GameLiftManager glm = GameLiftManager.GetInstance();
         if (!glm)
         {
