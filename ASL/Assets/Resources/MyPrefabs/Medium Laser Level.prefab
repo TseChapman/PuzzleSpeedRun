@@ -2496,27 +2496,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2468213071042394506}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Unsense.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Unsense.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2468213071042394506}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: 
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Unsense.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -2524,23 +2524,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Unsense.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: 
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: LaserSensorIndicator, Assembly-CSharp
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
+      propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Unsense.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: LaserSensorIndicator, Assembly-CSharp
+      value: UnityEngine.Behaviour, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Sense.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340633206925, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: Unsense.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340760497249, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: m_Name
@@ -2606,7 +2610,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3732179474255481446, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 1.6709146
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3732179474255481446, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -2614,11 +2618,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3732179474255481446, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -2.246007
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4737111100183105077, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 1.6709146
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4737111100183105077, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -2626,7 +2630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4737111100183105077, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -2.246007
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7000559189734877141, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_Name
@@ -3083,7 +3087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340760497250, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.885542
+      value: -4.46
       objectReference: {fileID: 0}
     - target: {fileID: 4831806340760497250, guid: 265ca3cabf647894991d477ae4731daf, type: 3}
       propertyPath: m_LocalRotation.w
