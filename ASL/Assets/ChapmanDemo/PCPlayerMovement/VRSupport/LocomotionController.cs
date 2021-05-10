@@ -6,42 +6,37 @@ using UnityEngine.XR;
 
 public class LocomotionController : MonoBehaviour {
 
-    public XRController TeleportRay;
+    public GameObject TeleportRay;
     public GameObject TeleportReticle;
+    public XRNode rightHand;
     public InputHelpers.Button teleportActivationButton;
     public float activationThreshold = 0.1f;
-    public InputDeviceCharacteristics controllerCharacteristics;
-    private List<InputDevice> devices = new List<InputDevice>();
     private bool upEntered;
+    private InputDevice device;
+    private Vector2 inputAxis;
     // Update is called once per frame
+    private void Start()
+    {
+        device = InputDevices.GetDeviceAtXRNode(rightHand);
+        
+    }
+
     void Update()
     {
-        if (devices.Count == 0)
-        {
-            InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
-        }
+        
+        device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
         upEntered = trackTeleportHand();
         TeleportRay.gameObject.SetActive(upEntered);
         TeleportReticle.SetActive(upEntered);
-        
+        Debug.Log("Right hand inputAxis: " + inputAxis + " is " + trackTeleportHand());
     }
 
     private bool trackTeleportHand()
     {
-        if (devices.Count == 0) return false;
-            if (devices[0].TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 input))
-            {
-                if(input.y > .8 && ((input.x < .3) && (input.x > -.3)))
-                {
-                    return true;
-                }
-            }
+        if(inputAxis.y > .8 && ((inputAxis.x < .3) && (inputAxis.x > -.3)))
+        {
+            return true;
+        }
         return false;
-    }
-
-    public bool CheckIfActivated(XRController controller)
-    {
-        InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold);
-        return isActivated;
     }
 }
