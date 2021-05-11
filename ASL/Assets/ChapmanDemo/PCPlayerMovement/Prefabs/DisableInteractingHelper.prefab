@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7225102522676989957}
   - component: {fileID: 6295739274892461743}
-  - component: {fileID: 4090431173101262673}
+  - component: {fileID: 5563113091694638709}
   m_Layer: 0
   m_Name: DisableInteractingHelper
   m_TagString: Untagged
@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracting: 0
---- !u!114 &4090431173101262673
+  testInteractiveOn: 0
+  testInteractiveInteracting: 0
+--- !u!114 &5563113091694638709
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
