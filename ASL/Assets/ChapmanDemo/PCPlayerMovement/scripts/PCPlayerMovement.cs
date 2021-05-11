@@ -32,14 +32,13 @@ public class PCPlayerMovement : MonoBehaviour
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
         vrPresence = vrPresenceObject.GetComponent<VRPresence>();
-        initPlayerMeshToThePoint();
 
     }
 
     void Update()
     {
         movePlayerMesh();
-        
+        initPlayerMeshToThePoint();
     }
 
     private void FixedUpdate()
@@ -58,11 +57,14 @@ public class PCPlayerMovement : MonoBehaviour
         Vector3 randomInitPoint = new Vector3(Random.Range(-50, 50), Random.Range(-50,50), Random.Range(-50, 50));
         controller.Move(randomInitPoint);
         //playerMesh = Instantiate(PlayerMeshPrefab, randomInitPoint, Quaternion.identity);
+        Debug.Log("PLAYER MESH INIT1");
         ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity, null, null, InitCallBack);
+        vrPresence.VRorPC = false;
     }
     
     private static void InitCallBack(GameObject _gameobject)
     {
+        Debug.Log("PLAYER MESH INIT2");
         playerMeshTransform = _gameobject.transform;
     }
   
@@ -90,7 +92,7 @@ public class PCPlayerMovement : MonoBehaviour
         playerBody.velocity = newMovePos;
         transform.position = playerBody.position;*/
         Vector3 move = transform.right * x + transform.forward * y;
-        controller.Move(move * movementSensitivity * Time.deltaTime);        
+        controller.Move(move * movementSensitivity * Time.fixedDeltaTime);        
     }
 
     //This method will make player to fall to the ground if the player is not on the ground
