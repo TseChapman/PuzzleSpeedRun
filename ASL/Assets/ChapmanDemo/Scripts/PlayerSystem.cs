@@ -5,6 +5,7 @@ using ASL;
 
 public class PlayerSystem : MonoBehaviour
 {
+    public string levelPrefabName = "";
     private bool m_isHost = false;
     private bool m_isInit = false;
     private bool m_isMazeInit = false;
@@ -56,7 +57,12 @@ public class PlayerSystem : MonoBehaviour
         if (!m_isInit) return;
         if (m_isMazeInit) return;
         // Instantiate the maze prefab
-        ASL.ASLHelper.InstantiateASLObject("MazeDemo",
+        if (levelPrefabName == "")
+        {
+            Debug.Log("Error: PlayerSystem: Empty LevelPrefabName");
+            return;
+        }
+        ASL.ASLHelper.InstantiateASLObject(levelPrefabName,
                                    new Vector3(0f, 0f, 0f), // TODO: Should have a parameter object
                                    Quaternion.identity, "", "",
                                    StoreMaze,

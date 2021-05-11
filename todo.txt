@@ -1,0 +1,11 @@
+Create laser sensor prefab -- pretty much done
+Create Beam Splitter ray-cast parent selection scripts (pickable object stuff) !
+Create VR Gimbal Interaction
+ - Physics interaction -- half done
+Create PC Gimbal Interaction Scripts
+ - Detect use key/button/event
+ - Switch mouse movement to control gimbal !
+    - Mouse-controlled gimbal control !
+    - Toggle mouse control modes !
+Connect sensors to doors
+

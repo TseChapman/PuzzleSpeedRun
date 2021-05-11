@@ -7,24 +7,27 @@ public class Door : MonoBehaviour
 {
 
     public float OpenOffset;
-    
+
+    private Vector3 closedPosition;
+    private Vector3 openPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        closedPosition = transform.localPosition;
+        openPosition = transform.localPosition + new Vector3(0, OpenOffset, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void Raise()
     {
         GetComponent<ASLObject>().SendAndSetClaim(() =>
         {
-            GetComponent<ASLObject>().SendAndIncrementLocalPosition(new Vector3(0, OpenOffset, 0));
+            GetComponent<ASLObject>().SendAndSetLocalPosition(openPosition);
         });
     }
 
@@ -32,7 +35,7 @@ public class Door : MonoBehaviour
     {
         GetComponent<ASLObject>().SendAndSetClaim(() =>
         {
-            GetComponent<ASLObject>().SendAndIncrementLocalPosition(new Vector3(0, -OpenOffset, 0));
+            GetComponent<ASLObject>().SendAndSetLocalPosition(closedPosition);
         });
     }
 }
