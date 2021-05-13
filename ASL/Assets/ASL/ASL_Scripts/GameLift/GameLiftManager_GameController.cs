@@ -39,6 +39,11 @@ namespace ASL
             /// </summary>
             private readonly Dictionary<string, byte[]> ReceivedTexture2Ds = new Dictionary<string, byte[]>();
 
+            /// <summary>
+            /// When a prefab containing ASLObjects is instantiated, each ASLObject needs to be assigned an ID.
+            /// This class holds a newly instantiated (inactive) prefab and enables iteration over all its child
+            /// ASLObjects.
+            /// </summary>
             private class AwaitingInstantiation
             {
                 private IEnumerator<GameObject> childObjectEnumerator;
@@ -864,7 +869,7 @@ namespace ASL
                 //[12] = creator peerId
                 string id = ConvertByteArrayIntoString(_packet.Data, startLocation[0], dataLength[0]);
                 
-                // Set up a child ASLObject
+                // Set up a child ASLObject (if this is the ID for a child of a prefab)
                 if (ConvertByteArrayIntoString(_packet.Data, startLocation[3], dataLength[3]).Equals("CHILD_OF_PREFAB"))
                 {
                     string rootGUIDString = ConvertByteArrayIntoString(_packet.Data, startLocation[4], dataLength[4]);
@@ -873,25 +878,23 @@ namespace ASL
 
                     if (!awaitingInstantiation.ContainsKey(rootGUID))
                     {
+                        return; // ignore unexpected IDs
+                    }
+
+                    // Get the next ASLObject whose ID we need to set
+                    ASLObject childASLObj = awaitingInstantiation[rootGUID].GetNextChildASLObject();
+                    if (childASLObj == null)
+                    {
+                        // If this happens we've recieved an extra ID somehow
                         return;
                     }
-                    /*
-                    do
-                    {
-                        if (!awaitingInstantiation[rootGUID].AwaitingChildGUIDs.MoveNext())
-                        {
-                            return;
-                        }
-                    }
-                    while (awaitingInstantiation[rootGUID].AwaitingChildGUIDs.Current != null && awaitingInstantiation[rootGUID].AwaitingChildGUIDs.Current.GetComponent<ASLObject>() == null);
-                    */
 
-                    ASLObject childASLObj = awaitingInstantiation[rootGUID].GetNextChildASLObject();
                     childASLObj._LocallySetID(childGuid.ToString());
                     ASLHelper.m_ASLObjects.Add(childGuid.ToString(), childASLObj);
 
                     if (!awaitingInstantiation[rootGUID].HasNextChildASLObject())
                     {
+                        // We've set the ID on all child ASLObjects, so we can now activate the prefab.
                         awaitingInstantiation[rootGUID].gameObject.SetActive(true);
                         awaitingInstantiation[rootGUID].gameObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback.Invoke(awaitingInstantiation[rootGUID].gameObject);
                         awaitingInstantiation.Remove(rootGUID);
@@ -900,6 +903,9 @@ namespace ASL
                 }
 
                 GameObject newASLObject = Instantiate(Resources.Load(@"MyPrefabs\" + ConvertByteArrayIntoString(_packet.Data, startLocation[3], dataLength[3]))) as GameObject;
+
+                // We need to wait to activate until all child ASLObjects have IDs in case any
+                // scripts execute immediately and expect a child ASLObject to be ready.
                 newASLObject.SetActive(false);
                 bool hasChildASLObjects = false;
                 foreach (GameObject i in ASLHelper.IterateOverChildObjects(newASLObject))
