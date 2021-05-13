@@ -8,12 +8,21 @@ public class PressurePlate : MonoBehaviour
     public GameObject door = null;
     bool onPressurePlate = false;
     public LayerMask m_LayerMask;
+    private int initialColliderCount;
+    private void Start()
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
+        initialColliderCount = hitColliders.Length;
+    }
 
     void Update()
     {
-        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
-        if (hitColliders.Length > 0)
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
+        if (hitColliders.Length > initialColliderCount)
+        {
             onPressurePlate = true;
+            Debug.Log("plate pressed!");
+        }
         else
             onPressurePlate = false;
         if (onPressurePlate && door.transform.position.y <= 2.6)
@@ -36,17 +45,6 @@ public class PressurePlate : MonoBehaviour
         }
 
     }
-/*
-    void OnTriggerEnter(Collider col)
-    {
-        Debug.Log("plate pressed!");
-        onPressurePlate = true;
-    }
 
-    void OnTriggerExit(Collider col)
-    {
-        Debug.Log("plate release!");
-        onPressurePlate = false;
-    }
-    */
+    
 }
