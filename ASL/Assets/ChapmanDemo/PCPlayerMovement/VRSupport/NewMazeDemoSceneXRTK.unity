@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5b6b782734b9f468579d56044ac234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPrefabName: MediumLevel
+  levelPrefabName: MazeDemo
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
@@ -771,12 +771,20 @@ PrefabInstance:
       value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953683, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pushAbleLayer.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953683, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: nonInterativeLayer.m_Bits
       value: 49152
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953683, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: pickableChildLayer.m_Bits
       value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800118942192953683, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
+      propertyPath: pushingMovementSensitivity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953688, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: m_Name

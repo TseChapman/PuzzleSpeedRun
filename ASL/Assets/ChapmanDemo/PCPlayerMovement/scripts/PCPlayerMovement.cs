@@ -25,7 +25,7 @@ public class PCPlayerMovement : MonoBehaviour
     private VRPresence vrPresence;
     public int[] pickAbleLayerNum;
     private bool spawnPointSet = false; //True if player System set its spawn point
-
+    private Vector3 move;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -91,7 +91,7 @@ public class PCPlayerMovement : MonoBehaviour
         Vector3 newMovePos = new Vector3(movePos.x, playerBody.velocity.y, movePos.z);
         playerBody.velocity = newMovePos;
         transform.position = playerBody.position;*/
-        Vector3 move = transform.right * x + transform.forward * y;
+        move = transform.right * x + transform.forward * y;
         controller.Move(move * movementSensitivity * Time.fixedDeltaTime);        
     }
 
