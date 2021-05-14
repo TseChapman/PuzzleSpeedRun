@@ -20,7 +20,7 @@ public class EventSync : MonoBehaviour
         }
 
         public UnityEvent OnEvent;
-        public enum TriggerMode { OnReachedByAny, OnReachedByAll, OnActiveOnAll};
+        public enum TriggerMode { OnReachedByAny, OnReachedByAll, OnActiveOnAll };
         public TriggerMode triggerMode {
             get
             {
@@ -51,7 +51,10 @@ public class EventSync : MonoBehaviour
             f[0] = this.id;
             f[1] = 1;
             f[2] = GameLiftManager.GetInstance().m_PeerId;
-            syncHandler.SendFloatArray(f);
+            syncHandler.SendAndSetClaim(() =>
+            {
+                syncHandler.SendFloatArray(f);
+            });
         }
 
         public void Deactivate()
@@ -60,25 +63,31 @@ public class EventSync : MonoBehaviour
             f[0] = this.id;
             f[1] = 0;
             f[2] = GameLiftManager.GetInstance().m_PeerId;
-            syncHandler.SendFloatArray(f);
+            syncHandler.SendAndSetClaim(() =>
+            {
+                syncHandler.SendFloatArray(f);
+            });
         }
+
+        static int n;
 
         internal void activatedBy(int peerId)
         {
-            activatedIDs.Add(id);
-            reachedByIDs.Add(id);
+            activatedIDs.Add(peerId);
+            reachedByIDs.Add(peerId);
             switch (triggerMode)
             {
                 case TriggerMode.OnReachedByAny:
                     OnEvent.Invoke();
+                    neverActivated = false;
                     break;
                 case TriggerMode.OnReachedByAll:
                     if (neverActivated)
                     {
                         bool reachedByAll = true;
-                        foreach (int i in reachedByIDs)
+                        foreach (int i in GameLiftManager.GetInstance().m_Players.Keys)
                         {
-                            if (!GameLiftManager.GetInstance().m_Players.ContainsKey(i))
+                            if (!reachedByIDs.Contains(i))
                             {
                                 reachedByAll = false;
                             }
@@ -86,14 +95,15 @@ public class EventSync : MonoBehaviour
                         if (reachedByAll)
                         {
                             OnEvent.Invoke();
+                            neverActivated = false;
                         }
                     }
                     break;
                 case TriggerMode.OnActiveOnAll:
                     bool activeOnAll = true;
-                    foreach (int i in activatedIDs)
+                    foreach (int i in GameLiftManager.GetInstance().m_Players.Keys)
                     {
-                        if (!GameLiftManager.GetInstance().m_Players.ContainsKey(i))
+                        if (!activatedIDs.Contains(i))
                         {
                             activeOnAll = false;
                         }
@@ -101,15 +111,15 @@ public class EventSync : MonoBehaviour
                     if (activeOnAll)
                     {
                         OnEvent.Invoke();
+                        neverActivated = false;
                     }
                     break;
             }
-            neverActivated = false;
         }
 
         internal void deactivatedBy(int peerId)
         {
-            activatedIDs.Remove(id);
+            activatedIDs.Remove(peerId);
         }
 
         internal void setSyncHandler(int myID, ASLObject syncHandler)
@@ -121,9 +131,14 @@ public class EventSync : MonoBehaviour
 
     [SerializeField]
     private List<EventSyncEvent> Events;
+
     private Dictionary<string, int> eventNameIDMapping;
 
     private ASLObject syncHandler;
+
+    public EventSync() {
+        eventNameIDMapping = new Dictionary<string, int>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -135,6 +150,12 @@ public class EventSync : MonoBehaviour
         if (eventNameIDMapping.Count != Events.Count)
         {
             throw new Exception("EventSync: Event names must be unique within EventSync instance.");
+        }
+        syncHandler = GetComponent<ASLObject>();
+        syncHandler._LocallySetFloatCallback(floatCallback);
+        for (int i = 0; i < Events.Count; ++i)
+        {
+            Events[i].setSyncHandler(i, syncHandler);
         }
     }
 
@@ -161,6 +182,7 @@ public class EventSync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (GameLiftManager.GetInstance() != null)
         {
             if (GameLiftManager.GetInstance().AmLowestPeer())
@@ -175,6 +197,6 @@ public class EventSync : MonoBehaviour
                     }
                 });
             }
-        }
+        }*/
     }
 }
