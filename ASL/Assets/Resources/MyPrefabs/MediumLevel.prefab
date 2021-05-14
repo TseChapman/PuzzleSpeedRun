@@ -5376,6 +5376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medium Laser Level
       objectReference: {fileID: 0}
+    - target: {fileID: 2468213071167529716, guid: 8eb75fab93fe51947b31e1465efe2164, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2468213071167529719, guid: 8eb75fab93fe51947b31e1465efe2164, type: 3}
       propertyPath: m_RootOrder
       value: 27
@@ -9287,6 +9291,10 @@ PrefabInstance:
     - target: {fileID: 1133122549513027660, guid: b86ebb76c7df7b549a9e7bf99bc95685, type: 3}
       propertyPath: m_Name
       value: ColorPathSection
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133122549513027660, guid: b86ebb76c7df7b549a9e7bf99bc95685, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1133122549513027663, guid: b86ebb76c7df7b549a9e7bf99bc95685, type: 3}
       propertyPath: m_RootOrder
