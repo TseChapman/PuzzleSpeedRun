@@ -5,16 +5,20 @@ using ASL;
 using System.Text;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Teleport;
-public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+public class VRPlayerMovement : MonoBehaviour{
 
 
-    public Transform playerMeshTransform;  //Stores playerMesh  
+    public static Transform playerMeshTransform;  //Stores playerMesh  
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 3f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
     public LayerMask groundLayerMask; //Layer Mask for ground
     public LayerMask playerMeshLayerMask; //Layer Mask for player mesh
     public LayerMask pickAbleItemLayerMask; //Layer Mask for pickable Items
+    public LayerMask pickAbleItemChildLayerMask; //Layer Mask for pickable Items
+    private float PlayerScale = 1f;
     private bool grounded; //Check if the player is on the ground 
     private bool onObject = false; //check if the player is on top of the pickable object
     private CharacterController controller; //Stores player's Character controller component
@@ -23,87 +27,73 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
     private ASLTransformSync myASL;
     private Vector3 onObjectPos; //Player position when on the top of the pickable object
     PCPlayerItemInteraction pcPlayerItemInteraction;
+    public bool isGrabbing { get; set; } = false;
     private bool spawnPointSet = false; //True if player System set its spawn point
-
     public bool continousMovementOn = true;
     private bool disabledLeftTeleport = false;
     Quaternion cameraRotation;
     private bool isTeleporting = false;
+    private XRRig rig;
+    public XRNode inputSource;
+    public float additionalHeight = 0.2f;
+    private Vector2 inputAxis;
+    public GameObject vrPresenceObject;
+    private VRPresence vrPresence;
+    public int[] pickAbleLayerNum;
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        rig = GetComponent<XRRig>();
+        PlayerScale = transform.localScale.y;
+        controller.center = new Vector3(0, PlayerScale, 0);
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
+        vrPresence = vrPresenceObject.GetComponent<VRPresence>();
         initPlayerMeshToThePoint();
         
     }
 
     void Update()
     {
-        if (playerMeshTransform == null)
-        {
-            tryGettingPlayerMesh();
-        }
+        //if (playerMeshTransform == null)
+        //{
+         //   tryGettingPlayerMesh();
+        //}
+        InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
+        device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
         movePlayerMesh();
-        if(continousMovementOn)
-        tryUndoLeftHandTeleport();
-        getCameraDirection();
         
-
-    }
-
-    private void getCameraDirection()
-    {
-        float _rotationAngle = Camera.main.transform.rotation.eulerAngles.y;
-        cameraRotation = Quaternion.Euler(0, _rotationAngle, 0);
-    }
-
-    private void tryUndoLeftHandTeleport()
-    {
-       // if (!disabledLeftTeleport)
-       // {
-            GameObject leftHandTeleporter1 = GameObject.Find("Left_ParabolicTeleportPointer(Clone)");
-            GameObject leftHandTeleporter2 = GameObject.Find("Left_ParabolicTeleportPointer(Clone)_Cursor");
-            Debug.Log("trying getting leftHandTeleport");
-            if (leftHandTeleporter1 && leftHandTeleporter2)
-            {
-                disabledLeftTeleport = true;
-                leftHandTeleporter1.SetActive(false);
-                leftHandTeleporter2.SetActive(false);
-                Debug.Log("Disabled leftHandTeleporter");
-            }
-       // }
     }
 
 
     private void FixedUpdate()
     {
-        controller.center = new Vector3(0,transform.position.y,0);
-
         if (spawnPointSet)
         {
-            if (!isTeleporting) {
-                movePlayerMovementbyJoystick();
-                fallPlayer();
-            }
+                characterControllerFollowHeadset();
+            getCameraDirection();
+            movePlayerMovementbyJoystick();
+            fallPlayer();
         }
     }
     
     //This method move the player to the spawn point and instatiate playerMesh
     void initPlayerMeshToThePoint()
     {
+        if (!vrPresence.VRorPC) return;
         Vector3 randomInitPoint = new Vector3(Random.Range(-50, 50), Random.Range(-50,50), Random.Range(-50, 50));
-        //controller.Move(randomInitPoint);
-        transform.position = randomInitPoint;
-        ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity);
+        controller.Move(randomInitPoint);
+        //playerMesh = Instantiate(PlayerMeshPrefab, randomInitPoint, Quaternion.identity);
+        ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity, null, null, InitCallBack);
     }
-    /*
+
     private static void InitCallBack(GameObject _gameobject)
     {
         playerMeshTransform = _gameobject.transform;
-    }*/
-  
+    }
+
     //This will look for any playerMesh initiate and store it to the playerMeshTransform
+    /*
     void tryGettingPlayerMesh()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.02f, playerMeshLayerMask);
@@ -113,50 +103,46 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
             playerMeshTransform = hitColliders[0].transform;      
         }       
     }
-   
+    */
+
+    private void getCameraDirection()
+    {
+        cameraRotation = Quaternion.Euler(0, rig.cameraGameObject.transform.eulerAngles.y, 0);
+    }
 
 
     //This method will allow the user to move the player with their keyboard
     void movePlayerMovementbyJoystick() {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-
-        /*rigid body movement system was changed to CharacterController system
-        Vector3 movePos = transform.right * x + transform.forward * y;
-        Vector3 newMovePos = new Vector3(movePos.x, playerBody.velocity.y, movePos.z);
-        playerBody.velocity = newMovePos;
-        transform.position = playerBody.position;*/
-        Vector3 move = transform.right * x + transform.forward * y;
-        controller.Move(Quaternion.Inverse(transform.rotation) * cameraRotation * move * movementSensitivity * Time.deltaTime);        
+        Vector3 move = cameraRotation * new Vector3(inputAxis.x, 0, inputAxis.y);
+        controller.Move(move * movementSensitivity * Time.fixedDeltaTime);        
     }
 
     //This method will make player to fall to the ground if the player is not on the ground
     void fallPlayer()
     {
-        grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
-        onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
-        Debug.Log("GROUNDED: " + grounded);
-        /*
-        if (onObject && !pcPlayerItemInteraction.pickedUpItem)
+        Vector3 rayStart = transform.TransformPoint(controller.center);
+        float rayLength = controller.center.y + 0.01f;
+        grounded = Physics.SphereCast(rayStart, controller.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayerMask);
+        foreach (int i in pickAbleLayerNum)
         {
-            onObjectPos = transform.position;
+            Physics.IgnoreLayerCollision(gameObject.layer, i, isGrabbing);
         }
-
-        if (onObject && pcPlayerItemInteraction.pickedUpItem)
-        {
-            transform.position = new Vector3(transform.position.x, onObjectPos.y, transform.position.z);
-        }*/
         if (grounded)
             fallingSpeed = 0;
         else
             fallingSpeed += gravity * Time.fixedDeltaTime;
         controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
-        if (transform.position.y < -99f)
+        if (transform.position.y < -99f) //fall too much..
         {
             transform.position = spawnPoint;
         }
     }
-    // Update is called once per frame
+    void characterControllerFollowHeadset()
+    {
+        controller.height = rig.cameraInRigSpaceHeight + additionalHeight;
+        Vector3 capsuleCenter = transform.InverseTransformPoint(rig.cameraGameObject.transform.position);
+        controller.center = new Vector3(capsuleCenter.x, controller.height / 2 + controller.skinWidth , capsuleCenter.z);
+    }
 
   
     //Move the player to where ASL is initialized
@@ -167,64 +153,17 @@ public class VRPlayerMovement : MonoBehaviour, IMixedRealityTeleportHandler {
         {
             if (!playerMeshTransform.GetComponent<ASLPlayerSync>())
             {
-                transform.position = playerMeshTransform.position + new Vector3(0,2,0);
+                transform.position = playerMeshTransform.position + new Vector3(0, PlayerScale, 0);
                 
             }
             else
             {
                 spawnPointSet = true;
-                playerMeshTransform.position = controller.transform.position + controller.center;
+                playerMeshTransform.position = new Vector3(rig.cameraGameObject.transform.position.x ,controller.transform.position.y, rig.cameraGameObject.transform.position.z) + new Vector3(0, PlayerScale ,0);
                 playerMeshTransform.rotation = cameraRotation;
             }
         }
       
-    }
-
-    public void OnTeleportCanceled(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Cancelled");
-        isTeleporting = false;
-        controller.transform.position = transform.position;
-        controller.enabled = true;
-        Debug.Log("Teleport Cancelled Ended");
-    }
-
-    public void OnTeleportCompleted(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Completed");
-        isTeleporting = false;
-        controller.transform.position = transform.position;
-        controller.enabled = true;
-        Debug.Log("Teleport Completed Ended");
-    }
-
-    public void OnTeleportRequest(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Request");
-        isTeleporting = true;
-        controller.enabled = false;
-        Debug.Log("Teleport Request Ended");
-    }
-
-    public void OnTeleportStarted(TeleportEventData eventData)
-    {
-        Debug.Log("Teleport Started");
-        isTeleporting = true;
-        controller.enabled = false;
-        Debug.Log("Teleport Started Ended");
-    }
-    void OnEnable()
-    {
-        // This is the critical call that registers this class for events. Without this
-        // class's IMixedRealityTeleportHandler interface will not be called.
-        CoreServices.TeleportSystem.RegisterHandler<IMixedRealityTeleportHandler>(this);
-    }
-
-    void OnDisable()
-    {
-        // Unregistering when disabled is important, otherwise this class will continue
-        // to receive teleportation events.
-        CoreServices.TeleportSystem.UnregisterHandler<IMixedRealityTeleportHandler>(this);
     }
 
 }

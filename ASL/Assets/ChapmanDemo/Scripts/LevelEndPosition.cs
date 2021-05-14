@@ -41,7 +41,7 @@ public class LevelEndPosition : MonoBehaviour
             //Debug.Log("Character : " + character.name + " distance to end position is " + dist);
             if (dist > endLevelDistance)
             {
-                Debug.Log("Some character has not pass the level");
+                //Debug.Log("Some character has not pass the level");
                 isAnyCharacNotEnded = true;
             }
         }

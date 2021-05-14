@@ -108,7 +108,8 @@ public class PlayerSystem : MonoBehaviour
         if (m_isInit) return;
         //Debug.Log("I am the Host");
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); // TODO: Switch to the player script
-
+        Debug.Log("Num player in PlayerSystem ASL = " + GameLiftManager.GetInstance().m_Players.Count);
+        Debug.Log("Num player in players  = " + players.Length);
         if (players.Length < GameLiftManager.GetInstance().m_Players.Count) return;
         Debug.Log("Num player in PlayerSystem = " + players.Length);
         foreach (GameObject characterObj in players)

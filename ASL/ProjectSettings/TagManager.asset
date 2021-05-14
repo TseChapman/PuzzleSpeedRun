@@ -29,8 +29,8 @@ TagManager:
   - LaserSensor
   - LaserBeam
   - PlayerTrigger
-  - 
-  - 
+  - PlayerRig
+  - Hand
   - 
   - 
   - 
