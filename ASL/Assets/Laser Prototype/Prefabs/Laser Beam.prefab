@@ -146,4 +146,7 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
+  ConstantLightCount: 1
+  LightCount: 0
   ExcludeSensor: {fileID: 0}
+  TubeLight: {fileID: 0}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class LaserBeamLighter : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class LaserBeamLighter : MonoBehaviour
     public int LightCount;
 
     public LaserSensor ExcludeSensor;
+
+    public Light TubeLight;
 
     // Start is called before the first frame update
     void Start()
@@ -40,13 +43,24 @@ public class LaserBeamLighter : MonoBehaviour
                 sensor.Trigger(ray, hit);
             }
             Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0f, 0f, 1f)) * hit.distance, Color.yellow);
-            transform.localScale = new Vector3(1f, 1f, Mathf.Min(ClipDistance, hit.distance));
+            float dist2 = Mathf.Min(ClipDistance, hit.distance);
+            transform.localScale = new Vector3(1f, 1f, dist2);
+            if (TubeLight != null)
+            {
+                TubeLight.GetComponent<HDAdditionalLightData>().shapeWidth = dist2;
+                TubeLight.transform.localPosition = new Vector3(0, 0, dist2 / 2);
+            }
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0f, 0f, 1f)) * 1000, Color.white);
             // Vector3(0,-0.495000005,-0.600000024)
             transform.localScale = new Vector3(1f, 1f, ClipDistance);
+            if (TubeLight != null)
+            {
+                TubeLight.GetComponent<HDAdditionalLightData>().shapeWidth = ClipDistance;
+                TubeLight.transform.localPosition = new Vector3(0, 0, ClipDistance / 2);
+            }
         }
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("LaserSensor")))
         {
