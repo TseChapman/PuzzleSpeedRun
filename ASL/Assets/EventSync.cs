@@ -182,21 +182,6 @@ public class EventSync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (GameLiftManager.GetInstance() != null)
-        {
-            if (GameLiftManager.GetInstance().AmLowestPeer())
-            {
-                ASLHelper.InstantiateASLObject("EventSyncASLObject", Vector3.zero, Quaternion.identity, "", "", (GameObject obj) =>
-                {
-                    syncHandler = obj.GetComponent<ASLObject>();
-                    syncHandler._LocallySetFloatCallback(floatCallback);
-                    for (int i = 0; i < Events.Count; ++i)
-                    {
-                        Events[i].setSyncHandler(i, syncHandler);
-                    }
-                });
-            }
-        }*/
+
     }
 }
