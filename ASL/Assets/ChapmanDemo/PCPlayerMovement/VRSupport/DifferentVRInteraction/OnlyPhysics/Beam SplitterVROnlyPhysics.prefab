@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4059795963419426853}
   - component: {fileID: 152106658942788383}
   - component: {fileID: 1498556158065663829}
+  - component: {fileID: 2033661847862108439}
+  - component: {fileID: 1261221988379114332}
   m_Layer: 19
   m_Name: Beam SplitterVROnlyPhysics
   m_TagString: Untagged
@@ -179,6 +181,30 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
+--- !u!114 &2033661847862108439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152106658942788377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1261221988379114332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152106658942788377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &152106659582534310
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +728,8 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
+  ConstantLightCount: 0
+  LightCount: 0
   ExcludeSensor: {fileID: 0}
 --- !u!1 &6356508135884860292
 GameObject:
@@ -849,6 +877,8 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
+  ConstantLightCount: 0
+  LightCount: 0
   ExcludeSensor: {fileID: 0}
 --- !u!1 &6356508136507180842
 GameObject:
@@ -996,6 +1026,8 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
+  ConstantLightCount: 0
+  LightCount: 0
   ExcludeSensor: {fileID: 0}
 --- !u!1 &8065084799896259338
 GameObject:

@@ -679,6 +679,8 @@ GameObject:
   - component: {fileID: 138889163769725319}
   - component: {fileID: 3892029003047399449}
   - component: {fileID: 425731509935263329}
+  - component: {fileID: 3029248923911413371}
+  - component: {fileID: 4002898274574076167}
   m_Layer: 19
   m_Name: LaserMirrorVRJasture
   m_TagString: Untagged
@@ -974,6 +976,30 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
+--- !u!114 &3029248923911413371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5814194741037248693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4002898274574076167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5814194741037248693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8060417002257103993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1113,8 @@ GameObject:
   - component: {fileID: 8082634510316804437}
   - component: {fileID: 8481763900125992784}
   - component: {fileID: 8545464891237157617}
+  - component: {fileID: 5088543689890623240}
+  - component: {fileID: 4682748229083819547}
   m_Layer: 20
   m_Name: LaserMirror
   m_TagString: Untagged
@@ -1251,7 +1279,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0048999786, y: 1.0871001, z: 0}
+  m_ConnectedAnchor: {x: 0, y: 1.0871, z: 0}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -1395,3 +1423,27 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
+--- !u!114 &5088543689890623240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722890793006349569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4682748229083819547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722890793006349569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
