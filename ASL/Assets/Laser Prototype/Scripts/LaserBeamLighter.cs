@@ -10,6 +10,9 @@ public class LaserBeamLighter : MonoBehaviour
     public float ClipDistance;
     private List<GameObject> lights;
 
+    public bool ConstantLightCount;
+    public int LightCount;
+
     public LaserSensor ExcludeSensor;
 
     // Start is called before the first frame update
@@ -67,6 +70,13 @@ public class LaserBeamLighter : MonoBehaviour
         {
             lightCount = 0;
         }
+
+        if (ConstantLightCount)
+        {
+            lightCount = LightCount;
+            LightDensity = lightCount / dist;
+        }
+
         if (lights.Count > lightCount)
         {
             for (int i = 0; i < lights.Count - lightCount; ++i)
