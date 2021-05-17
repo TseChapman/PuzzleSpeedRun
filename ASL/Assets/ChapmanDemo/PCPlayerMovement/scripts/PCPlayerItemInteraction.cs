@@ -27,6 +27,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     private Quaternion mirrorInitRotation;
     private bool pushableItemClicked;
     private bool mirrorClicked;
+    private bool usingASL = true;
     private void Start()
     {
         pCPlayerMovement = GetComponent<PCPlayerMovement>();
@@ -43,6 +44,11 @@ public class PCPlayerItemInteraction : MonoBehaviour {
             
             rotateMirrorMirror();
         }
+    }
+
+    public void notUsingASL()
+    {
+        usingASL = false;
     }
 
     void pushPushableObject()
@@ -118,11 +124,17 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableLayer))
                 {
                     Debug.Log("Did Hit " + hit.transform.name);
-                    if (!hit.collider.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
-                     {
-                    pickedUpItem = hit.collider.gameObject;
+                    if (usingASL) {
+                        if (!hit.collider.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
+                        {
+                            pickedUpItem = hit.collider.gameObject;
+                            pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                        }
+                    } else
+                    {
+                        pickedUpItem = hit.collider.gameObject;
                         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                    }
+                    }              
                 } else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
                 {
                     Transform t = hit.transform.parent;
@@ -153,7 +165,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                     mirrorInitRotation = hit.collider.gameObject.transform.rotation;
                     mirror = hit.collider.gameObject;
                 }
-                if (pickedUpItem) pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().pickUp(); 
+                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().pickUp(); 
             } else {
                 leaveObejct();
             }
@@ -192,6 +204,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 }
                 else
                 {
+                    pushingItem = null;
                     pushableItemClicked = false;
                 }
             } 
@@ -245,6 +258,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     {
         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         pickedUpItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        if(usingASL)
         pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().release();
         pickedUpItem = null;
     }

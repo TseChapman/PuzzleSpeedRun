@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4879170025643294574}
   - component: {fileID: 4879170025643294577}
   m_Layer: 17
-  m_Name: 'VR Rig '
+  m_Name: VR Rig Device-based
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,6 +87,7 @@ MonoBehaviour:
   inputSource: 4
   additionalHeight: 0.2
   vrPresenceObject: {fileID: 0}
+  usingASL: 1
   pickAbleLayerNum: 070000000d0000000e0000000f000000
 --- !u!143 &4879170025643294568
 CharacterController:
@@ -118,11 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5262f96b832d38146b9d294a99216fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeleportRay: {fileID: 4879170026350423631}
+  TeleportRay: {fileID: 0}
   TeleportReticle: {fileID: 0}
+  rightHand: 0
   teleportActivationButton: 3
   activationThreshold: 0.1
-  controllerCharacteristics: 576
 --- !u!114 &4879170025643294572
 MonoBehaviour:
   m_ObjectHideFlags: 0

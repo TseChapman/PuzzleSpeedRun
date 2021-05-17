@@ -1679,6 +1679,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2800118942192953688, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
   m_PrefabInstance: {fileID: 734627735}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1731304710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731304709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d4383293afb4247b290e9a5dd2f31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1910620586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,6 +1839,7 @@ GameObject:
   - component: {fileID: 2046396749}
   - component: {fileID: 2046396751}
   - component: {fileID: 2046396752}
+  - component: {fileID: 2046396753}
   m_Layer: 17
   m_Name: 'VR Rig '
   m_TagString: Untagged
@@ -2000,6 +2013,18 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -6493913391331992944, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!114 &2046396753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046396744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d4383293afb4247b290e9a5dd2f31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2100518123
 PrefabInstance:
   m_ObjectHideFlags: 0
