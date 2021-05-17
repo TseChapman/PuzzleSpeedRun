@@ -386,7 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5b6b782734b9f468579d56044ac234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPrefabName: MazeDemo
+  levelType: 0
+  levelPrefabName: LaserPlaytest
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
@@ -796,7 +797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953688, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2800118942192953688, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
       propertyPath: m_TagString
@@ -1145,6 +1146,24 @@ Transform:
   m_Father: {fileID: 2046396748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1207950266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7786446913961353507, guid: 89f52f23b6e0d284abb7645ae389b1f9, type: 3}
+  m_PrefabInstance: {fileID: 2100518123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1207950267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207950266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d83c439fea217949a76b7d7bc4e5c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events: []
 --- !u!1 &1402181740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,6 +1698,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2800118942192953688, guid: 145f08ff755faa64d92312daa6f50a23, type: 3}
   m_PrefabInstance: {fileID: 734627735}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1731304710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731304709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d4383293afb4247b290e9a5dd2f31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1910620586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,6 +1858,7 @@ GameObject:
   - component: {fileID: 2046396749}
   - component: {fileID: 2046396751}
   - component: {fileID: 2046396752}
+  - component: {fileID: 2046396753}
   m_Layer: 17
   m_Name: 'VR Rig '
   m_TagString: Untagged
@@ -1883,6 +1915,7 @@ MonoBehaviour:
   inputSource: 4
   additionalHeight: 0.2
   vrPresenceObject: {fileID: 363367103}
+  usingASL: 1
   pickAbleLayerNum: 070000000d0000000e0000000f000000
 --- !u!114 &2046396747
 MonoBehaviour:
@@ -2000,6 +2033,18 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -6493913391331992944, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!114 &2046396753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046396744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d4383293afb4247b290e9a5dd2f31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2100518123
 PrefabInstance:
   m_ObjectHideFlags: 0

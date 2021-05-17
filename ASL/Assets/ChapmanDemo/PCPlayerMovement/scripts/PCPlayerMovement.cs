@@ -26,19 +26,27 @@ public class PCPlayerMovement : MonoBehaviour
     public int[] pickAbleLayerNum;
     private bool spawnPointSet = false; //True if player System set its spawn point
     private Vector3 move;
+    public bool usingASL = true;
     void Start()
     {
         controller = GetComponent<CharacterController>();
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
         vrPresence = vrPresenceObject.GetComponent<VRPresence>();
-
+        if (!usingASL)
+        {
+            spawnPointSet = true;
+            pcPlayerItemInteraction.notUsingASL();
+        }
     }
 
     void Update()
     {
-        movePlayerMesh();
-        initPlayerMeshToThePoint();
+        if (usingASL)
+        {
+            movePlayerMesh();
+            initPlayerMeshToThePoint();
+        }
     }
 
     private void FixedUpdate()

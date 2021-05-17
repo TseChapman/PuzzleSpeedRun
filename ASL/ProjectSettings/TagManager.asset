@@ -35,8 +35,8 @@ TagManager:
   - Hand
   - PushableItem
   - MirrorMirror
-  - 
-  - 
+  - GrabIgnore
+  - VRHandle
   - 
   - 
   - 
