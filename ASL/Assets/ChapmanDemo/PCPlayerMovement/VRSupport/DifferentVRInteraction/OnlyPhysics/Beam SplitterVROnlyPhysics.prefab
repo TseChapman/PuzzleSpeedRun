@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 152106658942788383}
   - component: {fileID: 1498556158065663829}
   - component: {fileID: 2033661847862108439}
-  - component: {fileID: 1261221988379114332}
   - component: {fileID: 4092116345824438987}
   - component: {fileID: 490638534121588870}
   m_Layer: 19
@@ -40,6 +39,7 @@ Transform:
   - {fileID: 4403539179839563923}
   - {fileID: 4403539180401313194}
   - {fileID: 152106659582534311}
+  - {fileID: 3577601107347745575}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -195,18 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1261221988379114332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152106658942788377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4092116345824438987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +210,9 @@ MonoBehaviour:
   isInteracting: 0
   myLayer: 0d0000000e0000000f00000013000000
   colliderLayerToDisable: 
+  startInteractingEventName: 
+  stopInteractingEventName: 
+  myEventSync: {fileID: 0}
 --- !u!114 &490638534121588870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,6 +637,97 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &5366431501857534152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3577601107347745575}
+  - component: {fileID: 1067826547076032244}
+  - component: {fileID: 4944656636297125924}
+  m_Layer: 19
+  m_Name: EventSync
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3577601107347745575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366431501857534152}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 152106658942788378}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1067826547076032244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366431501857534152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4944656636297125924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366431501857534152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d83c439fea217949a76b7d7bc4e5c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - OnEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _name: 
+    _triggerMode: 0
+  - OnEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _name: 
+    _triggerMode: 0
 --- !u!1 &6356508135322273469
 GameObject:
   m_ObjectHideFlags: 0

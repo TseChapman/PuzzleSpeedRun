@@ -29,7 +29,8 @@ public class InteractableASLObject : MonoBehaviour
         if(!isInteracting)
         {
             isInteracting = true;
-            disableColliding();
+            if(gameObject.layer == 7) //if is pickable item
+                disableColliding();
         }
         
     }
@@ -40,7 +41,8 @@ public class InteractableASLObject : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            enableColliding();
+            if (gameObject.layer == 7) //if is pickable item
+                enableColliding();
         }
         
     }
