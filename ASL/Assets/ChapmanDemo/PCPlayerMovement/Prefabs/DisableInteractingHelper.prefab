@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7225102522676989957}
   - component: {fileID: 5563113091694638709}
-  - component: {fileID: 6825365007777694252}
+  - component: {fileID: 1185463478080630095}
   m_Layer: 0
   m_Name: DisableInteractingHelper
   m_TagString: Untagged
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6825365007777694252
+--- !u!114 &1185463478080630095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,9 +53,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1715471391727608350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f0c7e9b0ac14934e9870f653c27b053, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d83c439fea217949a76b7d7bc4e5c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInteracting: 0
-  testInteractiveOn: 0
-  testInteractiveInteracting: 0
+  Events:
+  - OnEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: InteractableASLObject, Assembly-CSharp
+          m_MethodName: stopInteracting
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _name: Cube1StopIntereacting
+    _triggerMode: 0
+  - OnEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: InteractableASLObject, Assembly-CSharp
+          m_MethodName: startInteracting
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _name: Cube1StartIntereacting
+    _triggerMode: 0

@@ -166,7 +166,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                     mirrorInitRotation = hit.collider.gameObject.transform.rotation;
                     mirror = hit.collider.gameObject;
                 }
-                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().startInteracting();
+                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
             } else {
                 leaveObejct();
             }
@@ -200,7 +200,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         pCPlayerMovement.movementSensitivity = pushingMovementSensitivity;
                     }
                     pushingItem = hit.collider.gameObject;
-
+                    //startInteracting
 
                 }
                 else
@@ -260,7 +260,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         pickedUpItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
         if (usingASL)
-            pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().stopInteracting();
+            pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
         pickedUpItem = null;
     }
     
