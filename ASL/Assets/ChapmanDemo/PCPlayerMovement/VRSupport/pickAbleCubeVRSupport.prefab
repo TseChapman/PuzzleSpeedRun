@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: -6632299279536689429}
   - component: {fileID: 5004812087367286488}
   - component: {fileID: 6187853735460995143}
+  - component: {fileID: 2447295808130810513}
+  - component: {fileID: 6306032698808063272}
   m_Layer: 7
   m_Name: pickAbleCubeVRSupport
   m_TagString: Untagged
@@ -230,6 +232,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e47d3bd6c308204389dc51ee8f4b383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2447295808130810513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143339478281835716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc8f2d82aeae36419f52b56e10c20b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteracting: 0
+  myLayer: 
+  colliderLayerToDisable: 
+--- !u!114 &6306032698808063272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143339478281835716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d83c439fea217949a76b7d7bc4e5c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events: []
 --- !u!1001 &3129003336586132196
 PrefabInstance:
   m_ObjectHideFlags: 0

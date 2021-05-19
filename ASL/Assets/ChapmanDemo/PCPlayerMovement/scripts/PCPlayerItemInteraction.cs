@@ -125,7 +125,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 {
                     Debug.Log("Did Hit " + hit.transform.name);
                     if (usingASL) {
-                        if (!hit.collider.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
+                        if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
                         {
                             pickedUpItem = hit.collider.gameObject;
                             pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
@@ -135,7 +135,8 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         pickedUpItem = hit.collider.gameObject;
                         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     }              
-                } else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
+                }
+                /*else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
                 {
                     Transform t = hit.transform.parent;
                     while (t != null)
@@ -152,7 +153,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         }
                         t = t.parent;
                     }
-                }
+                }*/
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pushAbleLayer))
                 {
                     pushableItemClicked = true;
@@ -165,7 +166,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                     mirrorInitRotation = hit.collider.gameObject.transform.rotation;
                     mirror = hit.collider.gameObject;
                 }
-                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().pickUp(); 
+                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().startInteracting();
             } else {
                 leaveObejct();
             }
@@ -258,8 +259,8 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     {
         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         pickedUpItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        if(usingASL)
-        pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().release();
+        if (usingASL)
+            pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().stopInteracting();
         pickedUpItem = null;
     }
     
