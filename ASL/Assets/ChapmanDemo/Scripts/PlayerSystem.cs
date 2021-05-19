@@ -5,26 +5,26 @@ using ASL;
 
 public class PlayerSystem : MonoBehaviour
 {
-    public string levelPrefabName = "";
+    public string levelPrefabName = "LobbyPrefab";
     private bool m_isHost = false;
     private bool m_isInit = false;
-    private bool m_isMazeInit = false;
-    private static bool m_isMazeStored = false;
-    private bool m_isMazeStarted = false;
+    private bool m_isLobbyInit = false;
+    private static bool m_isLobbyStored = false;
+    private bool m_isLobbyStarted = false;
 
     // TODO: Allow teams. Maybe List<List<GameObject>> ?
-    private static GameObject maze;
+    private static GameObject lobby;
     private List<GameObject> m_playerList = new List<GameObject>();
     private Dictionary<string, int> m_playerObjDict = new Dictionary<string, int>();
     private int m_playerIndex = 0;
 
     //TODO: Maybe move it to a level system
     /// <param name="_gameObject">The gameobject that was created</param>
-    public static void StoreMaze(GameObject _gameObject)
+    public static void StoreLobby(GameObject _gameObject)
     {
         //An example of how we can get a handle to our object that we just created but want to use later
-        maze = _gameObject;
-        m_isMazeStored = true;
+        lobby = _gameObject;
+        m_isLobbyStored = true;
     }
 
     /// <param name="_id">The id of the object who's claim was rejected</param>
@@ -52,32 +52,34 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
-    public void InitializeMaze()
+    public void InitializeLobby()
     {
         if (!m_isInit) return;
-        if (m_isMazeInit) return;
+        if (m_isLobbyInit) return;
         // Instantiate the maze prefab
         if (levelPrefabName == "")
         {
-            Debug.Log("Error: PlayerSystem: Empty LevelPrefabName");
-            return;
+            Debug.Log("Error: PlayerSystem: Empty LevelPrefabName, set to default LobbyPrefab");
+            levelPrefabName = "LobbyPrefab";
         }
         ASL.ASLHelper.InstantiateASLObject(levelPrefabName,
                                    new Vector3(0f, 0f, 0f), // TODO: Should have a parameter object
                                    Quaternion.identity, "", "",
-                                   StoreMaze,
+                                   StoreLobby,
                                    ClaimRecoveryFunction,
                                    MyFloatsFunction);
-        m_isMazeInit = true;
+        m_isLobbyInit = true;
     }
 
+    /*
     public void StartMaze()
     {
-        if (!m_isMazeStored) return;
-        if (m_isMazeStarted) return;
-        maze.GetComponent<MazeSystem>().InitMaze();
-        m_isMazeStarted = true;
+        if (!m_isLobbyStored) return;
+        if (m_isLobbyStarted) return;
+        lobby.GetComponent<LobbySystem>().InitMaze();
+        m_isLobbyStarted = true;
     }
+    */
 
     public bool GetIsHost() { return m_isHost; }
 
@@ -139,7 +141,7 @@ public class PlayerSystem : MonoBehaviour
         m_isHost = GameLiftManager.GetInstance().AmLowestPeer();
         InitPlayers();
         // Testing
-        InitializeMaze();
-        StartMaze();
+        InitializeLobby();
+        //StartMaze();
     }
 }
