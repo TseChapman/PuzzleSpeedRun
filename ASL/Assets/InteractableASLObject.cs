@@ -10,6 +10,9 @@ public class InteractableASLObject : MonoBehaviour
     public string startInteractingEventName;
     public string stopInteractingEventName;
     public EventSync myEventSync;
+    public Collider[] additionalColliderToDisable; //When interacting
+    public bool disableMyColliderWhenInteracting = true;
+
     public void startInteractingWithObject()
     {
         myEventSync.Activate(startInteractingEventName);
@@ -29,8 +32,7 @@ public class InteractableASLObject : MonoBehaviour
         if(!isInteracting)
         {
             isInteracting = true;
-            if(gameObject.layer == 7) //if is pickable item
-                disableColliding();
+            disableColliding();
         }
         
     }
@@ -41,45 +43,36 @@ public class InteractableASLObject : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            if (gameObject.layer == 7) //if is pickable item
-                enableColliding();
+            enableColliding();
         }
         
     }
 
     public void disableColliding()
     {
-        /*
-        foreach (int i in colliderLayerToDisable)
-        {
-            foreach (int j in myLayer)
-            {
-                Debug.Log("DISABLE BETWEEN " + i + " " + j);
-                Physics.IgnoreLayerCollision(i, j, true);
-            }
-        }*/
         GameObject[] playerRig = GameObject.FindGameObjectsWithTag("PlayerRig");
         foreach (GameObject g in playerRig)
         {
-            Physics.IgnoreCollision(g.GetComponent<Collider>(), GetComponent<Collider>(), true);
+            if(disableMyColliderWhenInteracting)
+                Physics.IgnoreCollision(g.GetComponent<Collider>(), GetComponent<Collider>(), true);
+            foreach (Collider c in additionalColliderToDisable)
+            {
+                Physics.IgnoreCollision(g.GetComponent<Collider>(), c, true);
+            }             
         }
     } 
 
     public void enableColliding()
     {
-        /*
-            foreach (int i in colliderLayerToDisable)
-            {
-                foreach (int j in myLayer)
-                {
-                    Debug.Log("Enable BETWEEN " + i + " " + j);
-                    Physics.IgnoreLayerCollision(i, j, false);
-                }
-            }*/
         GameObject[] playerRig = GameObject.FindGameObjectsWithTag("PlayerRig");
         foreach (GameObject g in playerRig)
         {
-            Physics.IgnoreCollision(g.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            if (disableMyColliderWhenInteracting)
+                Physics.IgnoreCollision(g.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            foreach (Collider c in additionalColliderToDisable)
+            {
+                Physics.IgnoreCollision(g.GetComponent<Collider>(), c, false);
+            }
         }
     }
 

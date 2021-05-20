@@ -5,35 +5,29 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRGrabInteractableWithCheck : XRGrabInteractable
 {
-    private isPicked isPickedScript;
+    private InteractableASLObject interactableASLObjectScript;
     private bool IpickedUp = false;
     // Start is called before the first frame update
     void Start()
     {
-        isPickedScript = transform.GetChild(0).GetComponent<isPicked>();
-        if (isPickedScript)
-            Debug.Log("isPickedScript.is picked Script found.");
+        interactableASLObjectScript = GetComponent<InteractableASLObject>();
     }
 
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
-        Debug.Log("isPickedScript.isPickedUp(): " + isPickedScript.isPickedUp());
-        if (!isPickedScript.isPickedUp())
+        if (!interactableASLObjectScript.isInteracting)
         {
             base.OnSelectEntering(interactor);
-            isPickedScript.pickUp();
-            
+            interactableASLObjectScript.startInteractingWithObject();
         }
     }
 
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
-        Debug.Log("isPickedScript.isPickedUp(): " + isPickedScript.isPickedUp());
-        if (!isPickedScript.isPickedUp())
+        if (!interactableASLObjectScript.isInteracting)
         {
             base.OnSelectEntered(interactor);
-            isPickedScript.pickUp();
-            IpickedUp = true;
+            interactableASLObjectScript.startInteractingWithObject();
         }
     }
 
@@ -43,7 +37,7 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
         {
             Debug.Log("isPickedScript.OnSelectedExiting");
             base.OnSelectExiting(interactor);
-            isPickedScript.release();
+            interactableASLObjectScript.stopInteractingWithObject();
         }
         
     }
@@ -54,7 +48,7 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
         {
             Debug.Log("isPickedScript.OnSelectedExited");
             base.OnSelectExited(interactor);
-            isPickedScript.release();
+            interactableASLObjectScript.stopInteractingWithObject();
             IpickedUp = false;
         }
     }

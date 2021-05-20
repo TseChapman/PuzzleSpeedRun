@@ -682,6 +682,7 @@ GameObject:
   - component: {fileID: 3207807011914827645}
   - component: {fileID: 6841369470365995610}
   - component: {fileID: 4885466745183325221}
+  - component: {fileID: 7809611531861817177}
   m_Layer: 19
   m_Name: LaserMirrorVROnlyPhysics
   m_TagString: Untagged
@@ -996,6 +997,19 @@ MonoBehaviour:
   startInteractingEventName: Mirror1startInteracting
   stopInteractingEventName: Mirror1stopInteracting
   myEventSync: {fileID: 0}
+  additionalColliderToDisable: []
+--- !u!114 &7809611531861817177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5814194741037248693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e47d3bd6c308204389dc51ee8f4b383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6005492298958191375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1274,7 @@ GameObject:
   - component: {fileID: 2041675388164057275}
   - component: {fileID: 2105917877305089564}
   - component: {fileID: 7516881693782663249}
+  - component: {fileID: 6116554140236887156}
   m_Layer: 20
   m_Name: LaserMirror
   m_TagString: Untagged
@@ -1611,3 +1626,16 @@ MonoBehaviour:
   startInteractingEventName: 
   stopInteractingEventName: 
   myEventSync: {fileID: 0}
+  additionalColliderToDisable: []
+--- !u!114 &6116554140236887156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722890793006349569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e47d3bd6c308204389dc51ee8f4b383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
