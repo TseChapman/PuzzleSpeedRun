@@ -108,11 +108,6 @@ public class PCPlayerMovement : MonoBehaviour
     {
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
         onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
-
-        foreach(int i in pickAbleLayerNum)
-        {
-            Physics.IgnoreLayerCollision(gameObject.layer, i, pcPlayerItemInteraction.pickedUpItem != null);
-        }
        
         if (grounded)
             fallingSpeed = 0;

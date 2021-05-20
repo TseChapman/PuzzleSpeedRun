@@ -6,6 +6,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
 
     public GameObject pickedUpItem; //Store the item that user is currently picking up
     public GameObject pushingItem;
+    private GameObject pushingItemBackup= null;
     private GameObject mirror;
     public float pickUpDistance = 4f; //Maximum distance that allow user to pick up
     public float distanceBetweenPlayerAndObject = 3f;
@@ -27,7 +28,9 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     private Quaternion mirrorInitRotation;
     private bool pushableItemClicked;
     private bool mirrorClicked;
+    private bool mirrorClickedBackUp;
     private bool usingASL = true;
+    private bool itWasPushing;
     private void Start()
     {
         pCPlayerMovement = GetComponent<PCPlayerMovement>();
@@ -38,11 +41,29 @@ public class PCPlayerItemInteraction : MonoBehaviour {
         if (pushingItem)
         {
             pushPushableObject();
+            itWasPushing = true;
+            pushingItemBackup = pushingItem;
+        } else
+        {
+            if(pushingItemBackup)
+            {
+                Debug.Log("STOP PUSHING!");
+                pushingItemBackup.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
+                pushingItemBackup = null;
+            }
         }
         if (mirrorClicked)
-        {
-            
+        {         
+            mirrorClickedBackUp = mirrorClicked;
             rotateMirrorMirror();
+        } else
+        {
+            if(mirrorClickedBackUp)
+            {
+                Debug.Log("MIRROR INTERACTION STOP");
+                mirrorClickedBackUp = false;
+                mirror.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
+            }
         }
     }
 
@@ -125,7 +146,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 {
                     Debug.Log("Did Hit " + hit.transform.name);
                     if (usingASL) {
-                        if (!hit.collider.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
+                        if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
                         {
                             pickedUpItem = hit.collider.gameObject;
                             pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
@@ -135,7 +156,8 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         pickedUpItem = hit.collider.gameObject;
                         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     }              
-                } else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
+                }
+                /*else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
                 {
                     Transform t = hit.transform.parent;
                     while (t != null)
@@ -152,20 +174,28 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         }
                         t = t.parent;
                     }
-                }
+                }*/
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pushAbleLayer))
                 {
-                    pushableItemClicked = true;
+                    if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
+                    {
+                        pushableItemClicked = true;
+                        Debug.Log("START PUSHING!");
+                        hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
+                    }
                 }
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, mirrorLayer))
                 {
-                    mirrorClicked = true;
-
-                    Debug.Log("Mirror Clicked!");
-                    mirrorInitRotation = hit.collider.gameObject.transform.rotation;
-                    mirror = hit.collider.gameObject;
+                    if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
+                    {
+                        mirrorClicked = true;
+                        Debug.Log("MIRROR INTERACTION START!");
+                        mirrorInitRotation = hit.collider.gameObject.transform.rotation;
+                        mirror = hit.collider.gameObject;
+                        mirror.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
+                    }
                 }
-                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().pickUp(); 
+                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
             } else {
                 leaveObejct();
             }
@@ -199,7 +229,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         pCPlayerMovement.movementSensitivity = pushingMovementSensitivity;
                     }
                     pushingItem = hit.collider.gameObject;
-
+                    //startInteracting
 
                 }
                 else
@@ -258,8 +288,8 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     {
         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         pickedUpItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        if(usingASL)
-        pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().release();
+        if (usingASL)
+            pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
         pickedUpItem = null;
     }
     

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-public class XRPositionInteractable : XRGrabInteractable {
+public class XRGastureInteractable : XRGrabInteractable {
     private Vector3 initialAttachLocalPos;
     private Quaternion initialAttachLocalRot;
+    private InteractableASLObject interactableASLObjectScript;
     // Start is called before the first frame update
     void Start()
     {
+        interactableASLObjectScript = GetComponent<InteractableASLObject>();
         if (!attachTransform)
         {
             GameObject grab = new GameObject("Grab Pivot");
@@ -21,29 +23,38 @@ public class XRPositionInteractable : XRGrabInteractable {
 
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
-        if (interactor is XRDirectInteractor)
+        if (!interactableASLObjectScript.isInteracting)
         {
-            attachTransform.position = interactor.transform.position;
-            attachTransform.rotation = interactor.transform.rotation;
+            if (interactor is XRDirectInteractor)
+            {
+                attachTransform.position = interactor.transform.position;
+                attachTransform.rotation = interactor.transform.rotation;
+            }
+            else
+            {
+                attachTransform.localPosition = initialAttachLocalPos;
+                attachTransform.localRotation = initialAttachLocalRot;
+            }
+            interactableASLObjectScript.startInteractingWithObject();
+            base.OnSelectEntered(interactor);
         }
-        else
-        {
-            attachTransform.localPosition = initialAttachLocalPos;
-            attachTransform.localRotation = initialAttachLocalRot;
-        }
-        base.OnSelectEntered(interactor);
     }
 
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
-        GetComponent<PushableObjectFriction>().lockRot();
-        base.OnSelectEntering(interactor);
+        if (!interactableASLObjectScript.isInteracting)
+        {
+            interactableASLObjectScript.startInteractingWithObject();
+            GetComponent<PushableObjectFriction>().lockRot();
+            base.OnSelectEntering(interactor);
+        }
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
         base.OnSelectExited(interactor);
         GetComponent<PushableObjectFriction>().unlock();
+        interactableASLObjectScript.stopInteractingWithObject();
     }
 
     protected override void OnDeactivate(XRBaseInteractor interactor)

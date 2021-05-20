@@ -7,7 +7,7 @@ public class TutorialVideoArea : MonoBehaviour {
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "PCPlayer" || other.gameObject.name == "VR Rig")
+        if (other.gameObject.name == "PCPlayer" || other.gameObject.name == "VR Rig" || other.gameObject.name == "VR Rig ")
         {
             activateVideo();
         }
@@ -15,7 +15,7 @@ public class TutorialVideoArea : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "PCPlayer" || other.gameObject.name == "VR Rig")
+        if (other.gameObject.name == "PCPlayer" || other.gameObject.name == "VR Rig" || other.gameObject.name == "VR Rig ")
         {
             deactivateVideo();
         }

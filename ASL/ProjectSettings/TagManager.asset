@@ -13,6 +13,7 @@ TagManager:
   - New tag
   - ColorPad
   - ColorCube
+  - PlayerRig
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - MirrorMirror
   - GrabIgnore
   - VRHandle
-  - PlayerCollider
+  - BoundaryTrigger
   - 
   - 
   - 
