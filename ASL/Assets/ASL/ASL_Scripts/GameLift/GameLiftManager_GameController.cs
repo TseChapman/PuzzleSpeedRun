@@ -896,7 +896,9 @@ namespace ASL
                     {
                         // We've set the ID on all child ASLObjects, so we can now activate the prefab.
                         awaitingInstantiation[rootGUID].gameObject.SetActive(true);
-                        awaitingInstantiation[rootGUID].gameObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback.Invoke(awaitingInstantiation[rootGUID].gameObject);
+                        if (awaitingInstantiation[rootGUID].gameObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback != null) {
+                            awaitingInstantiation[rootGUID].gameObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback.Invoke(awaitingInstantiation[rootGUID].gameObject);
+                        }
                         awaitingInstantiation.Remove(rootGUID);
                     }
                     return;
