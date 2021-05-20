@@ -14,6 +14,7 @@ TagManager:
   - ColorPad
   - ColorCube
   - PlayerRig
+  - LaserMirror
   layers:
   - Default
   - TransparentFX
@@ -45,7 +46,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - NoPlayerBodyCollision
   - Spatial Awareness
   m_SortingLayers:
   - name: Default

@@ -72,7 +72,7 @@ public class ASLRigidBodySync : MonoBehaviour
             pos /= count;
             inertia /= count;
 
-            Debug.Log("pos=" + pos);
+            //Debug.Log("pos=" + pos);
             float fade = 0.995f;
 
             rb.position = rb.position * fade + pos * (1 - fade);

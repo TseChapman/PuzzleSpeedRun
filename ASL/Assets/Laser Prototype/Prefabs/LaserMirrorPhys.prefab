@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8200823806991023336}
   - component: {fileID: 2201859144503775642}
   - component: {fileID: 5800686925999354670}
-  m_Layer: 25
+  m_Layer: 30
   m_Name: LaserMirrorStandUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 6300439872918134695}
   - component: {fileID: 1564688742044661516}
   - component: {fileID: 5160870953290638522}
-  m_Layer: 25
+  m_Layer: 30
   m_Name: EdgeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 5069705045137504576}
   - component: {fileID: 1854608593322536796}
   - component: {fileID: 4749548456756004038}
-  m_Layer: 25
+  m_Layer: 30
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 4909934482451824688}
   - component: {fileID: 3721176683604225132}
   - component: {fileID: 799790367742424929}
-  m_Layer: 25
+  m_Layer: 30
   m_Name: LaserMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -674,9 +674,11 @@ GameObject:
   - component: {fileID: 3493595687443175143}
   - component: {fileID: 2039483824603962205}
   - component: {fileID: 2273258564104264323}
-  m_Layer: 25
+  - component: {fileID: 5415511145368718087}
+  - component: {fileID: 4189688862569063089}
+  m_Layer: 30
   m_Name: LaserMirrorPhys
-  m_TagString: Untagged
+  m_TagString: LaserMirror
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -855,3 +857,164 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5415511145368718087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7000559189734877141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4189688862569063089}
+        m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
+        m_MethodName: OnSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4189688862569063089}
+        m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
+        m_MethodName: OnDeselect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4189688862569063089}
+        m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
+        m_MethodName: OnDeselect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
+--- !u!114 &4189688862569063089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7000559189734877141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd3ade5973ea9d4797f953b96512240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftRotation:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Left Rotation
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: a638880a-e37e-46cc-b0f5-dba2c3a239d1
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 8248158260566104461, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftPosition:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Left Position
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 529ea69e-3201-473d-a3b0-ddf80a7568b4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -2024308242397127297, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightRotation:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Right Rotation
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: cbd9f34f-9f32-4047-8eee-7a622ed2a7b8
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 5101698808175986029, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightPosition:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Right Position
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 62a04e9f-a33f-4903-b1ed-24e17080eaa5
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -3326005586356538449, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  headPosition:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Head Position
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6907e823-68ff-493b-b16b-4d8f7ee08b3e
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 7862207684358717888, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  headRotation:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Head Rotation
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 0f669bea-d8a2-4b4e-8c1f-e3a2ac827445
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -530380113134220495, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  Gimbal: {fileID: 831236862987044973}
+  Mirror: {fileID: 5231844404409231969}

@@ -160,7 +160,6 @@ public class ASLRigidBodySyncSender : MonoBehaviour
         {
             objectID += (char)data[i + 1];
         }
-        Debug.Log("FC: " + objectID);
         SyncInfo si = new SyncInfo(data, objectIDLength+1);
         syncInfos[objectID] = si;
     }
