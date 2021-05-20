@@ -1966,7 +1966,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 521027195667606663, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
       propertyPath: m_Layer
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1767273544640549011, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
       propertyPath: myEventSync
@@ -2168,6 +2168,18 @@ PrefabInstance:
       propertyPath: disableMyColliderWhenInteracting
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6591657631569885832, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
+      propertyPath: additionalColliderToDisable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6591657631569885832, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
+      propertyPath: additionalColliderToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 7572810064034999965}
+    - target: {fileID: 6591657631569885832, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
+      propertyPath: additionalColliderToDisable.Array.data[1]
+      value: 
+      objectReference: {fileID: 5302099723851068778}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
 --- !u!114 &8309162928836180220 stripped
