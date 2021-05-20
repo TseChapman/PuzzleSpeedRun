@@ -26,11 +26,14 @@ public class LobbyLevelSelectButton : MonoBehaviour
             {
                 //Debug.Log("Click");
                 //Debug.Log("name = " + hit.collider.gameObject.name);
+                ASL.ASLObject asl = LobbyPrefab.GetComponent<ASL.ASLObject>();
+                if (asl == null)
+                    Debug.Log("Empty ASL Object in LobbyPrefab");
                 float value = (float)(int)buttonType;
                 float[] flr = new float[1];
+                flr[0] = value + 1f;
                 if (hit.collider.gameObject.name == "ArrowRight" && this.gameObject.name == "ArrowRight")
                 {
-                    flr[0] = value + 1f;
                     LobbyPrefab.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
                     {
                         LobbyPrefab.GetComponent<ASL.ASLObject>().SendFloatArray(flr);
@@ -38,7 +41,6 @@ public class LobbyLevelSelectButton : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.name == "ArrowLeft" && this.gameObject.name == "ArrowLeft")
                 {
-                    flr[0] = value + 1f;
                     LobbyPrefab.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
                     {
                         LobbyPrefab.GetComponent<ASL.ASLObject>().SendFloatArray(flr);

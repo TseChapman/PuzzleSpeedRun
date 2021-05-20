@@ -7,6 +7,7 @@ public class TeamSelectSystem : MonoBehaviour
 {
     public GameObject nextButton; // switch to level selection page
     public List<Team> m_teams = new List<Team>();
+    [SerializeField] private bool m_isDebugMode = false;
     private PlayerSystem m_playerSystem;
     private int m_currentTeam = -1;
     private const int NUM_TEAMS = 10;
@@ -71,6 +72,13 @@ public class TeamSelectSystem : MonoBehaviour
                     }
                 }
             }
+            else if (hit.collider.gameObject == nextButton)
+            {
+                if (isValidTeams())
+                {
+                    // Changes the page for all client
+                }
+            }
         }
     }
 
@@ -87,6 +95,17 @@ public class TeamSelectSystem : MonoBehaviour
         callbackTeamId = -1;
         callbackPeerId = -1;
         callbackPrevTeamId = -1;
+    }
+
+    private bool isValidTeams()
+    {
+        bool result = true;
+        foreach (Team t in m_teams)
+        {
+            if (t.GetNumMember() < 2)
+                result = false;
+        }
+        return result;
     }
 
     // Update is called once per frame
