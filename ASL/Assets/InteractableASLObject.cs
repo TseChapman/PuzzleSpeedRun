@@ -5,8 +5,6 @@ using UnityEngine;
 public class InteractableASLObject : MonoBehaviour
 {
     public bool isInteracting = false;
-    public int[] myLayer;
-    public int[] colliderLayerToDisable;
     public string startInteractingEventName;
     public string stopInteractingEventName;
     public EventSync myEventSync;

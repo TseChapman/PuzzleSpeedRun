@@ -52,23 +52,23 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
 
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
-        if (IpickedUp)
-        {
+        //if (IpickedUp)
+        //{
             Debug.Log("isPickedScript.OnSelectedExiting");
             base.OnSelectExiting(interactor);
             interactableASLObjectScript.stopInteractingWithObject();
-        }
+       // }
 
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
-        if (IpickedUp)
-        {
+        //if (IpickedUp)
+        //{
             Debug.Log("isPickedScript.OnSelectedExited");
             base.OnSelectExited(interactor);
             interactableASLObjectScript.stopInteractingWithObject();
             IpickedUp = false;
-        }
+        //}
     }
 }

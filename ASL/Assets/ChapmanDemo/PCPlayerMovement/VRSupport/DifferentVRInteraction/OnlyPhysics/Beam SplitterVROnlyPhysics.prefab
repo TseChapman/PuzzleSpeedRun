@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2033661847862108439}
   - component: {fileID: 4092116345824438987}
   - component: {fileID: 3599403915755867287}
+  - component: {fileID: 498541538119611017}
   m_Layer: 19
   m_Name: Beam SplitterVROnlyPhysics
   m_TagString: Untagged
@@ -214,6 +215,7 @@ MonoBehaviour:
   stopInteractingEventName: 
   myEventSync: {fileID: 0}
   additionalColliderToDisable: []
+  disableMyColliderWhenInteracting: 1
 --- !u!114 &3599403915755867287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +226,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e47d3bd6c308204389dc51ee8f4b383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &498541538119611017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152106658942788377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &152106659582534310

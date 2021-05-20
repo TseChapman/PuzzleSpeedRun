@@ -1842,7 +1842,7 @@ GameObject:
   - component: {fileID: 2046396752}
   - component: {fileID: 2046396753}
   m_Layer: 17
-  m_Name: 'VR Rig '
+  m_Name: VR Rig
   m_TagString: PlayerRig
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
