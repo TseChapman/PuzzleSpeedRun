@@ -48,6 +48,7 @@ namespace ASL
             {
                 private IEnumerator<GameObject> childObjectEnumerator;
                 public GameObject gameObject;
+                public bool ShouldCallObjectCreatedCallback = false;
                 private ASLObject nextASLObject;
                 public AwaitingInstantiation(GameObject gameObject, IEnumerator<GameObject> childObjectEnumerator)
                 {
@@ -896,7 +897,9 @@ namespace ASL
                     {
                         // We've set the ID on all child ASLObjects, so we can now activate the prefab.
                         awaitingInstantiation[rootGUID].gameObject.SetActive(true);
-                        awaitingInstantiation[rootGUID].gameObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback.Invoke(awaitingInstantiation[rootGUID].gameObject);
+                        if (awaitingInstantiation[rootGUID].ShouldCallObjectCreatedCallback) {
+                            awaitingInstantiation[rootGUID].gameObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback.Invoke(awaitingInstantiation[rootGUID].gameObject);
+                        }
                         awaitingInstantiation.Remove(rootGUID);
                     }
                     return;
@@ -996,6 +999,9 @@ namespace ASL
                         if (!hasChildASLObjects) // This may be delayed until all child ASL objects are initalized
                         {
                             newASLObject.GetComponent<ASLObject>().m_ASLGameObjectCreatedCallback.Invoke(newASLObject);
+                        } else
+                        {
+                            awaitingInstantiation[new Guid(id)].ShouldCallObjectCreatedCallback = true;
                         }
                     }
                 }
