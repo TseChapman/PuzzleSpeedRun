@@ -6,7 +6,7 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
     private Vector3 initialAttachLocalPos;
     private Quaternion initialAttachLocalRot;
     private InteractableASLObject interactableASLObjectScript;
-    private bool IpickedUp = false;
+    private bool isHandlingLocally = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,7 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
         {
             base.OnSelectEntering(interactor);
             interactableASLObjectScript.startInteractingWithObject();
+            isHandlingLocally = true;
         }
     }
 
@@ -47,28 +48,29 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
             }
             base.OnSelectEntered(interactor);
             interactableASLObjectScript.startInteractingWithObject();
+            isHandlingLocally = true;
         }
     }
 
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
-        //if (IpickedUp)
-        //{
+        if (isHandlingLocally)
+        {
             Debug.Log("isPickedScript.OnSelectedExiting");
             base.OnSelectExiting(interactor);
             interactableASLObjectScript.stopInteractingWithObject();
-       // }
-
+        }
+        isHandlingLocally = false;
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
-        //if (IpickedUp)
-        //{
             Debug.Log("isPickedScript.OnSelectedExited");
             base.OnSelectExited(interactor);
             interactableASLObjectScript.stopInteractingWithObject();
-            IpickedUp = false;
-        //}
+        if (isHandlingLocally)
+        {
+            isHandlingLocally = false;
+        }
     }
 }

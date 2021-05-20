@@ -6,6 +6,7 @@ public class XRGastureInteractable : XRGrabInteractable {
     private Vector3 initialAttachLocalPos;
     private Quaternion initialAttachLocalRot;
     private InteractableASLObject interactableASLObjectScript;
+    private bool isHandlingLocally = false; 
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,7 @@ public class XRGastureInteractable : XRGrabInteractable {
             }
             interactableASLObjectScript.startInteractingWithObject();
             base.OnSelectEntered(interactor);
+            isHandlingLocally = true;
         }
     }
 
@@ -47,15 +49,21 @@ public class XRGastureInteractable : XRGrabInteractable {
             interactableASLObjectScript.startInteractingWithObject();
             GetComponent<PushableObjectFriction>().lockRot();
             base.OnSelectEntering(interactor);
+            isHandlingLocally = true;
         }
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
-        base.OnSelectExited(interactor);
-        GetComponent<PushableObjectFriction>().unlock();
-        interactableASLObjectScript.stopInteractingWithObject();
+        if (isHandlingLocally)
+        {
+            base.OnSelectExited(interactor);
+            GetComponent<PushableObjectFriction>().unlock();
+            interactableASLObjectScript.stopInteractingWithObject();
+            isHandlingLocally = false;
+        }
     }
+        
 
     protected override void OnDeactivate(XRBaseInteractor interactor)
     {
