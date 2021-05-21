@@ -32,7 +32,7 @@ public class RCLaserMirror : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void OnSelect() {
@@ -44,14 +44,10 @@ public class RCLaserMirror : MonoBehaviour
         initialGimbalRot = Gimbal.transform.localRotation.eulerAngles;
         initialMirrorRot = Mirror.transform.localRotation.eulerAngles;
         */
-        Quaternion leftRot = leftRotation.action.ReadValue<Quaternion>();
-        initialLeftYRot = leftRot.eulerAngles.y;
-        Debug.Log("Selected!");
         selected = true;
     }
     public void OnDeselect()
     {
-        Debug.Log("Deselected!");
         selected = false;
     }
 
@@ -68,42 +64,42 @@ public class RCLaserMirror : MonoBehaviour
         leftPos -= headPos;
         rightPos -= headPos;
 
-        leftPos = headRot * leftPos;
-        rightPos = headRot * rightPos;
+        Vector3 leftRotVec = leftRot.eulerAngles;
+        Vector3 rightRotVec = rightRot.eulerAngles;
 
         float yFromZPos = leftPos.z - rightPos.z;
         float yFromXPos = leftPos.x + rightPos.x;
         float xFromPos = leftPos.y + rightPos.y;
 
-        float yFromYRot = (leftRot.eulerAngles.y - initialLeftYRot);// + (rightRot.eulerAngles.y - headRot.eulerAngles.y);
+        float yLeft = leftRot.eulerAngles.y > 180 ? leftRot.eulerAngles.y - 360 : leftRot.eulerAngles.y;
+        float yRight = rightRot.eulerAngles.y > 180 ? rightRot.eulerAngles.y - 360 : rightRot.eulerAngles.y;
+        float yHead = headRot.eulerAngles.y > 180 ? headRot.eulerAngles.y - 360 : headRot.eulerAngles.y;
 
-        float y = Gimbal.transform.localRotation.eulerAngles.y;
-        y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
-        Quaternion G = new Quaternion();
-        G.eulerAngles = new Vector3(0, y, 0);
-        Gimbal.transform.localRotation = G;
+        float yFromYRot = (yLeft + yRight) / 2 - yHead;
 
-        float x = Mirror.transform.localRotation.eulerAngles.x;
-        x += (xFromPos - previousXFromPos) * 100;
-        G.eulerAngles = new Vector3(x, 0, 0);
-        Mirror.transform.localRotation = G;
+        float xLeft = leftRot.eulerAngles.x > 180 ? leftRot.eulerAngles.x - 360 : leftRot.eulerAngles.x;
+        float xRight = rightRot.eulerAngles.x > 180 ? rightRot.eulerAngles.x - 360 : rightRot.eulerAngles.x;
+        float xFromXRot = (xLeft + xRight) / 2;
+
+
+        if (selected)
+        {
+            float y = Gimbal.transform.localRotation.eulerAngles.y;
+            //y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
+            y += yFromYRot * 0.02f;
+            Quaternion G = new Quaternion();
+            G.eulerAngles = new Vector3(0, y, 0);
+            Gimbal.transform.localRotation = G;
+
+            float x = Mirror.transform.localRotation.eulerAngles.x;
+            //x += (xFromPos - previousXFromPos) * 100;
+            x += xFromXRot * 0.03f;
+            G.eulerAngles = new Vector3(x, 0, 0);
+            Mirror.transform.localRotation = G;
+        }
 
         previousYFromZPos = yFromZPos;
         previousYFromXPos = yFromXPos;
         previousXFromPos = xFromPos;
-
-        /*
-        Quaternion L = leftRotation.action.ReadValue<Quaternion>();
-        Quaternion R = rightRotation.action.ReadValue<Quaternion>();
-        Quaternion LR = Quaternion.Slerp(L, R, 0.5f);
-        Quaternion D = LR * Quaternion.Inverse(initialLR);
-        Vector3 E = D.eulerAngles;
-        Quaternion G = new Quaternion();
-        G.eulerAngles = initialGimbalRot + new Vector3(0, E.y, 0);
-        Gimbal.transform.localRotation = G;
-        Quaternion G2 = new Quaternion();
-        G2.eulerAngles = initialMirrorRot + new Vector3(E.x, 0, 0);
-        Mirror.transform.localRotation = G2;
-        */
     }
 }

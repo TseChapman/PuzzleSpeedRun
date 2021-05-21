@@ -1016,5 +1016,6 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -530380113134220495, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  axisIndicator: {fileID: 0}
   Gimbal: {fileID: 831236862987044973}
   Mirror: {fileID: 5231844404409231969}

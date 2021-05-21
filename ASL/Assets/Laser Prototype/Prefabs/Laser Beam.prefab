@@ -145,7 +145,7 @@ MonoBehaviour:
   LightSource: {fileID: 1463721753218908688, guid: 0704894e8f01a2e47a9ebadef6eab24c, type: 3}
   LightDensity: 1
   Intensity: 0.5
-  ClipDistance: 200
+  ClipDistance: 500
   ConstantLightCount: 1
   LightCount: 0
   ExcludeSensor: {fileID: 0}

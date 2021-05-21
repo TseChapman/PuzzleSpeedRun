@@ -22,7 +22,7 @@ public class ASLRigidBodySync : MonoBehaviour
 
     public static void AddSender(int peerID, ASLRigidBodySyncSender sender)
     {
-        Debug.Log("AddSender: peerID="+peerID);
+        Debug.Log("AddSender: peerID="+peerID + " ID: "+ sender.GetComponent<ASLObject>().m_Id + ".");
         if (peerID == GameLiftManager.GetInstance().m_PeerId)
         {
             senderObject = sender;
@@ -73,7 +73,7 @@ public class ASLRigidBodySync : MonoBehaviour
             inertia /= count;
 
             //Debug.Log("pos=" + pos);
-            float fade = 0.995f;
+            float fade = 0.5f;
 
             rb.position = rb.position * fade + pos * (1 - fade);
 
@@ -98,7 +98,7 @@ public class ASLRigidBodySync : MonoBehaviour
             // send peer id, object id, transform, phys info via senderobject
             // sender object can buffer and send all at updates at once (will need to be set in script ordering!)
         }
-        if (fixedUpdateFrames++ % 4 == 0)
+        if (fixedUpdateFrames++ % 1 == 0)
         {
             int peerID = GameLiftManager.GetInstance().m_PeerId;
             senderObject.Send(objectID, rb);
