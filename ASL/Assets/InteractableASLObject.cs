@@ -12,6 +12,7 @@ public class InteractableASLObject : MonoBehaviour
     private VRPlayerMovement vrPlayerMovement; 
     public bool disableMyColliderWhenInteracting = true;
     private float initalPlayerMovementSensitivity;
+    public bool isPushable = false;
     private void Start()
     {
         GameObject[] playerRig;
@@ -29,7 +30,7 @@ public class InteractableASLObject : MonoBehaviour
     public void startInteractingWithObject()
     {
         myEventSync.Activate(startInteractingEventName);
-        if (vrPlayerMovement)
+        if (vrPlayerMovement && isPushable)
             vrPlayerMovement.movementSensitivity = 1;
     }
 
@@ -37,7 +38,7 @@ public class InteractableASLObject : MonoBehaviour
     public void stopInteractingWithObject()
     {
         myEventSync.Activate(stopInteractingEventName);
-        if (vrPlayerMovement)
+        if (vrPlayerMovement && isPushable)
         vrPlayerMovement.movementSensitivity = initalPlayerMovementSensitivity;
     }
 
