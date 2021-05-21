@@ -17,6 +17,7 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
     {
         if (!interactableASLObjectScript.isInteracting)
         {
+            Debug.Log("SELECT ENTERING");
             base.OnSelectEntering(interactor);
             interactableASLObjectScript.startInteractingWithObject();
         }
@@ -26,6 +27,7 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
     {
         if (!interactableASLObjectScript.isInteracting)
         {
+            Debug.Log("SELECT ENTERED");
             base.OnSelectEntered(interactor);
             interactableASLObjectScript.startInteractingWithObject();
             isHandlingLocally = true;
@@ -47,11 +49,11 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
     {
         
         Debug.Log("isPickedScript.OnSelectedExited");
-            base.OnSelectExited(interactor);
-            interactableASLObjectScript.stopInteractingWithObject();
+        base.OnSelectExited(interactor);
         if (isHandlingLocally)
         {
             isHandlingLocally = false;
+            interactableASLObjectScript.stopInteractingWithObject();
         }
     }
 }
