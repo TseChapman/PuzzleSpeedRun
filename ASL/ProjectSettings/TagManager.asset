@@ -45,7 +45,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - LaserMirror
   - NoPlayerBodyCollision
   - Spatial Awareness
   m_SortingLayers:

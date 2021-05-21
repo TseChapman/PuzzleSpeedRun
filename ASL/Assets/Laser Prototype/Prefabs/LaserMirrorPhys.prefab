@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8200823806991023336}
   - component: {fileID: 2201859144503775642}
   - component: {fileID: 5800686925999354670}
-  m_Layer: 30
+  m_Layer: 29
   m_Name: LaserMirrorStandUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 6300439872918134695}
   - component: {fileID: 1564688742044661516}
   - component: {fileID: 5160870953290638522}
-  m_Layer: 30
+  m_Layer: 29
   m_Name: EdgeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 5069705045137504576}
   - component: {fileID: 1854608593322536796}
   - component: {fileID: 4749548456756004038}
-  m_Layer: 30
+  m_Layer: 29
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 4909934482451824688}
   - component: {fileID: 3721176683604225132}
   - component: {fileID: 799790367742424929}
-  m_Layer: 30
+  m_Layer: 29
   m_Name: LaserMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 2273258564104264323}
   - component: {fileID: 5415511145368718087}
   - component: {fileID: 4189688862569063089}
-  m_Layer: 30
+  m_Layer: 29
   m_Name: LaserMirrorPhys
   m_TagString: LaserMirror
   m_Icon: {fileID: 0}
@@ -879,10 +879,34 @@ MonoBehaviour:
       m_Calls: []
   m_OnHoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4189688862569063089}
+        m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4189688862569063089}
+        m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnLastHoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -1016,6 +1040,5 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -530380113134220495, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  axisIndicator: {fileID: 0}
   Gimbal: {fileID: 831236862987044973}
   Mirror: {fileID: 5231844404409231969}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using ASL;
 
 public class RCLaserMirror : MonoBehaviour
 {
@@ -29,10 +30,12 @@ public class RCLaserMirror : MonoBehaviour
 
     private bool selected = false;
 
+    private Color baseColor;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        baseColor = GetComponent<MeshRenderer>().material.color;
     }
 
     public void OnSelect() {
@@ -44,17 +47,40 @@ public class RCLaserMirror : MonoBehaviour
         initialGimbalRot = Gimbal.transform.localRotation.eulerAngles;
         initialMirrorRot = Mirror.transform.localRotation.eulerAngles;
         */
-        selected = true;
+        GetComponent<ASLObject>().SendAndSetClaim(() => {
+            selected = true;
+            GetComponent<MeshRenderer>().material.color = Color.red;
+            Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
+        }, 0);
     }
+
     public void OnDeselect()
     {
         selected = false;
+        GetComponent<MeshRenderer>().material.color = baseColor;
+        Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
+    }
+
+    public void OnHoverEntered()
+    {
+        if (!selected)
+        {
+            GetComponent<MeshRenderer>().material.color = Color.white;
+            Gimbal.GetComponent<MeshRenderer>().material.color = Color.white;
+        }
+    }
+    public void OnHoverExited()
+    {
+        if (!selected)
+        {
+            GetComponent<MeshRenderer>().material.color = baseColor;
+            Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Vector3 headPos = headPosition.action.ReadValue<Vector3>();
         Quaternion headRot = headRotation.action.ReadValue<Quaternion>();
         Vector3 leftPos = leftPosition.action.ReadValue<Vector3>();
@@ -83,6 +109,10 @@ public class RCLaserMirror : MonoBehaviour
         float xRight = rightRot.eulerAngles.x > 180 ? rightRot.eulerAngles.x - 360 : rightRot.eulerAngles.x;
         float xFromXRot = (xLeft + xRight) / 2;
 
+        if (selected && !GetComponent<ASLObject>().m_Mine)
+        {
+            OnDeselect();
+        }
 
         if (selected)
         {
