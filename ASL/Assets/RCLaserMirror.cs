@@ -71,11 +71,13 @@ public class RCLaserMirror : MonoBehaviour
         float yFromXPos = leftPos.x + rightPos.x;
         float xFromPos = leftPos.y + rightPos.y;
 
-        float yLeft = leftRot.eulerAngles.y > 180 ? leftRot.eulerAngles.y - 360 : leftRot.eulerAngles.y;
-        float yRight = rightRot.eulerAngles.y > 180 ? rightRot.eulerAngles.y - 360 : rightRot.eulerAngles.y;
-        float yHead = headRot.eulerAngles.y > 180 ? headRot.eulerAngles.y - 360 : headRot.eulerAngles.y;
+        float yLeft0 = (leftRot.eulerAngles.y - headRot.eulerAngles.y + 360) % 360;
+        float yRight0 = (rightRot.eulerAngles.y - rightRot.eulerAngles.y + 360) % 360;
 
-        float yFromYRot = (yLeft + yRight) / 2 - yHead;
+        float yLeft = yLeft0 > 180 ? yLeft0 - 360 : yLeft0;
+        float yRight = yRight0 > 180 ? yRight0 - 360 : yRight0;
+
+        float yFromYRot = yLeft + yRight; // (yLeft + yRight) / 2 - yHead;
 
         float xLeft = leftRot.eulerAngles.x > 180 ? leftRot.eulerAngles.x - 360 : leftRot.eulerAngles.x;
         float xRight = rightRot.eulerAngles.x > 180 ? rightRot.eulerAngles.x - 360 : rightRot.eulerAngles.x;
@@ -86,7 +88,7 @@ public class RCLaserMirror : MonoBehaviour
         {
             float y = Gimbal.transform.localRotation.eulerAngles.y;
             //y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
-            y += yFromYRot * 0.02f;
+            y += yFromYRot * 0.01f;
             Quaternion G = new Quaternion();
             G.eulerAngles = new Vector3(0, y, 0);
             Gimbal.transform.localRotation = G;
