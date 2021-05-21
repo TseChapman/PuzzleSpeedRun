@@ -139,7 +139,9 @@ public class ASLRigidBodySyncSender : MonoBehaviour
         {
             return null;
         }
-        return syncInfos[objectID];
+        SyncInfo res = syncInfos[objectID];
+        syncInfos.Remove(objectID);
+        return res;
     }
 
     public void Send(string objectID, Rigidbody rigidBody)

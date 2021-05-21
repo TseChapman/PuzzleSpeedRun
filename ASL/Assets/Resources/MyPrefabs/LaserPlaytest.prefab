@@ -2467,7 +2467,7 @@ PrefabInstance:
       objectReference: {fileID: 499609980165773903}
     - target: {fileID: 6591657631569885832, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
       propertyPath: stopInteractingEventName
-      value: GastureMirrorMirrorStartInteractiong
+      value: GastureMirrorMirrorStopInteractiong
       objectReference: {fileID: 0}
     - target: {fileID: 6591657631569885832, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
       propertyPath: startInteractingEventName
