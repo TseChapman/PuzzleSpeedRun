@@ -31,7 +31,7 @@ public class LaserBeamLighter : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.TransformDirection(new Vector3(0f, 0f, 1f)));
         float nonSensorHitDistance = -1;
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~LayerMask.GetMask("LaserSensor") & ~LayerMask.GetMask("BoundaryTrigger")))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~LayerMask.GetMask("LaserSensor") & ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("VRHandle")))
         {
             nonSensorHitDistance = hit.distance;
             LaserSensor sensor = hit.transform.gameObject.GetComponent<LaserSensor>();
@@ -48,7 +48,7 @@ public class LaserBeamLighter : MonoBehaviour
             // Vector3(0,-0.495000005,-0.600000024)
             transform.localScale = new Vector3(1f, 1f, ClipDistance);
         }
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("LaserSensor") & ~LayerMask.GetMask("BoundaryTrigger")))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("LaserSensor") & ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("VRHandle")))
         {
             if (hit.distance <= nonSensorHitDistance)
             {
