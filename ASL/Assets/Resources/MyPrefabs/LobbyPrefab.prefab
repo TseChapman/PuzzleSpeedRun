@@ -5795,6 +5795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8811873152062385572}
   - component: {fileID: 8811873152062385575}
+  - component: {fileID: 447922649787885237}
   m_Layer: 0
   m_Name: LobbyPrefab
   m_TagString: Untagged
@@ -5834,6 +5835,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnArea: {fileID: 5043089117972380670}
   selectedLevelText: {fileID: 8811873152584600881}
+--- !u!114 &447922649787885237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8811873152062385573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8811873152064140883
 GameObject:
   m_ObjectHideFlags: 0
