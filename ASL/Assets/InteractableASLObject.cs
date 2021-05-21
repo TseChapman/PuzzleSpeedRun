@@ -9,17 +9,37 @@ public class InteractableASLObject : MonoBehaviour
     public string stopInteractingEventName;
     public EventSync myEventSync;
     public Collider[] additionalColliderToDisable; //When interacting
+    private VRPlayerMovement vrPlayerMovement; 
     public bool disableMyColliderWhenInteracting = true;
+    private float initalPlayerMovementSensitivity;
+    public bool isPushable = false;
+    private void Start()
+    {
+        GameObject[] playerRig;
+        playerRig = GameObject.FindGameObjectsWithTag("PlayerRig");
+        foreach (GameObject g in playerRig)
+        {
+            vrPlayerMovement = g.GetComponent<VRPlayerMovement>();
+            if (vrPlayerMovement)
+                break;
+        }
+        if (vrPlayerMovement)
+        initalPlayerMovementSensitivity = vrPlayerMovement.movementSensitivity;
+    }
 
     public void startInteractingWithObject()
     {
         myEventSync.Activate(startInteractingEventName);
+        if (vrPlayerMovement && isPushable)
+            vrPlayerMovement.movementSensitivity = 1;
     }
 
     //This will be called whenever the player stop interatcing with an ASL moveable object
     public void stopInteractingWithObject()
     {
         myEventSync.Activate(stopInteractingEventName);
+        if (vrPlayerMovement && isPushable)
+        vrPlayerMovement.movementSensitivity = initalPlayerMovementSensitivity;
     }
 
 

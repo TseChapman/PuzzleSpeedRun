@@ -1413,6 +1413,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885466745183325221, guid: 50c5fa52dc714f84da50caf9f93feeec, type: 3}
+      propertyPath: isPushable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885466745183325221, guid: 50c5fa52dc714f84da50caf9f93feeec, type: 3}
       propertyPath: myEventSync
       value: 
       objectReference: {fileID: 4059363500815960302}
@@ -1663,6 +1667,10 @@ PrefabInstance:
       propertyPath: myEventSync
       value: 
       objectReference: {fileID: 3997376812951256756}
+    - target: {fileID: 2447295808130810513, guid: 0cc2942057e22a84889c37e699030aac, type: 3}
+      propertyPath: isInteracting
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2447295808130810513, guid: 0cc2942057e22a84889c37e699030aac, type: 3}
       propertyPath: myLayer.Array.size
       value: 1
@@ -2033,6 +2041,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1767273544640549011, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
+      propertyPath: isPushable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767273544640549011, guid: 48f0fc95eb534cd45a5f348309b91ab3, type: 3}
       propertyPath: myEventSync
       value: 
       objectReference: {fileID: 8309162928836180220}
@@ -2387,6 +2399,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 907581788500122609, guid: 3aea4630148f2204e9cc12d186e5d9f0, type: 3}
+      propertyPath: isPushable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 907581788500122609, guid: 3aea4630148f2204e9cc12d186e5d9f0, type: 3}
       propertyPath: myEventSync
       value: 
       objectReference: {fileID: 5811276453207522564}
@@ -2556,6 +2572,10 @@ PrefabInstance:
     - target: {fileID: 3599403915755867287, guid: e87838a05695a384386c3c645e217003, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092116345824438987, guid: e87838a05695a384386c3c645e217003, type: 3}
+      propertyPath: isPushable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4092116345824438987, guid: e87838a05695a384386c3c645e217003, type: 3}
       propertyPath: myEventSync

@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class XRGrabInteractableWithCheck : XRGrabInteractable
 {
     private InteractableASLObject interactableASLObjectScript;
-    private bool IpickedUp = false;
+    private bool isHandlingLocally = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,7 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
     {
         if (!interactableASLObjectScript.isInteracting)
         {
+            Debug.Log("SELECT ENTERING");
             base.OnSelectEntering(interactor);
             interactableASLObjectScript.startInteractingWithObject();
         }
@@ -26,30 +27,33 @@ public class XRGrabInteractableWithCheck : XRGrabInteractable
     {
         if (!interactableASLObjectScript.isInteracting)
         {
+            Debug.Log("SELECT ENTERED");
             base.OnSelectEntered(interactor);
             interactableASLObjectScript.startInteractingWithObject();
+            isHandlingLocally = true;
         }
     }
 
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
-        //if (IpickedUp)
-        //{
+        if (isHandlingLocally)
+        {
             Debug.Log("isPickedScript.OnSelectedExiting");
             base.OnSelectExiting(interactor);
             interactableASLObjectScript.stopInteractingWithObject();
-        //}
-        
+            isHandlingLocally = false;
+        }   
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
-        //if (IpickedUp)
-        //{
-            Debug.Log("isPickedScript.OnSelectedExited");
-            base.OnSelectExited(interactor);
+        
+        Debug.Log("isPickedScript.OnSelectedExited");
+        base.OnSelectExited(interactor);
+        if (isHandlingLocally)
+        {
+            isHandlingLocally = false;
             interactableASLObjectScript.stopInteractingWithObject();
-            IpickedUp = false;
-       // }
+        }
     }
 }
