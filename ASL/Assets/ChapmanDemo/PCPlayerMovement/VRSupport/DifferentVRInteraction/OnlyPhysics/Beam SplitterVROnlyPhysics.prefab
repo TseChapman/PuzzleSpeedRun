@@ -209,13 +209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracting: 0
-  myLayer: 0d0000000e0000000f00000013000000
-  colliderLayerToDisable: 
   startInteractingEventName: 
   stopInteractingEventName: 
   myEventSync: {fileID: 0}
   additionalColliderToDisable: []
   disableMyColliderWhenInteracting: 1
+  isPushable: 0
 --- !u!114 &3599403915755867287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -854,9 +853,9 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
-  ConstantLightCount: 0
+  ConstantLightCount: 1
   LightCount: 0
-  ExcludeSensor: {fileID: 0}
+  ExcludeSensor: {fileID: 6181472499410110278}
 --- !u!1 &6356508135884860292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,9 +1002,9 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
-  ConstantLightCount: 0
+  ConstantLightCount: 1
   LightCount: 0
-  ExcludeSensor: {fileID: 0}
+  ExcludeSensor: {fileID: 6181472499987933823}
 --- !u!1 &6356508136507180842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,9 +1151,9 @@ MonoBehaviour:
   LightDensity: 1
   Intensity: 0.5
   ClipDistance: 100
-  ConstantLightCount: 0
+  ConstantLightCount: 1
   LightCount: 0
-  ExcludeSensor: {fileID: 0}
+  ExcludeSensor: {fileID: 6181472498761615057}
 --- !u!1 &8065084799896259338
 GameObject:
   m_ObjectHideFlags: 0
