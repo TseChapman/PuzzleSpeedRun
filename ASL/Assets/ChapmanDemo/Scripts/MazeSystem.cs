@@ -7,12 +7,16 @@ public class MazeSystem : MonoBehaviour
     // Test/Demo user system
     private PlayerSystem m_playerSystem;
 
-    private MazeStartPosition m_mazeStartPosition;
-    private MazeEndPosition m_mazeEndPosition;
+    public MazeStartPosition m_mazeStartPosition;
+    public MazeEndPosition m_mazeEndPosition;
     private List<GameObject> m_characterList = new List<GameObject>();
     private List<GameObject> m_characterListOnBottomFloor = new List<GameObject>();
     private List<GameObject> m_characterListOnTopFloor = new List<GameObject>();
     private bool m_isMazeEnded = false;
+    private int teamId = -1;
+
+    public void SetTeamId(int id) { teamId = id; }
+    public int GetTeamId() { return teamId; }
 
     /* Functionality for add and accessing character lists */
 
@@ -57,7 +61,14 @@ public class MazeSystem : MonoBehaviour
     public void SetIsMazeEnded(bool isEnded) { m_isMazeEnded = isEnded; }
     public bool GetIsMazeEnded() { return m_isMazeEnded; }
 
-    /* Private initialize functions */
+    /* Prublic initialize functions */
+
+    public void StartLevel()
+    {
+        if (!m_playerSystem.GetIsHost()) return;
+        if (GetNumCharacterInMaze() == 0) return;
+        m_mazeStartPosition.PlaceCharacterInStartPos();
+    }
 
     public void InitMaze()
     {
@@ -88,8 +99,8 @@ public class MazeSystem : MonoBehaviour
         // Demo system only
         m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
 
-        m_mazeStartPosition = GameObject.FindObjectOfType<MazeStartPosition>();
-        m_mazeEndPosition = GameObject.FindObjectOfType<MazeEndPosition>();
+        //m_mazeStartPosition = GameObject.FindObjectOfType<MazeStartPosition>();
+        //m_mazeEndPosition = GameObject.FindObjectOfType<MazeEndPosition>();
         //InitButtonSystem();
     }
 }

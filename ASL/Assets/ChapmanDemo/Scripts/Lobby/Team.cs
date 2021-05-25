@@ -18,6 +18,8 @@ public class Team : MonoBehaviour
         actionSignal = true;
     }
 
+    public int GetTeamId() { return id; }
+
     public int GetNumMember() { return m_memberId.Count; }
     public int GetMemberId(int index) { return m_memberId[index]; }
 

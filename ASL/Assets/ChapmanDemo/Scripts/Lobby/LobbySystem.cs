@@ -7,12 +7,29 @@ public class LobbySystem : MonoBehaviour
 {
     public SpawnArea spawnArea;
     public TMP_Text selectedLevelText;
+    public TMP_Text ready;
     private PlayerSystem m_playerSystem;
     //private Queue<string> m_levels = new Queue<string>();
     private LinkedList<string> m_levels = new LinkedList<string>();
     private LinkedListNode<string> m_currentNode;
     private string m_selectedLevel = "";
     private static int m_isLeftOrRightSignal = 0; // 0 = no change, 1 = previous, 2 = next
+
+    public string GetCurrentLevelName()
+    {
+        if (m_currentNode.Value == "Easy Level")
+        {
+            return "MazeDemo";
+        }
+        else if (m_currentNode.Value == "Medium Level")
+        {
+            return "MediumLevel";
+        }
+        else
+        {
+            return "";
+        }
+    }
 
     /// <param name="_myFloats">My float 4 array</param>
     /// <param name="_id">The id of the object that called <see cref="ASL.ASLObject.SendFloatArray_Example(float[])"/></param>
@@ -82,6 +99,7 @@ public class LobbySystem : MonoBehaviour
     {
         m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
         this.gameObject.GetComponent<ASL.ASLObject>()._LocallySetFloatCallback(FloatCallback);
+        ready.color = Color.green;
 
         InitList();
         InitLobby();

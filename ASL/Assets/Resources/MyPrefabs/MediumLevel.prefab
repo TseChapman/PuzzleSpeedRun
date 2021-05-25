@@ -2016,6 +2016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d74b8436f25ea74aa7ccbd27421246f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mazeStartPosition: {fileID: 4596294492163192460}
+  m_mazeEndPosition: {fileID: 4596294492749224738}
 --- !u!1 &4596294493005063586
 GameObject:
   m_ObjectHideFlags: 0

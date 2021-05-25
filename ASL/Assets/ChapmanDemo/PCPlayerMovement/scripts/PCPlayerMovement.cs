@@ -6,6 +6,7 @@ using System.Text;
 public class PCPlayerMovement : MonoBehaviour
 {
     private static Transform playerMeshTransform;
+    private static GameObject m_playerMeshObject;
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 10f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
@@ -25,6 +26,7 @@ public class PCPlayerMovement : MonoBehaviour
     private VRPresence vrPresence;
     public int[] pickAbleLayerNum;
     private bool spawnPointSet = false; //True if player System set its spawn point
+    private bool m_isPeerIdSet = false; // True if m_playerMeshObject is set with client's peer id
 
     void Start()
     {
@@ -66,6 +68,7 @@ public class PCPlayerMovement : MonoBehaviour
     {
         Debug.Log("PLAYER MESH INIT2");
         playerMeshTransform = _gameobject.transform;
+        m_playerMeshObject = _gameobject;
     }
   
     //This will look for any playerMesh initiate and store it to the playerMeshTransform
@@ -136,7 +139,17 @@ public class PCPlayerMovement : MonoBehaviour
                 playerMeshTransform.rotation = transform.rotation;
             }
         }
-      
+        if (m_playerMeshObject != null && !m_isPeerIdSet)
+        {
+            int peerId = GameLiftManager.GetInstance().m_PeerId;
+            float[] flr = new float[1];
+            flr[0] = (float)peerId;
+            m_playerMeshObject.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+            {
+                m_playerMeshObject.GetComponent<ASL.ASLObject>().SendFloatArray(flr);
+            });
+            m_isPeerIdSet = true;
+        }
     }
 
 
