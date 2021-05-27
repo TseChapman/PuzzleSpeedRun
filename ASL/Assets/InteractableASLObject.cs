@@ -8,7 +8,8 @@ public class InteractableASLObject : MonoBehaviour
     public string startInteractingEventName;
     public string stopInteractingEventName;
     public EventSync myEventSync;
-    public Collider[] additionalColliderToDisable; //When interacting
+    public Collider[] additionalColliderToDisable; //disable colliding with player
+    public Collider[] colliderToDisable; //disable colliding with this obejct 
     private VRPlayerMovement vrPlayerMovement; 
     public bool disableMyColliderWhenInteracting = true;
     private float initalPlayerMovementSensitivity;
@@ -76,7 +77,11 @@ public class InteractableASLObject : MonoBehaviour
             foreach (Collider c in additionalColliderToDisable)
             {
                 Physics.IgnoreCollision(g.GetComponent<Collider>(), c, true);
-            }             
+            }
+            foreach (Collider c in colliderToDisable)
+            {
+                Physics.IgnoreCollision(GetComponent<Collider>(), c, true);
+            }
         }
     } 
 
@@ -90,6 +95,10 @@ public class InteractableASLObject : MonoBehaviour
             foreach (Collider c in additionalColliderToDisable)
             {
                 Physics.IgnoreCollision(g.GetComponent<Collider>(), c, false);
+            }
+            foreach (Collider c in colliderToDisable)
+            {
+                Physics.IgnoreCollision(GetComponent<Collider>(), c, false);
             }
         }
     }

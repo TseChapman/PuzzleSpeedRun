@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseFirstPersonView : MonoBehaviour
 {
-    public float mouseSensitivity = 700f; //This is sensitivity for mouse 
+    public float mouseSensitivity = 1f; //This is sensitivity for mouse 
     public Transform Rig; //This store parent (player object)
     float xRotation = 0f;   //This store calculated X Rotation by mouse
     // Start is called before the first frame update
@@ -17,8 +17,8 @@ public class MouseFirstPersonView : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {    
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
