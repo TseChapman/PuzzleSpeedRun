@@ -396,6 +396,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Object Pusing",
+                    "type": "Button",
+                    "id": "10410329-5583-45bb-8b02-a537cb716a2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Teleport Mode Activate",
                     "type": "Button",
                     "id": "a6c7231d-c55d-4dd4-9e87-877bb5522ef5",
@@ -607,6 +615,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Haptic Device",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cad57c67-9c6e-404e-a246-f8e9da5f9c99",
+                    "path": "<XRController>{RightHand}/Primary2DAxis",
+                    "interactions": "Sector(directions=-1,sweepBehavior=3)",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Object Pusing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

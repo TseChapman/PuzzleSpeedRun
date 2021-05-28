@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 4189688862569063089}
   - component: {fileID: 2709764424796084016}
   m_Layer: 29
-  m_Name: LaserMirrorPhys
+  m_Name: LaserMirrorPhys 1
   m_TagString: LaserMirror
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1005,6 +1005,17 @@ MonoBehaviour:
   UseCameraLook: 0
   Gimbal: {fileID: 831236862987044973}
   Mirror: {fileID: 5231844404409231969}
+  joystickAxis:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 34237987-2302-439c-9d16-c2b8e1f53e4d
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 0}
 --- !u!114 &2709764424796084016
 MonoBehaviour:
   m_ObjectHideFlags: 0

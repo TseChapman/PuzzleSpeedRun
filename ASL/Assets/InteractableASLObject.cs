@@ -29,6 +29,7 @@ public class InteractableASLObject : MonoBehaviour
 
     public void startInteractingWithObject()
     {
+        if(myEventSync)
         myEventSync.Activate(startInteractingEventName);
         if (vrPlayerMovement && isPushable)
             vrPlayerMovement.movementSensitivity = 1;
@@ -37,7 +38,8 @@ public class InteractableASLObject : MonoBehaviour
     //This will be called whenever the player stop interatcing with an ASL moveable object
     public void stopInteractingWithObject()
     {
-        myEventSync.Activate(stopInteractingEventName);
+        if (myEventSync)
+            myEventSync.Activate(stopInteractingEventName);
         if (vrPlayerMovement && isPushable)
         vrPlayerMovement.movementSensitivity = initalPlayerMovementSensitivity;
     }
