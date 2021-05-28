@@ -11,6 +11,11 @@ TagManager:
   - KeyMaze
   - KeyDoor
   - New tag
+  - Team
+  - LobbyLevelSelectButton
+  - LobbyStartButton
+  - ColorCube
+  - ColorPad
   layers:
   - Default
   - TransparentFX
