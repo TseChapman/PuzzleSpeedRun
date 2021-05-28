@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
 {
-    private static Vector3 pos;
-    private static bool isSignalTeleport = false;
+    private Vector3 pos;
+    private bool isSignalTeleport = false;
 
     public bool GetIsSignalTeleport() { return isSignalTeleport; }
 
@@ -19,7 +19,7 @@ public class PlayerTeleport : MonoBehaviour
 
     /// <param name="_myFloats">My float 4 array</param>
     /// <param name="_id">The id of the object that called <see cref="ASL.ASLObject.SendFloatArray_Example(float[])"/></param>
-    public static void FloatCallback(string _id, float[] _floatArr)
+    public void FloatCallback(string _id, float[] _floatArr)
     {
         //if (_floatArr.Length != 3) return;
         //Debug.Log("Received callback");

@@ -1471,6 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPrefabName: LobbyPrefab
+  levelType: 1
 --- !u!4 &1733034832
 Transform:
   m_ObjectHideFlags: 0
@@ -1670,6 +1671,7 @@ MonoBehaviour:
   inputSource: 4
   additionalHeight: 0.2
   vrPresenceObject: {fileID: 2139200058}
+  usingASL: 1
   pickAbleLayerNum: 070000000d0000000e0000000f000000
 --- !u!114 &1787616828
 MonoBehaviour:
@@ -1945,6 +1947,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7786446913961353504, guid: 89f52f23b6e0d284abb7645ae389b1f9, type: 3}
+      propertyPath: FoundAllASL
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7786446913961353505, guid: 89f52f23b6e0d284abb7645ae389b1f9, type: 3}
       propertyPath: m_RootOrder
       value: 1

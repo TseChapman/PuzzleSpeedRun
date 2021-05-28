@@ -11,7 +11,7 @@ public class VRPlayerMovement : MonoBehaviour{
 
 
     public static Transform playerMeshTransform;  //Stores playerMesh  
-    private static GameObject m_playerMeshObject;
+    public static GameObject m_playerMeshObject;
     private GameObject m_childPlayerMeshObject;
     private PlayerPeerId m_playerPeerId;
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
@@ -176,6 +176,7 @@ public class VRPlayerMovement : MonoBehaviour{
         {
             m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
             m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            m_playerPeerId.SetCallBack();
             int peerId = GameLiftManager.GetInstance().m_PeerId;
             string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
             Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);

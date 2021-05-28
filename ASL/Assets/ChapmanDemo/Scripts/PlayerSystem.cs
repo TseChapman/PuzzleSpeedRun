@@ -93,7 +93,7 @@ public class PlayerSystem : MonoBehaviour
         m_isMazeStarted = true;
     }
     */
-
+    /*
     public void StartSingleFloor()
     {
         if (levelType != LevelType.SINGLE_FLOOR) return;
@@ -102,7 +102,7 @@ public class PlayerSystem : MonoBehaviour
         maze.GetComponent<SingleFloorSystem>().InitFloor();
         m_isMazeStarted = true;
     }
-
+    */
     public bool GetIsHost() { return m_isHost; }
 
     public int GetNumPlayers() { return m_playerList.Count; }
