@@ -11,6 +11,10 @@ TagManager:
   - KeyMaze
   - KeyDoor
   - New tag
+  - ColorPad
+  - ColorCube
+  - PlayerRig
+  - LaserMirror
   layers:
   - Default
   - TransparentFX
@@ -31,18 +35,18 @@ TagManager:
   - PlayerTrigger
   - PlayerRig
   - Hand
+  - PushableItem
+  - MirrorMirror
+  - GrabIgnore
+  - VRHandle
+  - BoundaryTrigger
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - LaserMirror
+  - NoPlayerBodyCollision
   - Spatial Awareness
   m_SortingLayers:
   - name: Default

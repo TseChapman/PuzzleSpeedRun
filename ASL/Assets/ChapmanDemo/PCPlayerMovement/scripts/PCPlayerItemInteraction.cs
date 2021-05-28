@@ -5,22 +5,95 @@ using UnityEngine;
 public class PCPlayerItemInteraction : MonoBehaviour {
 
     public GameObject pickedUpItem; //Store the item that user is currently picking up
+    public GameObject pushingItem;
+    private GameObject pushingItemBackup= null;
+    private GameObject mirror;
     public float pickUpDistance = 4f; //Maximum distance that allow user to pick up
     public float distanceBetweenPlayerAndObject = 3f;
     public float throwingYDirection = 0.3f; //y direction for parabola projectile angle
     public float throwingForce = 200f;  //throwing force for parabola projectile 
     public LayerMask pickableLayer; //Layer Mask for pickable items layer
     public LayerMask pickableChildLayer; //Layer Mask for pickable items layer
-
+    public LayerMask pushAbleLayer; //Layer Mask for pickable items layer
+    public LayerMask mirrorLayer; 
     public LayerMask nonInterativeLayer; //TODO pick a better name?
-
+    private PCPlayerMovement pCPlayerMovement;
     public float mouseSensitivity; // sensitivity for rotation of picked-up objects
-
+    private Vector3 prevPlayerPos;
+    private float initMovementSensitivity;
+    public float pushingMovementSensitivity = 1f;
     private float pickUpObjectDistance = 3f; //Distance between the player's eye and picked up item
-    // Update is called once per frame
+                                             // Update is called once per frame
+    private Quaternion initRotation;
+    private Quaternion mirrorInitRotation;
+    private bool pushableItemClicked;
+    private bool mirrorClicked;
+    private bool mirrorClickedBackUp;
+    private bool usingASL = true;
+    private bool itWasPushing;
+    private void Start()
+    {
+        pCPlayerMovement = GetComponent<PCPlayerMovement>();
+        initMovementSensitivity = pCPlayerMovement.movementSensitivity;
+    }
+    private void FixedUpdate()
+    {
+        if (pushingItem)
+        {
+            pushPushableObject();
+            itWasPushing = true;
+            pushingItemBackup = pushingItem;
+        } else
+        {
+            if(pushingItemBackup)
+            {
+                Debug.Log("STOP PUSHING!");
+                pushingItemBackup.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
+                pushingItemBackup = null;
+            }
+        }
+        if (mirrorClicked)
+        {         
+            mirrorClickedBackUp = mirrorClicked;
+            rotateMirrorMirror();
+        } else
+        {
+            if(mirrorClickedBackUp)
+            {
+                Debug.Log("MIRROR INTERACTION STOP");
+                mirrorClickedBackUp = false;
+                mirror.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
+            }
+        }
+    }
+
+    public void notUsingASL()
+    {
+        usingASL = false;
+    }
+
+    void pushPushableObject()
+    {
+        Vector3 move = (transform.position - prevPlayerPos);
+        pushingItem.transform.position = pushingItem.transform.position + move;
+        prevPlayerPos = transform.position;
+        Vector2 mouseOffset = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        pushingItem.transform.RotateAround(pushingItem.transform.position,  Vector3.up, -5 * mouseOffset.x);
+    }
+    void rotateMirrorMirror()
+    {
+        Debug.Log("Mirror Update");
+        Vector2 mouseOffset = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        mirror.transform.localRotation *= Quaternion.AngleAxis(10 * mouseOffset.y, Vector3.right);
+    }
+
     void Update()
     {
-        if(Input.GetKeyDown("e"))
+        if (!pushingItem)
+        {
+            pCPlayerMovement.movementSensitivity = initMovementSensitivity;
+        }
+        if (Input.GetKeyDown("e"))
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpObjectDistance))
@@ -28,6 +101,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 OnAction onAction = hit.collider.GetComponent<OnAction>();
                 if (onAction != null)
                 {
+                    Debug.Log("Invoking action on: " + onAction.gameObject.name);
                     onAction.OnUse.Invoke();
                 }
             }
@@ -62,6 +136,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                     pickUpObjectDistance = distanceBetweenPlayerAndObject;
             }
         }
+        
 
         //pick up item
         if (Input.GetMouseButtonDown(0) )
@@ -71,12 +146,19 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableLayer))
                 {
                     Debug.Log("Did Hit " + hit.transform.name);
-                    if (!hit.collider.gameObject.transform.GetChild(0).GetComponent<isPicked>().isPickedUp())
-                     {
-                    pickedUpItem = hit.collider.gameObject;
+                    if (usingASL) {
+                        if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
+                        {
+                            pickedUpItem = hit.collider.gameObject;
+                            pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                        }
+                    } else
+                    {
+                        pickedUpItem = hit.collider.gameObject;
                         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                    }
-                } else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
+                    }              
+                }
+                /*else if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pickableChildLayer))
                 {
                     Transform t = hit.transform.parent;
                     while (t != null)
@@ -93,14 +175,81 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                         }
                         t = t.parent;
                     }
+                }*/
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pushAbleLayer))
+                {
+                    if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
+                    {
+                        pushableItemClicked = true;
+                        Debug.Log("START PUSHING!");
+                        hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
+                    }
                 }
-                if (pickedUpItem) pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().pickUp(); 
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, mirrorLayer))
+                {
+                    if (!hit.collider.gameObject.transform.GetComponent<InteractableASLObject>().isInteracting)
+                    {
+                        mirrorClicked = true;
+                        Debug.Log("MIRROR INTERACTION START!");
+                        mirrorInitRotation = hit.collider.gameObject.transform.rotation;
+                        mirror = hit.collider.gameObject;
+                        mirror.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
+                    }
+                }
+                if (usingASL && pickedUpItem) pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().startInteractingWithObject();
             } else {
                 leaveObejct();
             }
+
+
         }
+        if (Input.GetMouseButton(0))
+        {
+            if (mirrorClicked)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, mirrorLayer))
+                {
+                }
+                else
+                {
+                    pushingItem = null;
+                    mirrorClicked = false;
+                }
+            }
+            
+           if(pushableItemClicked)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDistance, pushAbleLayer))
+                {
+                    if (!pushingItem)
+                    {
+                        prevPlayerPos = transform.position;
+                        initRotation = hit.collider.gameObject.transform.rotation;
+                        pCPlayerMovement.movementSensitivity = pushingMovementSensitivity;
+                    }
+                    pushingItem = hit.collider.gameObject;
+                    //startInteracting
+
+                }
+                else
+                {
+                    pushingItem = null;
+                    pushableItemClicked = false;
+                }
+            } 
+           
+        }
+        else
+        {
+            pushingItem = null;
+            pushableItemClicked = false;
+            mirrorClicked = false;
+        }
+
         //throw item
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             if (pickedUpItem != null)
             {
@@ -140,7 +289,9 @@ public class PCPlayerItemInteraction : MonoBehaviour {
     {
         pickedUpItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         pickedUpItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        pickedUpItem.gameObject.transform.GetChild(0).GetComponent<isPicked>().release();
+        if (usingASL)
+            pickedUpItem.gameObject.transform.GetComponent<InteractableASLObject>().stopInteractingWithObject();
         pickedUpItem = null;
     }
+    
 }
