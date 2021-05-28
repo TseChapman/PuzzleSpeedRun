@@ -8,28 +8,19 @@ public class SetTargetFrameRate : MonoBehaviour {
 
     private void Start()
     {
-        InvokeRepeating("setFrameRateOne", 0f,5f);
-        
+        InvokeRepeating("setFrameRateOne", 0f, 0.3f);
+        InvokeRepeating("setFrameRateTwo", 0f, 0.5f);
     }
 
     private void setFrameRateOne()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = targetFrameRate;
-        StartCoroutine(DelayAction(1));
     }
 
     private void setFrameRateTwo()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = secondStartgetFrameRate;
-    }
-
-    IEnumerator DelayAction(float delayTime)
-    {
-        //Wait for the specified delay time before continuing.
-        yield return new WaitForSeconds(delayTime);
-        setFrameRateTwo();
-        //Do the action after the delay time has finished.
     }
 }

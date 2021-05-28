@@ -15,8 +15,8 @@ public class MouseFirstPersonView : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void FixedUpdate()
+    {    
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
         xRotation -= mouseY;
