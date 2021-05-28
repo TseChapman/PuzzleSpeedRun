@@ -5,57 +5,55 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRGrabInteractableWithCheck : XRGrabInteractable
 {
-    private isPicked isPickedScript;
-    private bool IpickedUp = false;
+    private InteractableASLObject interactableASLObjectScript;
+    private bool isHandlingLocally = false;
     // Start is called before the first frame update
     void Start()
     {
-        isPickedScript = transform.GetChild(0).GetComponent<isPicked>();
-        if (isPickedScript)
-            Debug.Log("isPickedScript.is picked Script found.");
+        interactableASLObjectScript = GetComponent<InteractableASLObject>();
     }
 
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
-        Debug.Log("isPickedScript.isPickedUp(): " + isPickedScript.isPickedUp());
-        if (!isPickedScript.isPickedUp())
+        if (!interactableASLObjectScript.isInteracting)
         {
+            Debug.Log("SELECT ENTERING");
             base.OnSelectEntering(interactor);
-            isPickedScript.pickUp();
-            
+            interactableASLObjectScript.startInteractingWithObject();
         }
     }
 
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
-        Debug.Log("isPickedScript.isPickedUp(): " + isPickedScript.isPickedUp());
-        if (!isPickedScript.isPickedUp())
+        if (!interactableASLObjectScript.isInteracting)
         {
+            Debug.Log("SELECT ENTERED");
             base.OnSelectEntered(interactor);
-            isPickedScript.pickUp();
-            IpickedUp = true;
+            interactableASLObjectScript.startInteractingWithObject();
+            isHandlingLocally = true;
         }
     }
 
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
-        if (IpickedUp)
+        if (isHandlingLocally)
         {
             Debug.Log("isPickedScript.OnSelectedExiting");
             base.OnSelectExiting(interactor);
-            isPickedScript.release();
-        }
-        
+            interactableASLObjectScript.stopInteractingWithObject();
+            isHandlingLocally = false;
+        }   
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
-        if (IpickedUp)
+        
+        Debug.Log("isPickedScript.OnSelectedExited");
+        base.OnSelectExited(interactor);
+        if (isHandlingLocally)
         {
-            Debug.Log("isPickedScript.OnSelectedExited");
-            base.OnSelectExited(interactor);
-            isPickedScript.release();
-            IpickedUp = false;
+            isHandlingLocally = false;
+            interactableASLObjectScript.stopInteractingWithObject();
         }
     }
 }

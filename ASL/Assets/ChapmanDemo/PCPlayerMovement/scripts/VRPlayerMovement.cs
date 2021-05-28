@@ -42,6 +42,7 @@ public class VRPlayerMovement : MonoBehaviour{
     private Vector2 inputAxis;
     public GameObject vrPresenceObject;
     private VRPresence vrPresence;
+    public bool usingASL = true;
     public int[] pickAbleLayerNum;
     private bool m_isPeerIdSet = false; // True if m_playerMeshObject is set with client's peer id
 
@@ -54,6 +55,7 @@ public class VRPlayerMovement : MonoBehaviour{
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
         vrPresence = vrPresenceObject.GetComponent<VRPresence>();
+        if (usingASL)
         initPlayerMeshToThePoint();
         
     }
@@ -66,7 +68,8 @@ public class VRPlayerMovement : MonoBehaviour{
         //}
         InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
-        movePlayerMesh();
+        if (usingASL)
+            movePlayerMesh();
         
     }
 

@@ -29,6 +29,8 @@ public class PCPlayerMovement : MonoBehaviour
     public int[] pickAbleLayerNum;
     private bool spawnPointSet = false; //True if player System set its spawn point
     private bool m_isPeerIdSet = false; // True if m_playerMeshObject is set with client's peer id
+    private Vector3 move;
+    public bool usingASL = true;
 
     void Start()
     {
@@ -36,13 +38,20 @@ public class PCPlayerMovement : MonoBehaviour
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
         vrPresence = vrPresenceObject.GetComponent<VRPresence>();
-
+        if (!usingASL)
+        {
+            spawnPointSet = true;
+            pcPlayerItemInteraction.notUsingASL();
+        }
     }
 
     void Update()
     {
-        movePlayerMesh();
-        initPlayerMeshToThePoint();
+        if (usingASL)
+        {
+            movePlayerMesh();
+            initPlayerMeshToThePoint();
+        }
     }
 
     private void FixedUpdate()
@@ -96,7 +105,7 @@ public class PCPlayerMovement : MonoBehaviour
         Vector3 newMovePos = new Vector3(movePos.x, playerBody.velocity.y, movePos.z);
         playerBody.velocity = newMovePos;
         transform.position = playerBody.position;*/
-        Vector3 move = transform.right * x + transform.forward * y;
+        move = transform.right * x + transform.forward * y;
         controller.Move(move * movementSensitivity * Time.fixedDeltaTime);        
     }
 
@@ -105,11 +114,6 @@ public class PCPlayerMovement : MonoBehaviour
     {
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
         onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
-
-        foreach(int i in pickAbleLayerNum)
-        {
-            Physics.IgnoreLayerCollision(gameObject.layer, i, pcPlayerItemInteraction.pickedUpItem != null);
-        }
        
         if (grounded)
             fallingSpeed = 0;

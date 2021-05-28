@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using ASL;
 
+public enum LevelType
+{
+    SINGLE_FLOOR = 0,
+    DOUBLE_FLOOR = 1,
+    NUM_LEVEL_TYPE = 2
+};
+
 public class PlayerSystem : MonoBehaviour
 {
     public string levelPrefabName = "LobbyPrefab";
+    public LevelType levelType = LevelType.DOUBLE_FLOOR;
     private bool m_isHost = false;
     private bool m_isInit = false;
     private bool m_isLobbyInit = false;
@@ -78,8 +86,22 @@ public class PlayerSystem : MonoBehaviour
         if (m_isLobbyStarted) return;
         lobby.GetComponent<LobbySystem>().InitMaze();
         m_isLobbyStarted = true;
+        if (levelType != LevelType.DOUBLE_FLOOR) return;
+        if (!m_isMazeStored) return;
+        if (m_isMazeStarted) return;
+        maze.GetComponent<MazeSystem>().InitMaze();
+        m_isMazeStarted = true;
     }
     */
+
+    public void StartSingleFloor()
+    {
+        if (levelType != LevelType.SINGLE_FLOOR) return;
+        if (!m_isMazeStored) return;
+        if (m_isMazeStarted) return;
+        maze.GetComponent<SingleFloorSystem>().InitFloor();
+        m_isMazeStarted = true;
+    }
 
     public bool GetIsHost() { return m_isHost; }
 
@@ -142,6 +164,9 @@ public class PlayerSystem : MonoBehaviour
         InitPlayers();
         // Testing
         InitializeLobby();
+        return;
         //StartMaze();
+        //InitializeMaze();
+        //StartSingleFloor();
     }
 }
