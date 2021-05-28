@@ -198,6 +198,7 @@ public class RCLaserMirror : MonoBehaviour {
     {
         GameObject a = GameObject.Find("VR Rig");
         Debug.Log("VR RO");
+        if (a == null) return;
         stp = a.GetComponent<ActionBasedSnapTurnProvider>();
         lc = a.GetComponent<LocomotionController>();
     }
