@@ -15,6 +15,8 @@ public class LaserBeamLighter : MonoBehaviour
 
     public LaserSensor ExcludeSensor;
 
+    public bool CanTriggerSensors;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,7 @@ public class LaserBeamLighter : MonoBehaviour
         {
             nonSensorHitDistance = hit.distance;
             LaserSensor sensor = hit.transform.gameObject.GetComponent<LaserSensor>();
-            if (sensor != null && sensor != ExcludeSensor)
+            if (sensor != null && sensor != ExcludeSensor && CanTriggerSensors)
             {
                 sensor.Trigger(ray, hit);
             }
@@ -54,7 +56,7 @@ public class LaserBeamLighter : MonoBehaviour
             {
                 LaserSensor sensor = hit.transform.gameObject.GetComponent<LaserSensor>();
                 Debug.Log(hit.transform.gameObject.name);
-                if (sensor != null && sensor != ExcludeSensor)
+                if (sensor != null && sensor != ExcludeSensor && CanTriggerSensors)
                 {
                     sensor.Trigger(ray, hit);
                 }

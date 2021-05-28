@@ -2676,6 +2676,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2391332524209475887}
     m_Modifications:
+    - target: {fileID: 4189688862569063089, guid: aa46f37e56411e8458a4bf81b84c3ea3, type: 3}
+      propertyPath: UseCameraLook
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4737111100183105077, guid: aa46f37e56411e8458a4bf81b84c3ea3, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 1.0799999
