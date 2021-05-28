@@ -34,6 +34,8 @@ public class RCLaserMirror : MonoBehaviour
 
     private Color baseColor;
 
+    private bool readyToDeselect = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,7 @@ public class RCLaserMirror : MonoBehaviour
             GetComponent<MeshRenderer>().material.color = Color.red;
             Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
         }, 0);
+        readyToDeselect = false;
     }
 
     public void OnDeselect()
@@ -83,6 +86,14 @@ public class RCLaserMirror : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (selected && Input.GetKeyUp("e"))
+        {
+            readyToDeselect = true;
+        }
+        if (Input.GetKeyDown("e") && selected && readyToDeselect)
+        {
+            OnDeselect();
+        }
         Vector3 headPos = headPosition.action.ReadValue<Vector3>();
         Quaternion headRot = headRotation.action.ReadValue<Quaternion>();
         Vector3 leftPos = leftPosition.action.ReadValue<Vector3>();
@@ -126,29 +137,18 @@ public class RCLaserMirror : MonoBehaviour
                     Debug.Log("MainCameraTracker.MainCamera == null!");
                     return;
                 }
-                Ray ray = MainCameraTracker.MainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-                Debug.Log(MainCameraTracker.MainCamera);
-                Debug.Log(ray);
+                Ray ray = MainCameraTracker.MainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 5));
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, ~LayerMask.GetMask("BoundaryTrigger")))
+                if (Physics.Raycast(ray, out hit, float.PositiveInfinity, ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("PlayerMesh") & ~LayerMask.GetMask("LaserMirror") & ~LayerMask.GetMask("LaserBeam")))
                 {
-                    Quaternion oldRotation = Mirror.transform.rotation;
                     Transform nextTransform = Mirror.transform;
                     nextTransform.LookAt(hit.point, Vector3.up);
-                    Quaternion newRotation = Quaternion.Slerp(oldRotation, nextTransform.rotation, 10f*Time.deltaTime);
-                    Debug.Log(oldRotation + "  " + newRotation);
-                    nextTransform.rotation = newRotation;
-                    Vector3 v = nextTransform.rotation * new Vector3(0, 0, 1);
-                    Debug.DrawRay(nextTransform.position + new Vector3(0, 2, 0), v);
-                    //if (Vector3.Angle(v, new Vector3(0, -1, 0)) > 30)
-                    //{
-                        Mirror.transform.rotation = Quaternion.Slerp(Mirror.transform.rotation, nextTransform.rotation, 0.05f);
-                        Vector3 rG = Gimbal.transform.rotation.eulerAngles;
-                        Vector3 rM = Mirror.transform.rotation.eulerAngles;
-                        Quaternion q = new Quaternion();
-                        q.eulerAngles = new Vector3(rG.x, rM.y, rG.z);
-                        Gimbal.transform.rotation = q;
-                    //}
+                    Mirror.transform.rotation = nextTransform.rotation;
+                    Vector3 rG = Gimbal.transform.rotation.eulerAngles;
+                    Vector3 rM = Mirror.transform.rotation.eulerAngles;
+                    Quaternion q2 = new Quaternion();
+                    q2.eulerAngles = new Vector3(rG.x, rM.y, rG.z);
+                    Gimbal.transform.rotation = q2;
                 }
             }
             else

@@ -149,3 +149,4 @@ MonoBehaviour:
   ConstantLightCount: 1
   LightCount: 0
   ExcludeSensor: {fileID: 0}
+  CanTriggerSensors: 1
