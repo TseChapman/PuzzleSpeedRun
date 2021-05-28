@@ -249,6 +249,10 @@ PrefabInstance:
       propertyPath: ClipDistance
       value: 50000
       objectReference: {fileID: 0}
+    - target: {fileID: 416886606211636497, guid: 4781ab09f41087e4ca05143c8d07af0d, type: 3}
+      propertyPath: CanTriggerSensors
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 416886606211636500, guid: 4781ab09f41087e4ca05143c8d07af0d, type: 3}
       propertyPath: m_Name
       value: Laser Beam

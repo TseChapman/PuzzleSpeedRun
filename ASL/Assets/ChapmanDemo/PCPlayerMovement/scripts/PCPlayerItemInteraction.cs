@@ -101,6 +101,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
                 OnAction onAction = hit.collider.GetComponent<OnAction>();
                 if (onAction != null)
                 {
+                    Debug.Log("Invoking action on: " + onAction.gameObject.name);
                     onAction.OnUse.Invoke();
                 }
             }
