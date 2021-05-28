@@ -15,8 +15,6 @@ public class RCLaserMirror : MonoBehaviour
     public InputActionProperty headPosition;
     public InputActionProperty headRotation;
 
-    public bool UseCameraLook;
-
     public GameObject Gimbal;
     public GameObject Mirror;
 
@@ -33,10 +31,6 @@ public class RCLaserMirror : MonoBehaviour
     private bool selected = false;
 
     private Color baseColor;
-
-    private bool readyToDeselect = false;
-
-    public InputActionProperty joystickAxis;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +52,6 @@ public class RCLaserMirror : MonoBehaviour
             GetComponent<MeshRenderer>().material.color = Color.red;
             Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
         }, 0);
-        readyToDeselect = false;
     }
 
     public void OnDeselect()
@@ -88,14 +81,6 @@ public class RCLaserMirror : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (selected && Input.GetKeyUp("e"))
-        {
-            readyToDeselect = true;
-        }
-        if (Input.GetKeyDown("e") && selected && readyToDeselect)
-        {
-            OnDeselect();
-        }
         Vector3 headPos = headPosition.action.ReadValue<Vector3>();
         Quaternion headRot = headRotation.action.ReadValue<Quaternion>();
         Vector3 leftPos = leftPosition.action.ReadValue<Vector3>();
@@ -124,8 +109,6 @@ public class RCLaserMirror : MonoBehaviour
         float xRight = rightRot.eulerAngles.x > 180 ? rightRot.eulerAngles.x - 360 : rightRot.eulerAngles.x;
         float xFromXRot = (xLeft + xRight) / 2;
 
-        Vector2 axisPos = joystickAxis.action.ReadValue<Vector2>();
-
         if (selected && !GetComponent<ASLObject>().m_Mine)
         {
             OnDeselect();
@@ -133,49 +116,18 @@ public class RCLaserMirror : MonoBehaviour
 
         if (selected)
         {
+            float y = Gimbal.transform.localRotation.eulerAngles.y;
+            //y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
+            y += yFromYRot * 0.01f;
+            Quaternion G = new Quaternion();
+            G.eulerAngles = new Vector3(0, y, 0);
+            Gimbal.transform.localRotation = G;
 
-            if (UseCameraLook)
-            {
-                if (MainCameraTracker.MainCamera == null)
-                {
-                    Debug.Log("MainCameraTracker.MainCamera == null!");
-                    return;
-                }
-                Ray ray = MainCameraTracker.MainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 5));
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, float.PositiveInfinity, ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("PlayerMesh") & ~LayerMask.GetMask("LaserMirror") & ~LayerMask.GetMask("LaserBeam")))
-                {
-                    Transform nextTransform = Mirror.transform;
-                    nextTransform.LookAt(hit.point, Vector3.up);
-                    Mirror.transform.rotation = nextTransform.rotation;
-                    Vector3 rG = Gimbal.transform.rotation.eulerAngles;
-                    Vector3 rM = Mirror.transform.rotation.eulerAngles;
-                    Quaternion q2 = new Quaternion();
-                    q2.eulerAngles = new Vector3(rG.x, rM.y, rG.z);
-                    Gimbal.transform.rotation = q2;
-                }
-            }
-            else
-            {
-                float y = Gimbal.transform.localRotation.eulerAngles.y;
-                //y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
-                y += yFromYRot * 0.01f;
-                Quaternion G = new Quaternion();
-                G.eulerAngles = new Vector3(0, y, 0);
-                Gimbal.transform.localRotation = G;
-
-                float x = Mirror.transform.localRotation.eulerAngles.x;
-                //x += (xFromPos - previousXFromPos) * 100;
-                x += xFromXRot * 0.03f;
-                G.eulerAngles = new Vector3(x, 0, 0);
-                Mirror.transform.localRotation = G;
-
-                Vector3 movementDir = -new Vector3(MainCameraTracker.MainCamera.transform.position.x - transform.position.x,
-                    0, MainCameraTracker.MainCamera.transform.position.z - transform.position.z).normalized;
-                    
-                Debug.Log("JOY AXIS: " + axisPos);
-                transform.position += movementDir * axisPos.y * .01f + Quaternion.Euler(0,90, 0) * movementDir * axisPos.x* .01f;
-            }
+            float x = Mirror.transform.localRotation.eulerAngles.x;
+            //x += (xFromPos - previousXFromPos) * 100;
+            x += xFromXRot * 0.03f;
+            G.eulerAngles = new Vector3(x, 0, 0);
+            Mirror.transform.localRotation = G;
         }
 
         previousYFromZPos = yFromZPos;
