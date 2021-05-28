@@ -36,6 +36,8 @@ public class RCLaserMirror : MonoBehaviour
 
     private bool readyToDeselect = false;
 
+    public InputActionProperty joystickAxis;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +124,8 @@ public class RCLaserMirror : MonoBehaviour
         float xRight = rightRot.eulerAngles.x > 180 ? rightRot.eulerAngles.x - 360 : rightRot.eulerAngles.x;
         float xFromXRot = (xLeft + xRight) / 2;
 
+        Vector2 axisPos = joystickAxis.action.ReadValue<Vector2>();
+
         if (selected && !GetComponent<ASLObject>().m_Mine)
         {
             OnDeselect();
@@ -165,6 +169,12 @@ public class RCLaserMirror : MonoBehaviour
                 x += xFromXRot * 0.03f;
                 G.eulerAngles = new Vector3(x, 0, 0);
                 Mirror.transform.localRotation = G;
+
+                Vector3 movementDir = -new Vector3(MainCameraTracker.MainCamera.transform.position.x - transform.position.x,
+                    0, MainCameraTracker.MainCamera.transform.position.z - transform.position.z).normalized;
+                    
+                Debug.Log("JOY AXIS: " + axisPos);
+                transform.position += movementDir * axisPos.y * .01f + Quaternion.Euler(0,90, 0) * movementDir * axisPos.x* .01f;
             }
         }
 
