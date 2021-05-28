@@ -44,24 +44,21 @@ public class RCLaserMirror : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        baseColor = GetComponent<MeshRenderer>().material.color;
+        if (GetComponent<MeshRenderer>() != null)
+        {
+            baseColor = GetComponent<MeshRenderer>().material.color;
+        }
         getTeleportHelper();
     }
 
     public void OnSelect()
     {
-        /*
-        Quaternion L = leftRotation.action.ReadValue<Quaternion>();
-        Quaternion R = rightRotation.action.ReadValue<Quaternion>();
-        Quaternion LR = Quaternion.Slerp(L, R, 0.5f);
-        initialLR = LR;
-        initialGimbalRot = Gimbal.transform.localRotation.eulerAngles;
-        initialMirrorRot = Mirror.transform.localRotation.eulerAngles;
-        */
         GetComponent<ASLObject>().SendAndSetClaim(() => {
             selected = true;
-            GetComponent<MeshRenderer>().material.color = Color.red;
-            Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
+            if (GetComponent<MeshRenderer>() != null) {
+                GetComponent<MeshRenderer>().material.color = Color.red;
+                Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
         }, 0);
         readyToDeselect = false;
     }
@@ -69,13 +66,16 @@ public class RCLaserMirror : MonoBehaviour {
     public void OnDeselect()
     {
         selected = false;
-        GetComponent<MeshRenderer>().material.color = baseColor;
-        Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
+        if (GetComponent<MeshRenderer>() != null)
+        {
+            GetComponent<MeshRenderer>().material.color = baseColor;
+            Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
+        }
     }
 
     public void OnHoverEntered()
     {
-        if (!selected)
+        if (!selected && GetComponent<MeshRenderer>() != null)
         {
             GetComponent<MeshRenderer>().material.color = Color.white;
             Gimbal.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -83,7 +83,7 @@ public class RCLaserMirror : MonoBehaviour {
     }
     public void OnHoverExited()
     {
-        if (!selected)
+        if (!selected && GetComponent<MeshRenderer>() != null)
         {
             GetComponent<MeshRenderer>().material.color = baseColor;
             Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
@@ -170,25 +170,25 @@ public class RCLaserMirror : MonoBehaviour {
                 G.eulerAngles = new Vector3(0, y, 0);
                 Gimbal.transform.localRotation = G;
 
-                float x = Mirror.transform.localRotation.eulerAngles.x;
-                //x += (xFromPos - previousXFromPos) * 100;
-                x += xFromXRot * 0.03f;
-                G.eulerAngles = new Vector3(x, 0, 0);
-                Mirror.transform.localRotation = G;
-
-                Vector3 movementDir = -new Vector3(MainCameraTracker.MainCamera.transform.position.x - transform.position.x,
-                    0, MainCameraTracker.MainCamera.transform.position.z - transform.position.z).normalized;
-
-                Debug.Log("JOY AXIS: " + axisPos);
-                transform.position += movementDir * axisPos.y * .01f + Quaternion.Euler(0, 90, 0) * movementDir * axisPos.x * .01f;
+                if (Mirror != null)
+                {
+                    float x = Mirror.transform.localRotation.eulerAngles.x;
+                    //x += (xFromPos - previousXFromPos) * 100;
+                    x += xFromXRot * 0.03f;
+                    G.eulerAngles = new Vector3(x, 0, 0);
+                    Mirror.transform.localRotation = G;
+                }
             }
+            Vector3 movementDir = -new Vector3(MainCameraTracker.MainCamera.transform.position.x - transform.position.x,
+                    0, MainCameraTracker.MainCamera.transform.position.z - transform.position.z).normalized;
+            Debug.Log("JOY AXIS: " + axisPos);
+            transform.position += movementDir * axisPos.y * .01f + Quaternion.Euler(0, 90, 0) * movementDir * axisPos.x * .01f;
         }
 
         previousYFromZPos = yFromZPos;
         previousYFromXPos = yFromXPos;
         previousXFromPos = xFromPos;
         setTeleportHelperActive(selected);
-
     }
 
     private void setTeleportHelperActive(bool boolean)
@@ -201,7 +201,10 @@ public class RCLaserMirror : MonoBehaviour {
     {
         GameObject a = GameObject.Find("VR Rig");
         Debug.Log("VR RO");
-        stp = a.GetComponent<ActionBasedSnapTurnProvider>();
-        lc = a.GetComponent<LocomotionController>();
+        if (a != null)
+        {
+            stp = a.GetComponent<ActionBasedSnapTurnProvider>();
+            lc = a.GetComponent<LocomotionController>();
+        }
     }
 }
