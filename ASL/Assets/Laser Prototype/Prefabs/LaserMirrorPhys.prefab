@@ -907,6 +907,17 @@ MonoBehaviour:
   UseCameraLook: 0
   Gimbal: {fileID: 831236862987044973}
   Mirror: {fileID: 5231844404409231969}
+  joystickAxis:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Joystick Axis
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 33547fa1-b492-4a05-aebd-7470289301c9
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -2176383753744033877, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!114 &2709764424796084016
 MonoBehaviour:
   m_ObjectHideFlags: 0
