@@ -26,7 +26,7 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
         if (!interactableASLObjectScript.isInteracting)
         {
             base.OnSelectEntering(interactor);
-            interactableASLObjectScript.startInteractingWithObject();
+            //interactableASLObjectScript.startInteractingWithObject();
             isHandlingLocally = true;
         }
     }
@@ -47,7 +47,7 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
                 attachTransform.localRotation = initialAttachLocalRot;
             }
             base.OnSelectEntered(interactor);
-            interactableASLObjectScript.startInteractingWithObject();
+            //interactableASLObjectScript.startInteractingWithObject();
             isHandlingLocally = true;
         }
     }
@@ -58,7 +58,7 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
         {
             Debug.Log("isPickedScript.OnSelectedExiting");
             base.OnSelectExiting(interactor);
-            interactableASLObjectScript.stopInteractingWithObject();
+            //interactableASLObjectScript.stopInteractingWithObject();
         }
         isHandlingLocally = false;
     }
@@ -67,7 +67,7 @@ public class XRGrabPositionInteractable : XRGrabInteractable {
     {
             Debug.Log("isPickedScript.OnSelectedExited");
             base.OnSelectExited(interactor);
-            interactableASLObjectScript.stopInteractingWithObject();
+            //interactableASLObjectScript.stopInteractingWithObject();
         if (isHandlingLocally)
         {
             isHandlingLocally = false;
