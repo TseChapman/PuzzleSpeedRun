@@ -36,6 +36,8 @@ public class RCLaserMirror : MonoBehaviour
 
     private bool readyToDeselect = false;
 
+    public LayerMask ExcludeLayersFromCameraRay;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,7 +141,8 @@ public class RCLaserMirror : MonoBehaviour
                 }
                 Ray ray = MainCameraTracker.MainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 5));
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, float.PositiveInfinity, ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("PlayerMesh") & ~LayerMask.GetMask("LaserMirror") & ~LayerMask.GetMask("LaserBeam")))
+                //~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("PlayerMesh") & ~LayerMask.GetMask("LaserMirror") & ~LayerMask.GetMask("LaserBeam") & ~LayerMask.GetMask("VRHandle")
+                if (Physics.Raycast(ray, out hit, float.PositiveInfinity, ~ExcludeLayersFromCameraRay))
                 {
                     Transform nextTransform = Mirror.transform;
                     nextTransform.LookAt(hit.point, Vector3.up);
