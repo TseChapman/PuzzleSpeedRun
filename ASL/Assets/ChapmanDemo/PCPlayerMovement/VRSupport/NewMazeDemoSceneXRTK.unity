@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5b6b782734b9f468579d56044ac234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 0
-  levelPrefabName: LaserPlaytest
+  levelType: 1
+  levelPrefabName: MediumLevel
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e4f1c43c86502449523205c21302a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RoomName: MazePlayerI
+  m_RoomName: Wierds
   m_StartingScene: NewMazeDemoSceneXRTK
 --- !u!4 &659362291
 Transform:
