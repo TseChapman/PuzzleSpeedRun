@@ -102,16 +102,16 @@ public class isPicked : MonoBehaviour
             GetComponent<ASLObject>().SendAndSetClaim(() => { });
             madeInitialClaim = true;
         }
-        Debug.Log("SEND?1");
+        //Debug.Log("SEND?1");
         if (localFloat != previousFloat)
         {
-            Debug.Log("SEND?2");
+            //Debug.Log("SEND?2");
             GetComponent<ASLObject>().SendAndSetClaim(() =>
             {
                 float[] f = new float[2];
                 f[0] = id;
                 f[1] = localFloat;
-                Debug.Log("SEND?3" + localFloat);
+                //Debug.Log("SEND?3" + localFloat);
                 GetComponent<ASLObject>().SendFloatArray(f);
             });
         }

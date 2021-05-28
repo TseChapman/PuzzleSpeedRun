@@ -7,6 +7,8 @@ public class PCPlayerMovement : MonoBehaviour
 {
     private static Transform playerMeshTransform;
     private static GameObject m_playerMeshObject;
+    private GameObject m_childPlayerMeshObject;
+    private PlayerPeerId m_playerPeerId;
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 10f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
@@ -141,15 +143,28 @@ public class PCPlayerMovement : MonoBehaviour
         }
         if (m_playerMeshObject != null && !m_isPeerIdSet)
         {
+            m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
+            m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
             int peerId = GameLiftManager.GetInstance().m_PeerId;
-            float[] flr = new float[1];
-            flr[0] = (float)peerId;
-            m_playerMeshObject.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
-            {
-                m_playerMeshObject.GetComponent<ASL.ASLObject>().SendFloatArray(flr);
-            });
+            string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
+            Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
+            m_playerPeerId.SetPeerId(peerId);
             m_isPeerIdSet = true;
         }
+        if (m_childPlayerMeshObject != null)
+        {
+            PlayerTeleport plyTeleport = m_childPlayerMeshObject.GetComponent<PlayerTeleport>();
+            if (plyTeleport != null && plyTeleport.GetIsSignalTeleport())
+            {
+                Debug.Log("Get Pos from PC");
+                Vector3 newPos = plyTeleport.GetPos();
+                controller.enabled = false;
+                this.gameObject.transform.position = newPos;
+                controller.enabled = true;
+                plyTeleport.ResetSignal();
+            }
+        }
+
     }
 
 

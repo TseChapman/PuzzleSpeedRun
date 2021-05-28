@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ASL;
 using TMPro;
 
 public class LobbyStartButton : MonoBehaviour
@@ -15,6 +16,7 @@ public class LobbyStartButton : MonoBehaviour
     private bool m_isPrefabCreated = false;
     private bool isTeamSet = false;
     private bool m_isPlayerAdded = false;
+    private float timer = 1f;
 
     public void ResetLobbyButton()
     {
@@ -23,6 +25,7 @@ public class LobbyStartButton : MonoBehaviour
         m_isPrefabCreated = false;
         isTeamSet = false;
         m_isPlayerAdded = false;
+        timer = 1f;
     }
 
     /// <param name="_gameObject">The gameobject that was created</param>
@@ -123,9 +126,11 @@ public class LobbyStartButton : MonoBehaviour
 
     private void SetPrefabTeamId()
     {
-        for (int i = 0; i < numTeam; i++)
+        for (int i = 0; i < m_levelPrefabs.Count; i++)
         {
-            m_levelPrefabs[i].GetComponent<MazeSystem>().SetTeamId(teamSelectSystem.GetTeamIdByIndex(i));
+            int teamId = teamSelectSystem.GetTeamIdByIndex(i);
+            Debug.Log("Set Prefab Team id = " + teamId);
+            m_levelPrefabs[i].GetComponent<MazeSystem>().SetTeamId(teamId);
         }
     }
 
@@ -139,27 +144,35 @@ public class LobbyStartButton : MonoBehaviour
             // Get the level prefab by index
             MazeSystem mazeSys = m_levelPrefabs[i].GetComponent<MazeSystem>();
             int teamId = mazeSys.GetTeamId(); // Get the teamId for that level prefab
+            Debug.Log("StartLevel Team id = " + teamId);
             Team t = teamSelectSystem.GetTeamById(teamId);
             if (t != null)
             {
                 // Check the member id and player peer id per team
                 int numMem = t.GetNumMember(); // Number of member in that team
-                for (int j = 0; i < numMem; j++)
+                for (int j = 0; j < numMem; j++)
                 {
                     int memPeerId = t.GetMemberId(j); // Get member's peer id in the team
-
+                    Debug.Log("StartLevel(): memPeer id = " + GameLiftManager.GetInstance().m_Players[memPeerId]);
                     // Traverse the players and find the player that have the same peer id
                     for (int k = 0; k < numPlayer; k++)
                     {
                         GameObject player = m_playerSystem.GetPlayerByIndex(k); // Get player object
-                        PlayerPeerId playerId = player.GetComponent<PlayerPeerId>(); // Get PlayerPeerId
+                        PlayerPeerId playerId = player.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>(); // Get PlayerPeerId
                         int peerId = playerId.GetPeerId();
+                        Debug.Log("StartLevel(): Player Id = " + GameLiftManager.GetInstance().m_Players[peerId]);
                         if (peerId != -1 && peerId == memPeerId) // Check if the peerId matches member's peerId
                         {
+                            Debug.Log("Add to maze: Peer id = " + GameLiftManager.GetInstance().m_Players[peerId]);
                             mazeSys.AddCharacterInMaze(player); // Add the player to the level
                         }
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("Team Id is not in teamSelectSystem");
+                return;
             }
 
             mazeSys.StartLevel();
@@ -192,9 +205,14 @@ public class LobbyStartButton : MonoBehaviour
         // If team id is set, start placing player into level's MazeSystem
         if (m_playerSystem.GetIsHost() && isTeamSet && !m_isPlayerAdded)
         {
-            // Add player gameObject to MazeSystem
-            StartLevel();
-            m_isPlayerAdded = true;
+            timer -= Time.smoothDeltaTime;
+            if (timer <= 0)
+            {
+                // Add player gameObject to MazeSystem
+                StartLevel();
+                m_isPlayerAdded = true;
+            }
+            
         }
     }
 }

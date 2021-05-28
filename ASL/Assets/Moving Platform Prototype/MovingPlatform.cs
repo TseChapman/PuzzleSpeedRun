@@ -109,7 +109,7 @@ public class MovingPlatform : MonoBehaviour
 
         RelativePosition = NextRelativePosition;
 
-        Debug.Log("USER ID = " + ASLUserID.ID());
+        //Debug.Log("USER ID = " + ASLUserID.ID());
         if (ASLUserID.ID() == 0)
         {
             GetComponent<ASLObject>().SendAndSetClaim(() => {

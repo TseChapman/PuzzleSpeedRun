@@ -37,7 +37,7 @@ public class ASLUserID
         foreach (string username in glm.m_Players.Values)
         {
             usernames.Add(username);
-            Debug.Log("Username: " + username);
+            //Debug.Log("Username: " + username);
         }
         usernames.Sort();
         id = usernames.IndexOf(glm.m_Username);

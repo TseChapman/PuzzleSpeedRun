@@ -11,6 +11,9 @@ public class VRPlayerMovement : MonoBehaviour{
 
 
     public static Transform playerMeshTransform;  //Stores playerMesh  
+    private static GameObject m_playerMeshObject;
+    private GameObject m_childPlayerMeshObject;
+    private PlayerPeerId m_playerPeerId;
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 3f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
@@ -40,6 +43,8 @@ public class VRPlayerMovement : MonoBehaviour{
     public GameObject vrPresenceObject;
     private VRPresence vrPresence;
     public int[] pickAbleLayerNum;
+    private bool m_isPeerIdSet = false; // True if m_playerMeshObject is set with client's peer id
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -90,6 +95,7 @@ public class VRPlayerMovement : MonoBehaviour{
     private static void InitCallBack(GameObject _gameobject)
     {
         playerMeshTransform = _gameobject.transform;
+        m_playerMeshObject = _gameobject;
     }
 
     //This will look for any playerMesh initiate and store it to the playerMeshTransform
@@ -163,7 +169,30 @@ public class VRPlayerMovement : MonoBehaviour{
                 playerMeshTransform.rotation = cameraRotation;
             }
         }
-      
+        if (m_playerMeshObject != null && !m_isPeerIdSet)
+        {
+            m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
+            m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            int peerId = GameLiftManager.GetInstance().m_PeerId;
+            string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
+            Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
+            m_playerPeerId.SetPeerId(peerId);
+            m_isPeerIdSet = true;
+        }
+
+        if (m_childPlayerMeshObject != null)
+        {
+            PlayerTeleport plyTeleport = m_childPlayerMeshObject.GetComponent<PlayerTeleport>();
+            if (plyTeleport != null && plyTeleport.GetIsSignalTeleport())
+            {
+                Debug.Log("Get Pos from VR");
+                Vector3 newPos = plyTeleport.GetPos();
+                controller.enabled = false;
+                this.gameObject.transform.position = newPos;
+                controller.enabled = true;
+                plyTeleport.ResetSignal();
+            }
+        }
     }
 
 }

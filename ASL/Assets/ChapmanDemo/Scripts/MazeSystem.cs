@@ -65,6 +65,7 @@ public class MazeSystem : MonoBehaviour
 
     public void StartLevel()
     {
+        if (m_playerSystem == null) m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
         if (!m_playerSystem.GetIsHost()) return;
         if (GetNumCharacterInMaze() == 0) return;
         m_mazeStartPosition.PlaceCharacterInStartPos();

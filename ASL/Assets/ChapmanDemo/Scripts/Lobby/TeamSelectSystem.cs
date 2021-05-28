@@ -81,6 +81,7 @@ public class TeamSelectSystem : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20f))
         {
+            if (hit.collider.gameObject.transform.parent == null) return;
             GameObject parent = hit.collider.gameObject.transform.parent.gameObject;
             if (parent.tag == "Team") // Check if clicked on a team object
             {
@@ -141,7 +142,7 @@ public class TeamSelectSystem : MonoBehaviour
         bool result = true;
         foreach (Team t in m_teams)
         {
-            if ((t.GetNumMember() == 0) || (t.GetNumMember() != 0 && t.GetNumMember() < 2))
+            if ((t.GetNumMember() != 0 && t.GetNumMember() < 2))
                 result = false;
         }
         return result;
