@@ -39,6 +39,8 @@ public class RCLaserMirror : MonoBehaviour {
 
     public InputActionProperty joystickAxis;
 
+    public EventSync eventSync;
+
     private LocomotionController lc;
     private ActionBasedSnapTurnProvider stp;
     // Start is called before the first frame update
@@ -55,6 +57,7 @@ public class RCLaserMirror : MonoBehaviour {
     {
         GetComponent<ASLObject>().SendAndSetClaim(() => {
             selected = true;
+            eventSync.Activate("GastureMirrorMirrorStartInteractiong");
             if (GetComponent<MeshRenderer>() != null) {
                 GetComponent<MeshRenderer>().material.color = Color.red;
                 Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
@@ -65,6 +68,7 @@ public class RCLaserMirror : MonoBehaviour {
 
     public void OnDeselect()
     {
+        eventSync.Activate("GastureMirrorMirrorStopInteractiong");
         selected = false;
         if (GetComponent<MeshRenderer>() != null)
         {

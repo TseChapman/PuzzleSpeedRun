@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4268776475240164203}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dec5938d09d782749af19f01039c8620, type: 3}
   m_Name: 
@@ -1173,6 +1173,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -2176383753744033877, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  eventSync: {fileID: 3130460467865565883}
 --- !u!114 &3014720488444564344
 MonoBehaviour:
   m_ObjectHideFlags: 0

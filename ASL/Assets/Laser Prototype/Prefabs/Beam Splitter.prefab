@@ -60,9 +60,9 @@ MonoBehaviour:
   - OnEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 5338821768665963686}
           m_TargetAssemblyTypeName: InteractableASLObject, Assembly-CSharp
-          m_MethodName: startInteracting
+          m_MethodName: stopInteracting
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   - OnEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 5338821768665963686}
           m_TargetAssemblyTypeName: InteractableASLObject, Assembly-CSharp
           m_MethodName: stopInteracting
           m_Mode: 1
@@ -330,7 +330,7 @@ MonoBehaviour:
   isInteracting: 0
   startInteractingEventName: BeamSplitterGastureStartInteracting
   stopInteractingEventName: BeamSplitterGastureStopInteracting
-  myEventSync: {fileID: 0}
+  myEventSync: {fileID: 4948100894615863332}
   additionalColliderToDisable: []
   disableMyColliderWhenInteracting: 1
   isPushable: 1
@@ -441,6 +441,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -2176383753744033877, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  eventSync: {fileID: 0}
 --- !u!1 &7257771958029600354
 GameObject:
   m_ObjectHideFlags: 0
