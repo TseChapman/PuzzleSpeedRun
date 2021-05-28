@@ -15,6 +15,8 @@ public class RCLaserMirror : MonoBehaviour
     public InputActionProperty headPosition;
     public InputActionProperty headRotation;
 
+    public bool UseCameraLook;
+
     public GameObject Gimbal;
     public GameObject Mirror;
 
@@ -116,18 +118,54 @@ public class RCLaserMirror : MonoBehaviour
 
         if (selected)
         {
-            float y = Gimbal.transform.localRotation.eulerAngles.y;
-            //y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
-            y += yFromYRot * 0.01f;
-            Quaternion G = new Quaternion();
-            G.eulerAngles = new Vector3(0, y, 0);
-            Gimbal.transform.localRotation = G;
 
-            float x = Mirror.transform.localRotation.eulerAngles.x;
-            //x += (xFromPos - previousXFromPos) * 100;
-            x += xFromXRot * 0.03f;
-            G.eulerAngles = new Vector3(x, 0, 0);
-            Mirror.transform.localRotation = G;
+            if (UseCameraLook)
+            {
+                if (MainCameraTracker.MainCamera == null)
+                {
+                    Debug.Log("MainCameraTracker.MainCamera == null!");
+                    return;
+                }
+                Ray ray = MainCameraTracker.MainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+                Debug.Log(MainCameraTracker.MainCamera);
+                Debug.Log(ray);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, ~LayerMask.GetMask("BoundaryTrigger")))
+                {
+                    Quaternion oldRotation = Mirror.transform.rotation;
+                    Transform nextTransform = Mirror.transform;
+                    nextTransform.LookAt(hit.point, Vector3.up);
+                    Quaternion newRotation = Quaternion.Slerp(oldRotation, nextTransform.rotation, 10f*Time.deltaTime);
+                    Debug.Log(oldRotation + "  " + newRotation);
+                    nextTransform.rotation = newRotation;
+                    Vector3 v = nextTransform.rotation * new Vector3(0, 0, 1);
+                    Debug.DrawRay(nextTransform.position + new Vector3(0, 2, 0), v);
+                    //if (Vector3.Angle(v, new Vector3(0, -1, 0)) > 30)
+                    //{
+                        Mirror.transform.rotation = Quaternion.Slerp(Mirror.transform.rotation, nextTransform.rotation, 0.05f);
+                        Vector3 rG = Gimbal.transform.rotation.eulerAngles;
+                        Vector3 rM = Mirror.transform.rotation.eulerAngles;
+                        Quaternion q = new Quaternion();
+                        q.eulerAngles = new Vector3(rG.x, rM.y, rG.z);
+                        Gimbal.transform.rotation = q;
+                    //}
+                }
+            }
+            else
+            {
+                float y = Gimbal.transform.localRotation.eulerAngles.y;
+                //y += (yFromZPos - previousYFromZPos) * 100f + (yFromXPos - previousYFromXPos) * 50f;
+                y += yFromYRot * 0.01f;
+                Quaternion G = new Quaternion();
+                G.eulerAngles = new Vector3(0, y, 0);
+                Gimbal.transform.localRotation = G;
+
+                float x = Mirror.transform.localRotation.eulerAngles.x;
+                //x += (xFromPos - previousXFromPos) * 100;
+                x += xFromXRot * 0.03f;
+                G.eulerAngles = new Vector3(x, 0, 0);
+                Mirror.transform.localRotation = G;
+            }
         }
 
         previousYFromZPos = yFromZPos;
