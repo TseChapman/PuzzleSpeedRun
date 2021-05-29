@@ -155,10 +155,11 @@ public class PCPlayerMovement : MonoBehaviour
                 m_playerPeerId.SetCallBack();
             int peerId = GameLiftManager.GetInstance().m_PeerId;
             string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
-            Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
+            //Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
             m_playerPeerId.SetPeerId(peerId);
             m_isPeerIdSet = true;
         }
+        /*
         else
         {
             if (m_playerMeshObject == null)
@@ -174,6 +175,7 @@ public class PCPlayerMovement : MonoBehaviour
                 Debug.Log("GetIsPeerIdCallBackSet() return: " + m_playerSystem.GetIsPeerIdCallBackSet().ToString());
             }
         }
+        */
         if (m_childPlayerMeshObject != null)
         {
             PlayerTeleport plyTeleport = m_childPlayerMeshObject.GetComponent<PlayerTeleport>();

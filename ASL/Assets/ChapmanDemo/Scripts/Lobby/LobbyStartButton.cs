@@ -129,7 +129,7 @@ public class LobbyStartButton : MonoBehaviour
         for (int i = 0; i < m_levelPrefabs.Count; i++)
         {
             int teamId = teamSelectSystem.GetTeamIdByIndex(i);
-            Debug.Log("Set Prefab Team id = " + teamId);
+            //Debug.Log("Set Prefab Team id = " + teamId);
             m_levelPrefabs[i].GetComponent<MazeSystem>().SetTeamId(teamId);
         }
     }
@@ -153,17 +153,17 @@ public class LobbyStartButton : MonoBehaviour
                 for (int j = 0; j < numMem; j++)
                 {
                     int memPeerId = t.GetMemberId(j); // Get member's peer id in the team
-                    Debug.Log("StartLevel(): memPeer id = " + GameLiftManager.GetInstance().m_Players[memPeerId]);
+                    //Debug.Log("StartLevel(): memPeer id = " + GameLiftManager.GetInstance().m_Players[memPeerId]);
                     // Traverse the players and find the player that have the same peer id
                     for (int k = 0; k < numPlayer; k++)
                     {
                         GameObject player = m_playerSystem.GetPlayerByIndex(k); // Get player object
                         PlayerPeerId playerId = player.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>(); // Get PlayerPeerId
                         int peerId = playerId.GetPeerId();
-                        Debug.Log("StartLevel(): Player Id = " + GameLiftManager.GetInstance().m_Players[peerId]);
+                        //Debug.Log("StartLevel(): Player Id = " + GameLiftManager.GetInstance().m_Players[peerId]);
                         if (peerId != -1 && peerId == memPeerId) // Check if the peerId matches member's peerId
                         {
-                            Debug.Log("Add to maze: Peer id = " + GameLiftManager.GetInstance().m_Players[peerId]);
+                            //Debug.Log("Add to maze: Peer id = " + GameLiftManager.GetInstance().m_Players[peerId]);
                             mazeSys.AddCharacterInMaze(player); // Add the player to the level
                         }
                     }

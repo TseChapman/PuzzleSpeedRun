@@ -163,7 +163,7 @@ public class PlayerSystem : MonoBehaviour
         foreach (GameObject g in players)
         {
             PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
-            Debug.Log("PlayerSystem: InitPeerIdCallBack(): Set callback function");
+            //Debug.Log("PlayerSystem: InitPeerIdCallBack(): Set callback function");
             pId.SetCallBack();
         }
         m_isPeerIdCallBackSet = true;
@@ -194,10 +194,12 @@ public class PlayerSystem : MonoBehaviour
         InitPeerIdCallBack();
         // Testing
         InitializeLobby();
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TestSetPeerId();
         }
+        */
         return;
         //StartMaze();
         //InitializeMaze();

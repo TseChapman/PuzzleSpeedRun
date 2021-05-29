@@ -18,7 +18,7 @@ public class PlayerPeerId : MonoBehaviour
         //id = _id;
         float[] flr = new float[1];
         flr[0] = (float)_id;
-        Debug.Log("Client side: PlayerPeerId: SetPeerId(): id = " + _id);// + " Player Username: " + GameLiftManager.GetInstance().m_Players[id]);
+        //Debug.Log("Client side: PlayerPeerId: SetPeerId(): id = " + _id);// + " Player Username: " + GameLiftManager.GetInstance().m_Players[id]);
         m_aslObject.SendAndSetClaim(() =>
         {
             m_aslObject.SendFloatArray(flr);
@@ -30,7 +30,7 @@ public class PlayerPeerId : MonoBehaviour
     public void SetCallBack()
     {
         if (m_isCallBackSet) return;
-        Debug.Log("PlayerPeerId: SetCallBack(): Set callback function");
+        //Debug.Log("PlayerPeerId: SetCallBack(): Set callback function");
         this.gameObject.GetComponent<ASL.ASLObject>()._LocallySetFloatCallback(FloatCallback);
         m_isCallBackSet = true;
     }
@@ -42,7 +42,7 @@ public class PlayerPeerId : MonoBehaviour
         float value = _floatArr[0];
         m_peerId = (int)value;
         //Debug.Log("PlayerPeerId: Set Peer id = " + GameLiftManager.GetInstance().m_Players[m_peerId] + ", id = " + m_peerId);
-        Debug.Log("PlayerPeerId: Set id on obj = " + _id);
+        //Debug.Log("PlayerPeerId: Set id on obj = " + _id);
     }
 
     // Start is called before the first frame update

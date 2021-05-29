@@ -178,9 +178,11 @@ public class VRPlayerMovement : MonoBehaviour{
         {
             m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
             m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            if (!m_playerPeerId.GetIsCallBackSet())
+                m_playerPeerId.SetCallBack();
             int peerId = GameLiftManager.GetInstance().m_PeerId;
             string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
-            Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
+            //Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
             m_playerPeerId.SetPeerId(peerId);
             m_isPeerIdSet = true;
         }
