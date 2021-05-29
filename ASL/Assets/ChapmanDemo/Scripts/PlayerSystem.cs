@@ -19,12 +19,15 @@ public class PlayerSystem : MonoBehaviour
     private bool m_isLobbyInit = false;
     private static bool m_isLobbyStored = false;
     private bool m_isLobbyStarted = false;
+    private bool m_isPeerIdCallBackSet = false;
 
     // TODO: Allow teams. Maybe List<List<GameObject>> ?
     private static GameObject lobby;
     private List<GameObject> m_playerList = new List<GameObject>();
     private Dictionary<string, int> m_playerObjDict = new Dictionary<string, int>();
     private int m_playerIndex = 0;
+
+    public bool GetIsPeerIdCallBackSet() { return m_isPeerIdCallBackSet; }
 
     //TODO: Maybe move it to a level system
     /// <param name="_gameObject">The gameobject that was created</param>
@@ -152,6 +155,31 @@ public class PlayerSystem : MonoBehaviour
         m_isInit = true;
     }
 
+    private void InitPeerIdCallBack()
+    {
+        if (!m_isInit) return;
+        if (m_isPeerIdCallBackSet) return;
+
+        foreach (GameObject g in m_playerList)
+        {
+            PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            Debug.Log("PlayerSystem: InitPeerIdCallBack(): Set callback function");
+            pId.SetCallBack();
+        }
+        m_isPeerIdCallBackSet = true;
+    }
+
+    private void TestSetPeerId()
+    {
+        for (int i = 0; i < m_playerList.Count; i++)
+        {
+            GameObject g = m_playerList[i];
+            PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            Debug.Log("PlayerSystem: TestSetPeerId(): Test Set peer id = " + (100+i));
+            pId.SetPeerId(100 + i);
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -162,8 +190,13 @@ public class PlayerSystem : MonoBehaviour
     {
         m_isHost = GameLiftManager.GetInstance().AmLowestPeer();
         InitPlayers();
+        InitPeerIdCallBack();
         // Testing
         InitializeLobby();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TestSetPeerId();
+        }
         return;
         //StartMaze();
         //InitializeMaze();

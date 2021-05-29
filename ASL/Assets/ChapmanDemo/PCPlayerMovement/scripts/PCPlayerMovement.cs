@@ -9,6 +9,7 @@ public class PCPlayerMovement : MonoBehaviour
     public static GameObject m_playerMeshObject;
     private GameObject m_childPlayerMeshObject;
     private PlayerPeerId m_playerPeerId;
+    private PlayerSystem m_playerSystem;
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 10f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
@@ -34,6 +35,7 @@ public class PCPlayerMovement : MonoBehaviour
 
     void Start()
     {
+        m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
         controller = GetComponent<CharacterController>();
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
@@ -145,11 +147,10 @@ public class PCPlayerMovement : MonoBehaviour
                 playerMeshTransform.rotation = transform.rotation;
             }
         }
-        if (m_playerMeshObject != null && !m_isPeerIdSet)
+        if (m_playerMeshObject != null && !m_isPeerIdSet && m_playerSystem != null && m_playerSystem.GetIsPeerIdCallBackSet())
         {
             m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
             m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
-            m_playerPeerId.SetCallBack();
             int peerId = GameLiftManager.GetInstance().m_PeerId;
             string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
             Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
