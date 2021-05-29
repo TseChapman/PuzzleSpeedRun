@@ -442,6 +442,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
     m_Reference: {fileID: -2176383753744033877, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   eventSync: {fileID: 4948100894615863332}
+  IsBeamSplitter: 1
 --- !u!1 &7257771958029600354
 GameObject:
   m_ObjectHideFlags: 0
