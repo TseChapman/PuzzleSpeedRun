@@ -73,12 +73,15 @@ public class RCLaserMirror : MonoBehaviour {
 
     public void OnDeselect()
     {
-        eventSync.Activate("GastureMirrorStopInteracting");
-        selected = false;
-        if (GetComponent<MeshRenderer>() != null)
+        if (selected)
         {
-            GetComponent<MeshRenderer>().material.color = baseColor;
-            Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
+            eventSync.Activate("GastureMirrorStopInteracting");
+            selected = false;
+            if (GetComponent<MeshRenderer>() != null)
+            {
+                GetComponent<MeshRenderer>().material.color = baseColor;
+                Gimbal.GetComponent<MeshRenderer>().material.color = baseColor;
+            }
         }
     }
 
