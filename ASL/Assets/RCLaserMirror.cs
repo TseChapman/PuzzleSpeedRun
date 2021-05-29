@@ -41,6 +41,8 @@ public class RCLaserMirror : MonoBehaviour {
 
     public EventSync eventSync;
 
+    public bool IsBeamSplitter;
+
     private LocomotionController lc;
     private ActionBasedSnapTurnProvider stp;
     // Start is called before the first frame update
@@ -60,7 +62,11 @@ public class RCLaserMirror : MonoBehaviour {
             GetComponent<ASLObject>().SendAndSetClaim(() =>
             {
                 selected = true;
-                eventSync.Activate("GastureMirrorStartInteracting");
+                if (IsBeamSplitter) {
+                    eventSync.Activate("BeamSplitterGastureStartInteracting");
+                } else {
+                    eventSync.Activate("GastureMirrorStartInteracting");
+                }
                 if (GetComponent<MeshRenderer>() != null)
                 {
                     GetComponent<MeshRenderer>().material.color = Color.red;
@@ -75,7 +81,13 @@ public class RCLaserMirror : MonoBehaviour {
     {
         if (selected)
         {
-            eventSync.Activate("GastureMirrorStopInteracting");
+            if (IsBeamSplitter)
+            {
+                eventSync.Activate("BeamSplitterGastureStopInteracting");
+            } else
+            {
+                eventSync.Activate("GastureMirrorStopInteracting");
+            }
             selected = false;
             if (GetComponent<MeshRenderer>() != null)
             {

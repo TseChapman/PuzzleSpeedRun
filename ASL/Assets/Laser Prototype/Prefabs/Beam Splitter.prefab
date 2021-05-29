@@ -62,7 +62,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 5338821768665963686}
           m_TargetAssemblyTypeName: InteractableASLObject, Assembly-CSharp
-          m_MethodName: stopInteracting
+          m_MethodName: startInteracting
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnHoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 742763784353112230}
         m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
         m_MethodName: OnHoverEntered
         m_Mode: 1
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_OnHoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 742763784353112230}
         m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
         m_MethodName: OnHoverExited
         m_Mode: 1
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_OnSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 742763784353112230}
         m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
         m_MethodName: OnSelect
         m_Mode: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_OnSelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 742763784353112230}
         m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
         m_MethodName: OnDeselect
         m_Mode: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_OnSelectCanceled:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 742763784353112230}
         m_TargetAssemblyTypeName: RCLaserMirror, Assembly-CSharp
         m_MethodName: OnDeselect
         m_Mode: 1
@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -2176383753744033877, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  eventSync: {fileID: 0}
+  eventSync: {fileID: 4948100894615863332}
 --- !u!1 &7257771958029600354
 GameObject:
   m_ObjectHideFlags: 0
