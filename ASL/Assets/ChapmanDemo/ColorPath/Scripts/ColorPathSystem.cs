@@ -54,15 +54,16 @@ public class ColorPathSystem : MonoBehaviour
         return isCorrect;
     }
 
-    private string GetPath()
-    {
-        string fileName = correctAnswerFilename + ".txt";
-        return System.IO.Path.Combine(Environment.CurrentDirectory, @"Assets\Resources\", fileName);
-    }
+    //private string GetPath()
+    //{
+    //    string fileName = correctAnswerFilename + ".txt";
+    //    return System.IO.Path.Combine(Environment.CurrentDirectory, @"Assets\Resources\", fileName);
+    //}
 
     private bool ParseFile(string path)
     {
-        string[] lines = System.IO.File.ReadAllLines(path);
+        string[] lines = Resources.Load<TextAsset>(path).text.Split('\n');
+        //string[] lines = System.IO.File.ReadAllLines(path);
         if (lines.Length != 10) return false;
         for (int i = 0; i < NUM_CUBE_PER_ROW; i++)
         {
@@ -85,8 +86,8 @@ public class ColorPathSystem : MonoBehaviour
     private void Start()
     {
         m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
-        string path = GetPath();
-        bool isValidInput = ParseFile(path);
+        //string path = GetPath();
+        bool isValidInput = ParseFile(correctAnswerFilename);
         Debug.Log("Is ColorPath file a valid input = " + isValidInput.ToString());
     }
 }
