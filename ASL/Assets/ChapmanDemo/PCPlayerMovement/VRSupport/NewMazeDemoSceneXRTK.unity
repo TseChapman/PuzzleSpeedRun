@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e4f1c43c86502449523205c21302a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RoomName: Wierds
+  m_RoomName: PuzzleSpeedrunMediumPlaytest
   m_StartingScene: NewMazeDemoSceneXRTK
 --- !u!4 &659362291
 Transform:
@@ -2378,7 +2378,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.34
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
