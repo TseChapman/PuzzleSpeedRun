@@ -55,15 +55,20 @@ public class RCLaserMirror : MonoBehaviour {
 
     public void OnSelect()
     {
-        GetComponent<ASLObject>().SendAndSetClaim(() => {
-            selected = true;
-            eventSync.Activate("GastureMirrorStartInteracting");
-            if (GetComponent<MeshRenderer>() != null) {
-                GetComponent<MeshRenderer>().material.color = Color.red;
-                Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
-            }
-        }, 0);
-        readyToDeselect = false;
+        if (GetComponent<InteractableASLObject>() != null && !GetComponent<InteractableASLObject>().isInteracting)
+        {
+            GetComponent<ASLObject>().SendAndSetClaim(() =>
+            {
+                selected = true;
+                eventSync.Activate("GastureMirrorStartInteracting");
+                if (GetComponent<MeshRenderer>() != null)
+                {
+                    GetComponent<MeshRenderer>().material.color = Color.red;
+                    Gimbal.GetComponent<MeshRenderer>().material.color = Color.red;
+                }
+            }, 0);
+            readyToDeselect = false;
+        }
     }
 
     public void OnDeselect()
