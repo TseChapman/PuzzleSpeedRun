@@ -157,9 +157,9 @@ public class PlayerSystem : MonoBehaviour
 
     private void InitPeerIdCallBack()
     {
-        if (!m_isInit) return;
         if (m_isPeerIdCallBackSet) return;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length < GameLiftManager.GetInstance().m_Players.Count) return;
         foreach (GameObject g in players)
         {
             PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();

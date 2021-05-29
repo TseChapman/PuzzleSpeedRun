@@ -151,11 +151,28 @@ public class PCPlayerMovement : MonoBehaviour
         {
             m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
             m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            if (!m_playerPeerId.GetIsCallBackSet())
+                m_playerPeerId.SetCallBack();
             int peerId = GameLiftManager.GetInstance().m_PeerId;
             string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
             Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
             m_playerPeerId.SetPeerId(peerId);
             m_isPeerIdSet = true;
+        }
+        else
+        {
+            if (m_playerMeshObject == null)
+            {
+                Debug.Log("PlayerMeshObject is null");
+            }
+            if (m_playerSystem == null)
+            {
+                Debug.Log("PlayerSystem is Null");
+            }
+            else
+            {
+                Debug.Log("GetIsPeerIdCallBackSet() return: " + m_playerSystem.GetIsPeerIdCallBackSet().ToString());
+            }
         }
         if (m_childPlayerMeshObject != null)
         {

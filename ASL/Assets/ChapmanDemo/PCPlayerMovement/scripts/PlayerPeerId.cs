@@ -7,17 +7,21 @@ public class PlayerPeerId : MonoBehaviour
 {
     [SerializeField] public int id = -1;
     [SerializeField] private int m_peerId = -1;
+    private int prevId = -1;
+    private ASL.ASLObject m_aslObject;
     private bool m_isCallBackSet = false;
+
+    public bool GetIsCallBackSet() { return m_isCallBackSet; }
 
     public void SetPeerId(int _id)
     {
-        id = _id;
+        //id = _id;
         float[] flr = new float[1];
         flr[0] = (float)_id;
         Debug.Log("Client side: PlayerPeerId: SetPeerId(): id = " + _id);// + " Player Username: " + GameLiftManager.GetInstance().m_Players[id]);
-        this.gameObject.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+        m_aslObject.SendAndSetClaim(() =>
         {
-            this.gameObject.GetComponent<ASL.ASLObject>().SendFloatArray(flr);
+            m_aslObject.SendFloatArray(flr);
         });
     }
 
@@ -44,16 +48,32 @@ public class PlayerPeerId : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        m_aslObject = this.gameObject.GetComponent<ASL.ASLObject>();
         SetCallBack();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        if (!m_isCallBackSet)
+        {
+            SetCallBack();
+        }
+        if (m_peerId != -1 && m_peerId != prevId)
+        {
+            float[] flr = new float[1];
+            flr[0] = (float)m_peerId;
+            //Debug.Log("Client side: PlayerPeerId: Update(): id = " + _id);// + " Player Username: " + GameLiftManager.GetInstance().m_Players[id]);
+            m_aslObject.SendAndSetClaim(() =>
+            {
+                m_aslObject.SendFloatArray(flr);
+            });
+            prevId = m_peerId;
+        }
+        /*
         if (id == -1 && id != m_peerId)
             id = m_peerId;
-        /*
+        
         if (id != m_peerId)
             m_peerId = id;
         */
