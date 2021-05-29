@@ -159,8 +159,8 @@ public class PlayerSystem : MonoBehaviour
     {
         if (!m_isInit) return;
         if (m_isPeerIdCallBackSet) return;
-
-        foreach (GameObject g in m_playerList)
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject g in players)
         {
             PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
             Debug.Log("PlayerSystem: InitPeerIdCallBack(): Set callback function");
@@ -171,9 +171,10 @@ public class PlayerSystem : MonoBehaviour
 
     private void TestSetPeerId()
     {
-        for (int i = 0; i < m_playerList.Count; i++)
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
         {
-            GameObject g = m_playerList[i];
+            GameObject g = players[i];
             PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
             Debug.Log("PlayerSystem: TestSetPeerId(): Test Set peer id = " + (100+i));
             pId.SetPeerId(100 + i);
