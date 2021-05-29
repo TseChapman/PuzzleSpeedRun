@@ -7,7 +7,6 @@ public class CheckColorPatternButton : MonoBehaviour
     public ColorPathSystem colorPathSysten;
     public GameObject exitDoor;
     private static bool m_isColorPathFinished = false;
-
     /// <param name="_myFloats">My float 4 array</param>
     /// <param name="_id">The id of the object that called <see cref="ASL.ASLObject.SendFloatArray_Example(float[])"/></param>
     public static void FloatCallback(string _id, float[] _floatArr)
@@ -59,6 +58,14 @@ public class CheckColorPatternButton : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
+        {
+            CheckColorPathAnswer();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 18) //handLayer
         {
             CheckColorPathAnswer();
         }
