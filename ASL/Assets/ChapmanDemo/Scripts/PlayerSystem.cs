@@ -20,14 +20,31 @@ public class PlayerSystem : MonoBehaviour
     private static bool m_isLobbyStored = false;
     private bool m_isLobbyStarted = false;
     private bool m_isPeerIdCallBackSet = false;
+    private bool m_isMiddlewareCreated = false;
+    private float m_peerIdTimer = 2f;
 
     // TODO: Allow teams. Maybe List<List<GameObject>> ?
     private static GameObject lobby;
     private List<GameObject> m_playerList = new List<GameObject>();
     private Dictionary<string, int> m_playerObjDict = new Dictionary<string, int>();
     private int m_playerIndex = 0;
+    private static PeerIdMiddleware m_peerIdMiddleware;
 
-    public bool GetIsPeerIdCallBackSet() { return m_isPeerIdCallBackSet; }
+    public bool GetIsPeerIdCallBackSet() 
+    {
+        /*
+        if (m_peerIdTimer > 0)
+            return false;
+        */
+        if (m_peerIdMiddleware == null)
+        {
+            Debug.Log("PlayerSystem: GetIsPeerIdCallBack(): m_peerIdMiddleware is null");
+            m_peerIdMiddleware = GameObject.FindObjectOfType<PeerIdMiddleware>();
+            return false;
+        }
+        return m_peerIdMiddleware.IsAllClientSet();
+        //return m_isPeerIdCallBackSet;
+    }
 
     //TODO: Maybe move it to a level system
     /// <param name="_gameObject">The gameobject that was created</param>
@@ -152,12 +169,19 @@ public class PlayerSystem : MonoBehaviour
             //Debug.Log("Character Object name: " + characterObj.name);
         }
         //Debug.Log("Num player added to the list: " + m_playerList.Count);
+        CreatePeerIdMiddleware();
         m_isInit = true;
     }
 
     private void InitPeerIdCallBack()
     {
-        if (m_isPeerIdCallBackSet) return;
+        if (m_peerIdMiddleware == null) return;
+        if (!m_peerIdMiddleware.GetIsLocalCallBackSet()) return;
+        if (m_isPeerIdCallBackSet)
+        {
+            //m_peerIdTimer -= Time.smoothDeltaTime;
+            return;
+        }
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         if (players.Length < GameLiftManager.GetInstance().m_Players.Count) return;
         foreach (GameObject g in players)
@@ -167,6 +191,7 @@ public class PlayerSystem : MonoBehaviour
             pId.SetCallBack();
         }
         m_isPeerIdCallBackSet = true;
+        m_peerIdMiddleware.SendSetCallBack(GameLiftManager.GetInstance().m_PeerId);
     }
 
     private void TestSetPeerId()
@@ -181,6 +206,24 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
+    /// <param name="_gameObject">The gameobject that was created</param>
+    public static void StoreMiddleware(GameObject _gameObject)
+    {
+        //An example of how we can get a handle to our object that we just created but want to use later
+        m_peerIdMiddleware = _gameObject.GetComponent<PeerIdMiddleware>();
+    }
+
+    private void CreatePeerIdMiddleware()
+    {
+        if (m_isMiddlewareCreated) return;
+        Debug.Log("Create Middleware");
+        ASL.ASLHelper.InstantiateASLObject("PeerIdMiddleware",
+                                   new Vector3(1f, 0f, 0f), // TODO: Should have a parameter object
+                                   Quaternion.identity, "", "",
+                                   StoreMiddleware);
+        m_isMiddlewareCreated = true;
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -190,6 +233,10 @@ public class PlayerSystem : MonoBehaviour
     private void Update()
     {
         m_isHost = GameLiftManager.GetInstance().AmLowestPeer();
+        if (m_peerIdMiddleware == null)
+        {
+            m_peerIdMiddleware = GameObject.FindObjectOfType<PeerIdMiddleware>();
+        }
         InitPlayers();
         InitPeerIdCallBack();
         // Testing

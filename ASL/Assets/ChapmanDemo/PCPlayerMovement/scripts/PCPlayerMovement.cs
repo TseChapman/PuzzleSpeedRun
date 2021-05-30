@@ -172,7 +172,7 @@ public class PCPlayerMovement : MonoBehaviour
             }
             else
             {
-                Debug.Log("GetIsPeerIdCallBackSet() return: " + m_playerSystem.GetIsPeerIdCallBackSet().ToString());
+                //Debug.Log("GetIsPeerIdCallBackSet() return: " + m_playerSystem.GetIsPeerIdCallBackSet().ToString());
             }
         }
         */
