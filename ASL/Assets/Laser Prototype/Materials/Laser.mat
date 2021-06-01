@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Laser
-  m_Shader: {fileID: 4800000, guid: 5bdea20278144b11916d77503ba1467a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6a0cd97cd5ae58547b3e3d2676929631, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON _DIRECTIONAL_LIGHT _DISABLE_ALBEDO_MAP _EMISSION
     _HOVER_LIGHT _LOCAL_SPACE_TRIPLANAR_MAPPING _PROXIMITY_LIGHT_TWO_SIDED _REFLECTIONS
     _REFRACTION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _SPECULAR_HIGHLIGHTS
@@ -16,8 +16,7 @@ Material:
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Fade
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -161,7 +160,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _ClippingBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
-    - _Color: {r: 1, g: 0, b: 0, a: 0.49803922}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 766.9961, g: 0, b: 0, a: 1}
     - _EnvironmentColorX: {r: 1, g: 0, b: 0, a: 1}
