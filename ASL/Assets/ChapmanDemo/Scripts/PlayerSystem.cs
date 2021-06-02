@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using ASL;
 
+public enum LevelType
+{
+    SINGLE_FLOOR = 0,
+    DOUBLE_FLOOR = 1,
+    NUM_LEVEL_TYPE = 2
+};
+
 public class PlayerSystem : MonoBehaviour
 {
+    public LevelType levelType = LevelType.DOUBLE_FLOOR;
     public string levelPrefabName = "";
     private bool m_isHost = false;
     private bool m_isInit = false;
@@ -73,9 +81,19 @@ public class PlayerSystem : MonoBehaviour
 
     public void StartMaze()
     {
+        if (levelType != LevelType.DOUBLE_FLOOR) return;
         if (!m_isMazeStored) return;
         if (m_isMazeStarted) return;
         maze.GetComponent<MazeSystem>().InitMaze();
+        m_isMazeStarted = true;
+    }
+
+    public void StartSingleFloor()
+    {
+        if (levelType != LevelType.SINGLE_FLOOR) return;
+        if (!m_isMazeStored) return;
+        if (m_isMazeStarted) return;
+        maze.GetComponent<SingleFloorSystem>().InitFloor();
         m_isMazeStarted = true;
     }
 
@@ -108,7 +126,8 @@ public class PlayerSystem : MonoBehaviour
         if (m_isInit) return;
         //Debug.Log("I am the Host");
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); // TODO: Switch to the player script
-
+        Debug.Log("Num player in PlayerSystem ASL = " + GameLiftManager.GetInstance().m_Players.Count);
+        Debug.Log("Num player in players  = " + players.Length);
         if (players.Length < GameLiftManager.GetInstance().m_Players.Count) return;
         Debug.Log("Num player in PlayerSystem = " + players.Length);
         foreach (GameObject characterObj in players)
@@ -140,5 +159,6 @@ public class PlayerSystem : MonoBehaviour
         // Testing
         InitializeMaze();
         StartMaze();
+        StartSingleFloor();
     }
 }

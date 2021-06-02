@@ -22,6 +22,8 @@ public class ButtonTwoKey : MonoBehaviour
 
 
     bool button1 = false;
+    public int handLayer = 18;
+    private bool isClickedWithVR = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,40 +43,12 @@ public class ButtonTwoKey : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 2, layerMask))
             {
-                if(hit.transform.GetComponent<Renderer>().material.color == buttonColor)
+                if (hit.transform.GetComponent<Renderer>().material.color == buttonColor)
                 {
 
+                    turnOn(hit.transform);
 
-                    if (keyOne.GetComponent<Renderer>().material.color == keyColor)
-                    {
-                        animation = true;
-                        clickable = false;
-                        input = hit.transform;
-                        if (!button1)
-                        {
-                            keyTwo.GetComponent<Renderer>().material.color = keyTwoColor;
-                            keyTwo.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
-                            {
-                                keyTwo.GetComponent<ASL.ASLObject>().SendAndSetObjectColor(keyTwoColor, keyTwoColor);
-                            });
-                            button1 = true;
-                        }
-                        else
-                        {
-                            keyTwo.GetComponent<Renderer>().material.color = Color.white;
-                            keyTwo.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
-                            {
-                                keyTwo.GetComponent<ASL.ASLObject>().SendAndSetObjectColor(Color.white, Color.white);
-                            });
-                            button1 = false;
-                        }
-                    }
-                    else
-                    {
-                        resetKeys();
-                    }
                 }
-                               
             }
         }
     }
@@ -157,6 +131,39 @@ public class ButtonTwoKey : MonoBehaviour
                 });
             }
         }
+
+    }
+
+    private void turnOn(Transform buttonTransform)
+    {
+            if (keyOne.GetComponent<Renderer>().material.color == keyColor)
+            {
+                animation = true;
+                clickable = false;
+                input = buttonTransform.transform;
+                if (!button1)
+                {
+                        keyTwo.GetComponent<Renderer>().material.color = keyTwoColor;
+                        keyTwo.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+                        {
+                            keyTwo.GetComponent<ASL.ASLObject>().SendAndSetObjectColor(keyTwoColor, keyTwoColor);
+                        });
+                        button1 = true;
+                }
+                else
+                {
+                        keyTwo.GetComponent<Renderer>().material.color = Color.white;
+                        keyTwo.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+                        {
+                            keyTwo.GetComponent<ASL.ASLObject>().SendAndSetObjectColor(Color.white, Color.white);
+                        });
+                        button1 = false;
+                }
+            }
+            else
+            {
+                 resetKeys();
+            }
     }
 
     public void setKey(GameObject input)
@@ -167,5 +174,14 @@ public class ButtonTwoKey : MonoBehaviour
     public void setKey2(GameObject input)
     {
         keyTwo = input;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRY CLICK!");
+        if (other.gameObject.layer == handLayer)
+        {
+            turnOn(transform);
+        }
     }
 }

@@ -10,7 +10,12 @@ public class LaserBeamLighter : MonoBehaviour
     public float ClipDistance;
     private List<GameObject> lights;
 
+    public bool ConstantLightCount;
+    public int LightCount;
+
     public LaserSensor ExcludeSensor;
+
+    public bool CanTriggerSensors;
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +33,11 @@ public class LaserBeamLighter : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.TransformDirection(new Vector3(0f, 0f, 1f)));
         float nonSensorHitDistance = -1;
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~LayerMask.GetMask("LaserSensor")))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~LayerMask.GetMask("LaserSensor") & ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("VRHandle")))
         {
             nonSensorHitDistance = hit.distance;
             LaserSensor sensor = hit.transform.gameObject.GetComponent<LaserSensor>();
-            if (sensor != null && sensor != ExcludeSensor)
+            if (sensor != null && sensor != ExcludeSensor && CanTriggerSensors)
             {
                 sensor.Trigger(ray, hit);
             }
@@ -45,13 +50,13 @@ public class LaserBeamLighter : MonoBehaviour
             // Vector3(0,-0.495000005,-0.600000024)
             transform.localScale = new Vector3(1f, 1f, ClipDistance);
         }
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("LaserSensor")))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("LaserSensor") & ~LayerMask.GetMask("BoundaryTrigger") & ~LayerMask.GetMask("VRHandle")))
         {
             if (hit.distance <= nonSensorHitDistance)
             {
                 LaserSensor sensor = hit.transform.gameObject.GetComponent<LaserSensor>();
                 Debug.Log(hit.transform.gameObject.name);
-                if (sensor != null && sensor != ExcludeSensor)
+                if (sensor != null && sensor != ExcludeSensor && CanTriggerSensors)
                 {
                     sensor.Trigger(ray, hit);
                 }
@@ -67,6 +72,13 @@ public class LaserBeamLighter : MonoBehaviour
         {
             lightCount = 0;
         }
+
+        if (ConstantLightCount)
+        {
+            lightCount = LightCount;
+            LightDensity = lightCount / dist;
+        }
+
         if (lights.Count > lightCount)
         {
             for (int i = 0; i < lights.Count - lightCount; ++i)

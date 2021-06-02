@@ -371,7 +371,7 @@ namespace ASL
         {
             #if (ASL_DEBUG)
             string data = System.Text.Encoding.Default.GetString(_packet.Data);
-            Debug.Log($"[server-sent] OnDataReceived - Sender: {_packet.Sender} OpCode: {_packet.OpCode} data: {data.ToString()}");
+            //Debug.Log($"[server-sent] OnDataReceived - Sender: {_packet.Sender} OpCode: {_packet.OpCode} data: {data.ToString()}");
             #endif
             m_Packet = _packet; // Set packet
             if(_packet.OpCode > OpCodeFunctions.Length || _packet.OpCode < 0) // Check for invalid OpCode

@@ -74,24 +74,28 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ASL/ASL_Tutorials/Simple/WorldScanExample/ASLRoomLoadingExample.unity
     guid: 469930ea538046f429f64844afe0f1e7
-  - enabled: 1
+  - enabled: 0
     path: Assets/ChapmanDemo/PCPlayerMovement/NewMazeDemoScene.unity
     guid: 9309e14f7d8ed314da8fb5614e8c9608
   - enabled: 0
     path: Assets/Laser Prototype/Laser Level.unity
     guid: 19af41a0e01432449b59d4cd3acbd0e6
-  - enabled: 1
-    path: Assets/ASL/ASL_Scenes/ASL_SceneLoader.unity
-    guid: 6026d53651e499849a1420efc6833ec7
-  - enabled: 1
-    path: Assets/ASL/ASL_Scenes/ASL_LobbyScene.unity
-    guid: 31f3bf0f357b60c4981e20725877fd45
   - enabled: 0
     path: Assets/Laser Prototype/ASL Laser Demo.unity
     guid: b2a00d5ef4122fd45b788ae65866e671
+  - enabled: 1
+    path: Assets/ChapmanDemo/PCPlayerMovement/VRSupport/NewMazeDemoSceneXRTK.unity
+    guid: 53169fd2573d8924ab0fb3088036dafb
+  - enabled: 1
+    path: Assets/ASL/ASL_Scenes/ASL_LobbyScene.unity
+    guid: 31f3bf0f357b60c4981e20725877fd45
+  - enabled: 1
+    path: Assets/ASL/ASL_Scenes/ASL_SceneLoader.unity
+    guid: 6026d53651e499849a1420efc6833ec7
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 014e11ea0b10820459a24005e5775897, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: bf557935255407f40b56b5c173577bf9, type: 2}
-    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f81eaaa375ab70b40957a0e33db2d86f, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f8aa92101a3e94442b46f8cf0b32f74c, type: 2}
     com.unity.xr.management.arcore_loader: {fileID: 11400000, guid: 23a24ef9a392c0e4f95ea82d0acb26a1, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9884d9205f7a5604c9da4d3f97b10a5e, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 4e93221e1e72993418f9a29640c1f898, type: 2}

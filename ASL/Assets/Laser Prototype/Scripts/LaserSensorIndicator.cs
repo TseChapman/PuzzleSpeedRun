@@ -6,7 +6,8 @@ public class LaserSensorIndicator : MonoBehaviour
 {
 
     public int Threshold;
-
+    public Color On;
+    public Color Off;
     private int activations;
 
     // Start is called before the first frame update
@@ -25,9 +26,14 @@ public class LaserSensorIndicator : MonoBehaviour
         activations++;
         if (activations >= Threshold)
         {
-            Debug.Log("A");
-            Color c = new Color(0.0f, 1.0f, 0.0f);
-            GetComponent<MeshRenderer>().material.color = c;
+            if (GetComponent<MeshRenderer>() != null)
+            {
+                GetComponent<MeshRenderer>().material.color = On;
+            }
+            if (GetComponent<Light>() != null)
+            {
+                GetComponent<Light>().color = On;
+            }
         }
     }
     public void LaserHitEnd()
@@ -35,9 +41,14 @@ public class LaserSensorIndicator : MonoBehaviour
         activations--;
         if (activations < Threshold)
         {
-            Debug.Log("B");
-            Color c = new Color(1.0f, 0.0f, 0.0f);
-            GetComponent<MeshRenderer>().material.color = c;
+            if (GetComponent<MeshRenderer>() != null)
+            {
+                GetComponent<MeshRenderer>().material.color = Off;
+            }
+            if (GetComponent<Light>() != null)
+            {
+                GetComponent<Light>().color = Off;
+            }
         }
     }
 }

@@ -38,10 +38,12 @@ public class MazeStartPosition : MonoBehaviour
                     Debug.Log("No more bottom floor spawn position");
                     continue;
                 }
-
+                Debug.Log(character);
+                character.transform.position = bottomFloorPos;
                 // Set character position to bottom floor
                 character.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
                 {
+                    Debug.Log("Inside Setand Set ");
                     character.GetComponent<ASL.ASLObject>().SendAndSetWorldPosition(bottomFloorPos);
                 });
                 //Debug.Log("Add Character name: " + character.name + " to bottom floor list");

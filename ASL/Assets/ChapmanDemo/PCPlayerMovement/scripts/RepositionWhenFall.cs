@@ -21,4 +21,9 @@ public class RepositionWhenFall : MonoBehaviour
             preventFalling();
         }
     }
+
+    public void isGrabbed()
+    {
+        Debug.Log("cube is grabbed?!?" );
+    }
 }
