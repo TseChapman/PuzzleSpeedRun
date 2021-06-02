@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5b6b782734b9f468579d56044ac234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 0
-  levelPrefabName: LaserPlaytest
+  levelType: 1
+  levelPrefabName: MediumLevel
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e4f1c43c86502449523205c21302a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RoomName: MazePlayerI
+  m_RoomName: PuzzleSpeedrunMediumPlaytest
   m_StartingScene: NewMazeDemoSceneXRTK
 --- !u!4 &659362291
 Transform:
@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 674030981}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 536870912
+    m_Bits: 542646272
   m_AttachTransform: {fileID: 0}
   m_StartingSelectedInteractable: {fileID: 0}
   m_OnHoverEntered:
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_SphereCastRadius: 0.1
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 536870912
+    m_Bits: 542646272
   m_RaycastTriggerInteraction: 1
   m_KeepSelectedTargetValid: 1
   m_HoverToSelect: 0
@@ -2378,7 +2378,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.34
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}

@@ -21,37 +21,19 @@ public class CheckColorPatternButton : MonoBehaviour
         this.gameObject.GetComponent<ASL.ASLObject>()._LocallySetFloatCallback(FloatCallback);
     }
 
-    private void CheckColorPathAnswer()
+    private void checkAnswer()
     {
-        if (m_isColorPathFinished) return;
-        RaycastHit hit;
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, 3f))
+        // Get result from checking answer
+        bool isCorrect = colorPathSysten.CheckAnswer();
+        Debug.Log("CheckColorPatternButton: isCorrect = " + isCorrect.ToString());
+        // If answer is correct, destroy the exit door
+        if (isCorrect && exitDoor != null && exitDoor.GetComponent<ASL.ASLObject>() != null)
         {
-            if (hit.collider.gameObject.name == "CheckColorPatternButton")
+            Debug.Log("Removing color path door");
+            exitDoor.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
             {
-                // Get result from checking answer
-                bool isCorrect = colorPathSysten.CheckAnswer();
-                Debug.Log("CheckColorPatternButton: isCorrect = " + isCorrect.ToString());
-                // Set isColorPathFinished to the result of checking answer
-                m_isColorPathFinished = isCorrect;
-                float[] flr = new float[1];
-                flr[0] = isCorrect ? 0 : 1f;
-                this.gameObject.GetComponent<ASL.ASLObject>().SendAndSetClaim(() => 
-                {
-                    this.gameObject.GetComponent<ASL.ASLObject>().SendFloatArray(flr);
-                });
-
-                // If answer is correct, destroy the exit door
-                if (isCorrect)
-                {
-                    exitDoor.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
-                    {
-                        exitDoor.GetComponent<ASL.ASLObject>().DeleteObject();
-                    });
-                }
-            }
+                exitDoor.GetComponent<ASL.ASLObject>().DeleteObject();
+            });
         }
     }
 
@@ -60,7 +42,29 @@ public class CheckColorPatternButton : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            CheckColorPathAnswer();
+            //if (m_isColorPathFinished) return;
+            RaycastHit hit;
+            Debug.Log("Raycasting from color path button script");
+            var ray = MainCameraTracker.MainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 3f))
+            {
+                Debug.Log("Raycast hit from color path button script");
+                if (hit.collider.gameObject.name == "CheckColorPatternButton")
+                {
+                    Debug.Log("Checking Answer from PC");
+                    checkAnswer();
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {   
+        Debug.Log("Color path button hit by: " + other.gameObject.name);
+        if (other.gameObject.layer == 18)
+        {
+            Debug.Log("Checking Answer from VR");
+            checkAnswer();
         }
     }
 }

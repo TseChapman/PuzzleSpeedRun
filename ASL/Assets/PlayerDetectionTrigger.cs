@@ -16,7 +16,6 @@ public class PlayerDetectionTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("FADE TRIGGER ENTERED!!!!!");
         OnPlayerEntered.Invoke();
     }
 
