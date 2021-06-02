@@ -49,14 +49,90 @@ Shader "Unlit/LaserShader"
                 return o;
             }
 
+            float random(float3 v) {
+                return frac(sin(dot(v, float3(12.9898, 78.233, 47.9817))) * 43758.5453123);
+            }
+
+            float3 random3(float3 v) {
+                float x = random(v);
+                float y = random(v + x);
+                float z = random(v + y);
+                return float3(x,y,z);
+            }
+
+            float perlinNoise(float3 v, float scale) {
+                v *= scale;
+                float3 a = floor(v);
+                float3 b = ceil(v);
+                // corner positions;
+                float3 v0 = float3(a.x, a.y, a.z);
+                float3 v1 = float3(a.x, a.y, b.z);
+                float3 v2 = float3(a.x, b.y, a.z);
+                float3 v3 = float3(a.x, b.y, b.z);
+                float3 v4 = float3(b.x, a.y, a.z);
+                float3 v5 = float3(b.x, a.y, b.z);
+                float3 v6 = float3(b.x, b.y, a.z);
+                float3 v7 = float3(b.x, b.y, b.z);
+                float3 d0 = v - v0;
+                float3 d1 = v - v1;
+                float3 d2 = v - v2;
+                float3 d3 = v - v3;
+                float3 d4 = v - v4;
+                float3 d5 = v - v5;
+                float3 d6 = v - v6;
+                float3 d7 = v - v7;
+                float r0 = dot(random3(v0), d0);
+                float r1 = dot(random3(v1), d1);
+                float r2 = dot(random3(v2), d2);
+                float r3 = dot(random3(v3), d3);
+                float r4 = dot(random3(v4), d4);
+                float r5 = dot(random3(v5), d5);
+                float r6 = dot(random3(v6), d6);
+                float r7 = dot(random3(v7), d7);
+
+                float x0 = lerp(r0, r4, d0.x);
+                float x1 = lerp(r1, r5, d0.x);
+                float x2 = lerp(r2, r6, d0.x);
+                float x3 = lerp(r3, r7, d0.x);
+
+                float y0 = lerp(x0, x2, d0.y);
+                float y1 = lerp(x1, x3, d0.y);
+
+                return lerp(y0, y1, d0.z);
+                //return d0.z;
+            }
+
             fixed4 frag(v2f i) : SV_Target
             {
-                float r = 2 * abs(0.5 - i.uv.y);   
-                float r1 = 1 - r;
+                float t = _Time.x * 2;
+                float t2 = 5 * sin(t);
+                float sx = 15 + 5 * sin(t);
+                float sy = 15 + 5 * sin(t + 3.141/3);
+                float sz = 15 + 5 * sin(t + 2*3.141/3);
+                float3 tv = float3(sin(t), cos(t), t);
+                float nvx = perlinNoise(i.worldPos - tv, 5);
+                float nvy = perlinNoise(i.worldPos - tv, 10);
+                float nvz = perlinNoise(i.worldPos - tv, 15);
+                float a = 0;
+                float3 nv = float3(nvx, nvy, nvz);
+                float n0 = perlinNoise(nv, 100);
+                float n1 = perlinNoise(nv, 40);
+                float n2 = perlinNoise(nv, 8);
+                float n3 = perlinNoise(nv, 5);
+                float n = 1 - abs(n0 + n1 + n2 + n3);
 
-
+                float r = n * 2 * abs(0.5 - i.uv.y);
+                float centerWidth = 0.1;
+                float centerWidth2 = 0.15;
+                float r0 = (1 - r);
+                float r1 = r0 * (1 + centerWidth);
+                float r2 = r1 > 1 ? 1 : r1;
+                float r3 = r1 > 1 ? (r1 - 1) / centerWidth : 0;
+                float r4 = r3 * r3;
                 // sample the texture
-                fixed4 col = _Color * r1 * r1;
+                fixed4 col = _Color * r0;
+                col = fixed4(r2 * r2, r3 * r3, r4 * r4, 1);
+                col *= lerp(1, n, 0.5);
                 // apply fog
                 //UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
