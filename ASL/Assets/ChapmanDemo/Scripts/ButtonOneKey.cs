@@ -8,6 +8,15 @@ public class ButtonOneKey : MonoBehaviour
     public GameObject keyOne;
     public Color keyColor;
     public Color buttonColor;
+    private float timeElapsed = 0f;
+    public Transform input;
+    bool animation = false;
+    bool clickable = true;
+
+    //different button orreintation
+    public bool posX = false;
+    public bool negX = false;
+
     bool button1 = false;
 
     // Start is called before the first frame update
@@ -19,7 +28,10 @@ public class ButtonOneKey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(animation)
+        {
+            buttonAnimation(input.transform);
+        }else if (Input.GetMouseButtonDown(0) && clickable)
         {
             int layerMask = 1 << 10;
             RaycastHit hit;
@@ -27,6 +39,9 @@ public class ButtonOneKey : MonoBehaviour
             {
                 if (hit.transform.GetComponent<Renderer>().material.color == buttonColor)
                 {
+                    animation = true;
+                    clickable = false;
+                    input = hit.transform;
                     if (!button1)
                     {
                         keyOne.GetComponent<Renderer>().material.color = keyColor;
@@ -52,6 +67,45 @@ public class ButtonOneKey : MonoBehaviour
         }
     }
 
+    public void buttonAnimation(Transform input)
+    {
+        if (timeElapsed < 0.1)
+        {
+            if (posX)
+            {
+                timeElapsed += Time.deltaTime;
+                moveX(0.5f * Time.deltaTime, input);
+            }else if (negX)
+            {
+                timeElapsed += Time.deltaTime;
+                moveX(-0.5f * Time.deltaTime, input);
+            }
+        }
+        else if (timeElapsed < 0.211)
+        {
+            if (posX)
+            {
+                timeElapsed += Time.deltaTime;
+                moveX(-0.5f * Time.deltaTime, input);
+            }
+            else if (negX)
+            {
+                timeElapsed += Time.deltaTime;
+                moveX(0.5f * Time.deltaTime, input);
+            }
+        }
+        else
+        {
+            animation = false;
+            clickable = true;
+            timeElapsed = 0f;
+        }
+    }
+
+    public void moveX(float addition, Transform input)
+    {
+        input.localPosition += new Vector3(addition, 0, 0);
+    }
 
     public void setKey(GameObject input) 
     {
