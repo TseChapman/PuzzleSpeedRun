@@ -72,6 +72,7 @@ Material:
     m_Floats:
     - _AlbedoAlphaMode: 2
     - _AlbedoAssignedAtRuntime: 0
+    - _Anistropy: 1
     - _BlendOp: 0
     - _BlendedClippingWidth: 1
     - _BorderLight: 0
@@ -172,5 +173,6 @@ Material:
     - _ProximityLightMiddleColorOverride: {r: 0, g: 1, b: 0, a: 0.5}
     - _ProximityLightOuterColorOverride: {r: 0, g: 0, b: 1, a: 1}
     - _RimColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Rotation: {r: 0, g: 0, b: 1, a: 1}
     - _RoundCornersRadius: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

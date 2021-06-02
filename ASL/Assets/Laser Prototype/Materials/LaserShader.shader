@@ -3,6 +3,8 @@ Shader "Unlit/LaserShader"
     Properties
     {
         _Color("Color", Color) = (1,1,1,1)
+        _Rotation("Rotation", Vector) = (1,0,0)
+        _Anistropy("Anistropy", Float) = 0
     }
     SubShader
     {
@@ -27,6 +29,10 @@ Shader "Unlit/LaserShader"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+
+                UNITY_VERTEX_INPUT_INSTANCE_ID //Insert
             };
 
             struct v2f
@@ -34,17 +40,32 @@ Shader "Unlit/LaserShader"
                 float4 vertex : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float3 worldPos : TEXCOORD1;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float3 viewDir : TEXCOORD2;
                 //UNITY_FOG_COORDS(1)
+
+                UNITY_VERTEX_OUTPUT_STEREO //Insert
             };
 
             float4 _Color;
+            float3 _Rotation;
+            float _Anistropy;
 
             v2f vert (appdata v)
             {
                 v2f o;
+
+                UNITY_SETUP_INSTANCE_ID(v); //Insert
+                UNITY_INITIALIZE_OUTPUT(v2f, o); //Insert
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); //Insert
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+                o.normal = mul(unity_ObjectToWorld, v.normal);
+                o.tangent = mul(unity_ObjectToWorld, v.tangent);
+                o.viewDir = normalize(WorldSpaceViewDir(v.vertex));
                 //UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
@@ -102,8 +123,13 @@ Shader "Unlit/LaserShader"
                 //return d0.z;
             }
 
+            UNITY_DECLARE_SCREENSPACE_TEXTURE(_MainTex); //Insert
+
             fixed4 frag(v2f i) : SV_Target
             {
+
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i); //Insert
+
                 float t = _Time.x * 2;
                 float t2 = 5 * sin(t);
                 float sx = 15 + 5 * sin(t);
@@ -113,7 +139,6 @@ Shader "Unlit/LaserShader"
                 float nvx = perlinNoise(i.worldPos - tv, 5);
                 float nvy = perlinNoise(i.worldPos - tv, 10);
                 float nvz = perlinNoise(i.worldPos - tv, 15);
-                float a = 0;
                 float3 nv = float3(nvx, nvy, nvz);
                 float n0 = perlinNoise(nv, 100);
                 float n1 = perlinNoise(nv, 40);
@@ -121,18 +146,27 @@ Shader "Unlit/LaserShader"
                 float n3 = perlinNoise(nv, 5);
                 float n = 1 - abs(n0 + n1 + n2 + n3);
 
+                float3 viewDir = mul(unity_CameraToWorld, float3(0, 0, 1));
+
                 float r = n * 2 * abs(0.5 - i.uv.y);
+                r *= 2;
                 float centerWidth = 0.1;
                 float centerWidth2 = 0.15;
-                float r0 = (1 - r);
+                float r0 = max(0, (1 - r));
                 float r1 = r0 * (1 + centerWidth);
                 float r2 = r1 > 1 ? 1 : r1;
                 float r3 = r1 > 1 ? (r1 - 1) / centerWidth : 0;
                 float r4 = r3 * r3;
                 // sample the texture
-                fixed4 col = _Color * r0;
+                float4 col = _Color * r0;
                 col = fixed4(r2 * r2, r3 * r3, r4 * r4, 1);
                 col *= lerp(1, n, 0.5);
+
+                float a = acos(dot(_Rotation, i.viewDir)) / 3.141592653;
+                a = a * _Anistropy;//abs(2 * a - 1)*_Anistropy;
+                a = min(max(pow(a, 5), 0), 4);
+                col *= 1 + a;
+                col = min(max(col, 0), 1);
                 // apply fog
                 //UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

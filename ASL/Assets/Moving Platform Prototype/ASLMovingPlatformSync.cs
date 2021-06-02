@@ -40,10 +40,10 @@ public class ASLMovingPlatformSync : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GetComponent<Rigidbody>() != null)
-        {
-            GetComponent<Rigidbody>().isKinematic = !GetComponent<ASLObject>().m_Mine;
-        }
+        //if (GetComponent<Rigidbody>() != null)
+        //{
+        //    GetComponent<Rigidbody>().isKinematic = !GetComponent<ASLObject>().m_Mine;
+        //}
     }
 
     // Update is called once per frame
