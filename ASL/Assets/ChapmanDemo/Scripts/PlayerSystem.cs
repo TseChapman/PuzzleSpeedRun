@@ -22,6 +22,7 @@ public class PlayerSystem : MonoBehaviour
     private bool m_isPeerIdCallBackSet = false;
     private bool m_isMiddlewareCreated = false;
     private float m_peerIdTimer = 2f;
+    public bool isDebugMode = false;
 
     // TODO: Allow teams. Maybe List<List<GameObject>> ?
     private static GameObject lobby;
@@ -29,6 +30,11 @@ public class PlayerSystem : MonoBehaviour
     private Dictionary<string, int> m_playerObjDict = new Dictionary<string, int>();
     private int m_playerIndex = 0;
     private static PeerIdMiddleware m_peerIdMiddleware;
+
+    public bool GetIsDebugMode()
+    {
+        return isDebugMode;
+    }
 
     public bool GetIsPeerIdCallBackSet() 
     {

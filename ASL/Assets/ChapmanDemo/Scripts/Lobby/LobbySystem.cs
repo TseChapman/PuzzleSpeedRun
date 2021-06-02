@@ -15,6 +15,34 @@ public class LobbySystem : MonoBehaviour
     private string m_selectedLevel = "";
     private static int m_isLeftOrRightSignal = 0; // 0 = no change, 1 = previous, 2 = next
 
+    public void ResetLobbySpawn()
+    {
+        spawnArea.ResetEmptyPosIndex();
+    }
+
+
+    public void ReturnToLobby(GameObject playerMesh)
+    {
+        GameObject childGO = playerMesh.transform.GetChild(0).gameObject;
+        Vector3 spawnPos = spawnArea.GetEmptySpawnPosition();
+
+        if (spawnPos.x == 1000f && spawnPos.y == 1000f && spawnPos.z == 1000f)
+        {
+            Debug.Log("No more lobby spawn position");
+            return;
+        }
+
+        float[] fArr = new float[3];
+        fArr[0] = spawnPos.x;
+        fArr[1] = spawnPos.y;
+        fArr[2] = spawnPos.z;
+
+        childGO.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+        {
+            childGO.gameObject.GetComponent<ASL.ASLObject>().SendFloatArray(fArr);
+        });
+    }
+
     public string GetCurrentLevelName()
     {
         if (m_currentNode.Value == "Easy Level")
