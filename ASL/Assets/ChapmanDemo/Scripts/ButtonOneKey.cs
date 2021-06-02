@@ -26,14 +26,16 @@ public class ButtonOneKey : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 2, layerMask))
             {
-                turnOn();
+                if (hit.transform.GetComponent<Renderer>().material.color == buttonColor)
+                {
+                    turnOn();
+                }
             }
         }
     }
     private void turnOn()
     {
-        if (transform.GetComponent<Renderer>().material.color == buttonColor)
-        {
+
             if (!button1)
             {
                 keyOne.GetComponent<Renderer>().material.color = keyColor;
@@ -53,8 +55,7 @@ public class ButtonOneKey : MonoBehaviour
                 });
                 button1 = false;
             }
-        }
-
+       
     }
 
     public void setKey(GameObject input) 
@@ -64,10 +65,11 @@ public class ButtonOneKey : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("TRY CLICK!");
-        if (other.gameObject.layer == handLayer)
+        //Debug.Log("TRY CLICK!");
+         if (other.gameObject.layer == handLayer)
+            
         {
-            turnOn();
+                turnOn();
         }
     }
 }

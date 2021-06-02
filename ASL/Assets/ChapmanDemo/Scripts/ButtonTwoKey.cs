@@ -27,15 +27,17 @@ public class ButtonTwoKey : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 2, layerMask) )
             {
-                turnOn(hit.transform);
+                if (hit.transform.GetComponent<Renderer>().material.color == buttonColor)
+                {
+                    turnOn(hit.transform);
+                }
             }
         }
     }
 
     private void turnOn(Transform buttonTransform)
     {
-        if (buttonTransform.GetComponent<Renderer>().material.color == buttonColor)
-        {
+      
             if (keyOne.GetComponent<Renderer>().material.color == keyColor)
             {
                 if (!button1)
@@ -57,7 +59,7 @@ public class ButtonTwoKey : MonoBehaviour
                     button1 = false;
                 }
             }
-        }
+        
 
     }
 
