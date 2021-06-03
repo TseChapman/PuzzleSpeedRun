@@ -1104,6 +1104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Threshold: 1
+  On: {r: 0, g: 0, b: 0, a: 0}
+  Off: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6320377434281315511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,6 +1215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Threshold: 1
+  On: {r: 0, g: 0, b: 0, a: 0}
+  Off: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6719597348730050664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,12 +1581,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 6775155568759601186}
     m_Modifications:
     - target: {fileID: 3732179474255481446, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -19.082653
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732179474255481446, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0
+      value: 0.5004444
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732179474255481446, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 2.9262176
+      objectReference: {fileID: 0}
+    - target: {fileID: 4737111100183105077, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -19.082653
       objectReference: {fileID: 0}
     - target: {fileID: 4737111100183105077, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.53999996
+      value: 1.0404444
+      objectReference: {fileID: 0}
+    - target: {fileID: 4737111100183105077, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 2.9262176
       objectReference: {fileID: 0}
     - target: {fileID: 7000559189734877141, guid: 33af078e3eebd1349ae36326035d5597, type: 3}
       propertyPath: m_Name
