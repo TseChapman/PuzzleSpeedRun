@@ -388,7 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPrefabName: LobbyPrefab
   levelType: 1
-  isDebugMode: 1
+  isDebugMode: 0
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e4f1c43c86502449523205c21302a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RoomName: PuzzleSpeedrunMediumPlaytest
+  m_RoomName: PuzzleSpeedrunFinalPlaytest
   m_StartingScene: NewMazeDemoSceneXRTK
 --- !u!4 &659362291
 Transform:
