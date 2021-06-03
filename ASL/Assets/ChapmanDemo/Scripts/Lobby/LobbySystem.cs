@@ -53,6 +53,10 @@ public class LobbySystem : MonoBehaviour
         {
             return "MediumLevel";
         }
+        else if (m_currentNode.Value == "Bonus Level")
+        {
+            return "BallTrackScene";
+        }
         else
         {
             return "";
@@ -118,6 +122,7 @@ public class LobbySystem : MonoBehaviour
     {
         m_levels.AddLast("Easy Level");
         m_levels.AddLast("Medium Level");
+        m_levels.AddLast("Bonus Level");
 
         DefaultSelectedLevel();
     }
