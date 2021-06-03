@@ -37,7 +37,7 @@ public class MazeEndPosition : MonoBehaviour
             GameObject character = m_mazeSystem.GetBottomFloorCharByIndex(i);
             //Debug.Log("Character name: " + character.name); // Test if character is added
             float dist = Vector3.Distance(character.transform.position, this.gameObject.transform.position);
-            Debug.Log("Character : " + character.name + " distance to end position is " + dist);
+            //Debug.Log("Character : " + character.name + " distance to end position is " + dist);
             if (dist > m_endMazeDistance)
             {
                 Debug.Log("Some character has not pass the maze");

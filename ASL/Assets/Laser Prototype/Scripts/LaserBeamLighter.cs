@@ -16,6 +16,7 @@ public class LaserBeamLighter : MonoBehaviour
     public LaserSensor ExcludeSensor;
 
     public bool CanTriggerSensors;
+    
 
     // Start is called before the first frame update
     void Start()
