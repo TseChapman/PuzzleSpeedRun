@@ -85,32 +85,42 @@ public class TeamSelectSystem : MonoBehaviour
             GameObject parent = hit.collider.gameObject.transform.parent.gameObject;
             if (parent.tag == "Team") // Check if clicked on a team object
             {
-                //Debug.Log("Parent name = " + parent.name);
-                for (int i = 0; i < NUM_TEAMS; i++)
+                CheckWhichTeam(parent);
+            }
+        }
+    }
+
+    public void VRClickCheck(GameObject clickedObject)
+    {
+        CheckWhichTeam(clickedObject.transform.parent.gameObject);
+    }
+    
+    private void CheckWhichTeam(GameObject parent)
+    {
+        //Debug.Log("Parent name = " + parent.name);
+        for (int i = 0; i < NUM_TEAMS; i++)
+        {
+            string teamName = "Team" + (i + 1);
+            //Debug.Log("Traverse team name = " + teamName);
+            if (parent.name == teamName)
+            {
+                if (!isJoinableTeams(i)) return;
+                //Debug.Log("Add member to " + teamName);
+                // Synchronize the information in TeamSelectSystem
+                // float arr: [0] = team id, [1] = peer id
+                int peerId = GameLiftManager.GetInstance().m_PeerId;
+                int previousTeam = m_currentTeam;
+                float[] flt = new float[4];
+                flt[0] = (float)i; // team id
+                flt[1] = (float)peerId; // player id
+                flt[2] = (m_currentTeam != -1) ? 1f : 0; // action (add or (remove then add))
+                flt[3] = previousTeam; // previous team id, use on action (remove then add)
+                Debug.Log("Add member to " + teamName);
+                m_currentTeam = i;
+                this.gameObject.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
                 {
-                    string teamName = "Team" + (i+1);
-                    //Debug.Log("Traverse team name = " + teamName);
-                    if (parent.name == teamName)
-                    {
-                        if (!isJoinableTeams(i)) return;
-                        //Debug.Log("Add member to " + teamName);
-                        // Synchronize the information in TeamSelectSystem
-                        // float arr: [0] = team id, [1] = peer id
-                        int peerId = GameLiftManager.GetInstance().m_PeerId;
-                        int previousTeam = m_currentTeam;
-                        float[] flt = new float[4];
-                        flt[0] = (float)i; // team id
-                        flt[1] = (float)peerId; // player id
-                        flt[2] = (m_currentTeam != -1) ? 1f : 0; // action (add or (remove then add))
-                        flt[3] = previousTeam; // previous team id, use on action (remove then add)
-                        Debug.Log("Add member to " + teamName);
-                        m_currentTeam = i;
-                        this.gameObject.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
-                        {
-                            this.gameObject.GetComponent<ASL.ASLObject>().SendFloatArray(flt);
-                        });
-                    }
-                }
+                    this.gameObject.GetComponent<ASL.ASLObject>().SendFloatArray(flt);
+                });
             }
         }
     }

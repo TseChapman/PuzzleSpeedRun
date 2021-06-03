@@ -179,6 +179,15 @@ public class LobbyStartButton : MonoBehaviour
         }
     }
 
+    public void VRStartGame()
+    {
+        bool isReady = (teamReadyText.color == Color.green && levelReadyText.color == Color.green);
+        if (isReady)
+        {
+            StartGame();
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {

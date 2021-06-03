@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8708570627139834771}
   - component: {fileID: 7318141550366299582}
   - component: {fileID: 2707057120832087985}
+  - component: {fileID: 5077287748735455423}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -96,6 +97,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5077287748735455423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58890593492089024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 58890593492089024}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &155426320640913730
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +165,7 @@ GameObject:
   - component: {fileID: 1152717600406655800}
   - component: {fileID: 1802676248521293884}
   - component: {fileID: 5412106649390165402}
+  - component: {fileID: 4004415119497256761}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -192,6 +251,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4004415119497256761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155426320640913730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 155426320640913730}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &418662546531696582
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +922,7 @@ GameObject:
   - component: {fileID: 5753218008852488035}
   - component: {fileID: 7718409005360779783}
   - component: {fileID: 4637283562205109499}
+  - component: {fileID: 7740036717181741588}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -891,6 +1008,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7740036717181741588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990363799488254686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 990363799488254686}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &1442022014879471478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,6 +1557,7 @@ GameObject:
   - component: {fileID: 3336802438228920242}
   - component: {fileID: 2301431298521520471}
   - component: {fileID: 6116745032347300171}
+  - component: {fileID: 5612991998382456656}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -1468,6 +1643,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5612991998382456656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030700560881489413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2030700560881489413}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &2126897363206879417
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2435,7 @@ GameObject:
   - component: {fileID: 7923201780286989994}
   - component: {fileID: 1666235086154160160}
   - component: {fileID: 2192772017993057496}
+  - component: {fileID: 500064386908467215}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -2288,6 +2521,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &500064386908467215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237756717711407561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3237756717711407561}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &3434725998848916235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,6 +2758,7 @@ GameObject:
   - component: {fileID: 350815377985705811}
   - component: {fileID: 7112604113974461435}
   - component: {fileID: 2234785852473884376}
+  - component: {fileID: 736518911487560130}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -2553,6 +2844,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &736518911487560130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3540449795266413736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3540449795266413736}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &4568858540081378670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2953,6 +3301,7 @@ GameObject:
   - component: {fileID: 7139033907401222096}
   - component: {fileID: 1326396770337592025}
   - component: {fileID: 3860212493406789324}
+  - component: {fileID: 3429915391323036765}
   m_Layer: 0
   m_Name: Button
   m_TagString: LobbyStartButton
@@ -3064,6 +3413,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3429915391323036765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049658614770135248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1326396770337592025}
+        m_TargetAssemblyTypeName: LobbyStartButton, Assembly-CSharp
+        m_MethodName: VRStartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &5108241413048418823
 GameObject:
   m_ObjectHideFlags: 0
@@ -3244,6 +3650,7 @@ GameObject:
   - component: {fileID: 5433019798256368112}
   - component: {fileID: 5422896375756046273}
   - component: {fileID: 5045664467934453648}
+  - component: {fileID: 4514030773246540026}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -3329,6 +3736,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4514030773246540026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157209937027150076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5157209937027150076}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &5202491925389552331
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,6 +4022,7 @@ GameObject:
   - component: {fileID: 8948872711208952615}
   - component: {fileID: 8604615481925719870}
   - component: {fileID: 1471606194529269829}
+  - component: {fileID: 8742941205456790933}
   m_Layer: 0
   m_Name: ArrowLeft
   m_TagString: LobbyLevelSelectButton
@@ -3657,6 +4122,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.11, y: 7.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8742941205456790933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802512298019971216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8604615481925719870}
+        m_TargetAssemblyTypeName: LobbyLevelSelectButton, Assembly-CSharp
+        m_MethodName: buttonClickedWithVR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &5900719271142838667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3837,6 +4359,7 @@ GameObject:
   - component: {fileID: 350257923725015432}
   - component: {fileID: 6092042212341269093}
   - component: {fileID: 1269707920666077794}
+  - component: {fileID: 191343208380251673}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -3922,6 +4445,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &191343208380251673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6141320529672253848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6141320529672253848}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &6264630960375548833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4135,6 +4715,7 @@ GameObject:
   - component: {fileID: 8500739819053065897}
   - component: {fileID: 8133349327253294806}
   - component: {fileID: 8442530314228351753}
+  - component: {fileID: 159612863953240832}
   m_Layer: 0
   m_Name: ArrowRight
   m_TagString: LobbyLevelSelectButton
@@ -4234,6 +4815,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.11, y: 7.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &159612863953240832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557584245859357670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8133349327253294806}
+        m_TargetAssemblyTypeName: LobbyLevelSelectButton, Assembly-CSharp
+        m_MethodName: buttonClickedWithVR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &6916447144145826631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4983,6 +5621,7 @@ GameObject:
   - component: {fileID: 300431938517703922}
   - component: {fileID: 8287520256964955251}
   - component: {fileID: 7457867849877277530}
+  - component: {fileID: 7877293766463611381}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -5068,6 +5707,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7877293766463611381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575205380723704948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7575205380723704948}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &7842519653844780143
 GameObject:
   m_ObjectHideFlags: 0
@@ -6988,6 +7684,7 @@ GameObject:
   - component: {fileID: 3442233435719201854}
   - component: {fileID: 4282915724688058012}
   - component: {fileID: 6998385762195536092}
+  - component: {fileID: 117227321177270845}
   m_Layer: 0
   m_Name: TeamFrame
   m_TagString: Untagged
@@ -7073,6 +7770,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 6.9999995, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &117227321177270845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941517110698307334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3497763102971941119}
+        m_TargetAssemblyTypeName: TeamSelectSystem, Assembly-CSharp
+        m_MethodName: VRClickCheck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8941517110698307334}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
 --- !u!1 &9090084268257241268
 GameObject:
   m_ObjectHideFlags: 0
