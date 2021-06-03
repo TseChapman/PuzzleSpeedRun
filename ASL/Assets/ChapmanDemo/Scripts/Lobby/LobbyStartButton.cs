@@ -6,6 +6,7 @@ using TMPro;
 
 public class LobbyStartButton : MonoBehaviour
 {
+    public GameObject StartText;
     public TMP_Text teamReadyText;
     public TMP_Text levelReadyText;
     public LobbySystem lobbySystem;
@@ -102,6 +103,7 @@ public class LobbyStartButton : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "LobbyStartButton")
             {
+                if (m_isPrefabCreated && isTeamSet && m_isPlayerAdded) return false;
                 if (m_playerSystem.GetIsDebugMode())
                     return true;
                 return (teamReadyText.color == Color.green && levelReadyText.color == Color.green);
@@ -212,7 +214,10 @@ public class LobbyStartButton : MonoBehaviour
     private void Update()
     {
         if (!m_playerSystem.GetIsHost())
+        {
+            StartText.SetActive(false);
             this.gameObject.SetActive(false);
+        }
         Debug.Log("Prefab in the List = " + m_levelPrefabs.Count);
         if (m_levelPrefabs.Contains(null))
         {
