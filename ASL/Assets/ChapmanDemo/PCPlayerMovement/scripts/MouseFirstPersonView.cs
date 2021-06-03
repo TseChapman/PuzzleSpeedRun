@@ -15,7 +15,7 @@ public class MouseFirstPersonView : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {    
         if(Cursor.lockState == CursorLockMode.Locked)
         {
