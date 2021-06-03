@@ -46,8 +46,6 @@ public class PCPlayerMovement : MonoBehaviour
         {
             movePlayerMesh();
             initPlayerMeshToThePoint();
-            Debug.Log(GetComponent<CharacterController>().detectCollisions);
-            Debug.Log(GetComponent<CharacterController>().attachedRigidbody);
         }
     }
 
@@ -112,9 +110,9 @@ public class PCPlayerMovement : MonoBehaviour
     void fallPlayer()
     {
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
-        onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
+        //onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
 
-        Debug.Log("Grounded: "+grounded);
+        //Debug.Log("Grounded: "+grounded);
         if (grounded)
             fallingSpeed = 0;
         else

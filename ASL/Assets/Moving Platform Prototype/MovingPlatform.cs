@@ -136,7 +136,7 @@ public class MovingPlatform : MonoBehaviour
             }
             Vector3 p = obj.GetComponent<CharacterController>().transform.position;
             p = new Vector3(p.x, p.y - obj.GetComponent<CharacterController>().height + CharacterOffset, p.z);
-            Debug.Log(GetComponent<BoxCollider>().bounds + " " + p);
+            //Debug.Log(GetComponent<BoxCollider>().bounds + " " + p);
             Debug.DrawLine(p, obj.GetComponent<CharacterController>().transform.position);
             if (GetComponent<BoxCollider>().bounds.Contains(p))
             {
