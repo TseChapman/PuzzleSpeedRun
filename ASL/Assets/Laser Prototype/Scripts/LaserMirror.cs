@@ -50,4 +50,13 @@ public class LaserMirror : MonoBehaviour
             Destroy(toRemove);
         }
     }
+
+    public void OnDestroy()
+    {
+        for (int i = ReflectedLasers.Count - 1; i >= 0; --i) {
+            GameObject obj = ReflectedLasers[i];
+            ReflectedLasers.RemoveAt(i);
+            Destroy(obj);
+        }
+    }
 }
