@@ -117,9 +117,9 @@ public class LobbyStartButton : MonoBehaviour
         string levelName = lobbySystem.GetCurrentLevelName();
         for (int i = 0; i < numPrefab; i++)
         {
-            float x_pos = 100f + (40f * i);
+            float x_pos = 100f + (200f * i);
             ASL.ASLHelper.InstantiateASLObject(levelName,
-                                   new Vector3(x_pos, 0f, 0f), // TODO: Should have a parameter object
+                                   new Vector3(x_pos, 0f, x_pos), // TODO: Should have a parameter object
                                    Quaternion.identity, "", "",
                                    StoreLevel,
                                    ClaimRecoveryFunction,

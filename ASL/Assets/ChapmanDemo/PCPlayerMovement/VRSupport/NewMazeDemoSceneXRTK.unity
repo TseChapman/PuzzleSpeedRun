@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 323262809}
-  m_IndirectSpecularColor: {r: 0.17292488, g: 0.2161083, b: 0.29807773, a: 1}
+  m_IndirectSpecularColor: {r: 0.17292461, g: 0.2161078, b: 0.2980767, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e4f1c43c86502449523205c21302a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RoomName: PuzzleSpeedrunMediumPlaytest
+  m_RoomName: PuzzleSpeedrunFinalPlaytest
   m_StartingScene: NewMazeDemoSceneXRTK
 --- !u!4 &659362291
 Transform:
