@@ -5,8 +5,8 @@ using ASL;
 
 public class PlayerPeerId : MonoBehaviour
 {
-    [SerializeField] public int id = -1;
     [SerializeField] private int m_peerId = -1;
+    public string playerName = "";
     private int prevId = -1;
     private ASL.ASLObject m_aslObject;
     private bool m_isCallBackSet = false;
@@ -15,7 +15,6 @@ public class PlayerPeerId : MonoBehaviour
 
     public void SetPeerId(int _id)
     {
-        //id = _id;
         float[] flr = new float[1];
         flr[0] = (float)_id;
         //Debug.Log("Client side: PlayerPeerId: SetPeerId(): id = " + _id);// + " Player Username: " + GameLiftManager.GetInstance().m_Players[id]);
@@ -70,12 +69,9 @@ public class PlayerPeerId : MonoBehaviour
             });
             prevId = m_peerId;
         }
-        /*
-        if (id == -1 && id != m_peerId)
-            id = m_peerId;
-        
-        if (id != m_peerId)
-            m_peerId = id;
-        */
+        if (m_peerId != -1)
+        {
+            playerName = GameLiftManager.GetInstance().m_Players[m_peerId];
+        }
     }
 }

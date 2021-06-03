@@ -18,6 +18,24 @@ public class LobbyStartButton : MonoBehaviour
     private bool m_isPlayerAdded = false;
     private float timer = 1f;
 
+    public void DestroyPrefab(int teamId)
+    {
+        foreach (GameObject g in m_levelPrefabs)
+        {
+            MazeSystem sys = g.GetComponent<MazeSystem>();
+            if (sys.GetTeamId() == teamId)
+            {
+                Debug.Log("Delete Level Prefab");
+                g.GetComponent<ASL.ASLObject>().SendAndSetClaim(() => 
+                {
+                    g.GetComponent<ASL.ASLObject>().DeleteObject();
+                });
+                m_levelPrefabs.Remove(g);
+                return;
+            }
+        }
+    }
+
     public void ResetLobbyButton()
     {
         m_levelPrefabs.Clear();
@@ -84,6 +102,8 @@ public class LobbyStartButton : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "LobbyStartButton")
             {
+                if (m_playerSystem.GetIsDebugMode())
+                    return true;
                 return (teamReadyText.color == Color.green && levelReadyText.color == Color.green);
             }
         }
@@ -191,6 +211,13 @@ public class LobbyStartButton : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!m_playerSystem.GetIsHost())
+            this.gameObject.SetActive(false);
+        Debug.Log("Prefab in the List = " + m_levelPrefabs.Count);
+        if (m_levelPrefabs.Contains(null))
+        {
+            m_levelPrefabs.RemoveAll(null);
+        }
         if (Input.GetMouseButtonDown(0))
         {
             bool isReady = CheckReady();
@@ -222,6 +249,11 @@ public class LobbyStartButton : MonoBehaviour
                 m_isPlayerAdded = true;
             }
             
+        }
+        if (m_playerSystem.GetIsHost() && m_levelPrefabs.Count == 0 && isTeamSet && m_isPlayerAdded)
+        {
+            Debug.Log("Reset Lobby Start Button");
+            ResetLobbyButton();
         }
     }
 }

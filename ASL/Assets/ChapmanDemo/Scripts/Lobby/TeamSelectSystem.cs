@@ -30,8 +30,15 @@ public class TeamSelectSystem : MonoBehaviour
     {
         int numTeam = 0;
         m_validTeamId.Clear();
+        bool isDebug = m_playerSystem.GetIsDebugMode();
         foreach (Team t in m_teams)
         {
+            if (isDebug && t.GetNumMember() > 0)
+            {
+                m_validTeamId.Add(t.GetTeamId());
+                numTeam++;
+                continue;
+            }
             if (t.GetNumMember() >= 2 && t.GetNumMember() <= 4)
             {
                 m_validTeamId.Add(t.GetTeamId());
