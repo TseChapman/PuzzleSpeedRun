@@ -4,33 +4,25 @@ using UnityEngine;
 
 public class VRUIRaySwitch : MonoBehaviour
 {
-    GameObject[] startButton;
+    public Vector3 lobbyPos = new Vector3(0,0,0);
     public GameObject UIRayInteractor;
-    private void Start()
-    {
-            startButton = GameObject.FindGameObjectsWithTag("LobbyStartButton");
-    }
 
     private bool checkDistance()
     {
-        if (startButton == null)
-        {
-            Debug.Log("start button not found");
-            return false;
-        }
-        Vector3 distance = transform.position - startButton[0].transform.position;
+
+        Vector3 distance = transform.position - lobbyPos;
         if (distance.magnitude < 15f) return true; //is close enough
         return false;
     }
 
     private void Update()
     {
-      if(checkDistance() && UIRayInteractor.active == false)
+      if(checkDistance())
         {
             enableRay();
             return;
         }
-      if (checkDistance() && UIRayInteractor.active == true)
+      if (checkDistance())
         {
             disableRay();
             return;
