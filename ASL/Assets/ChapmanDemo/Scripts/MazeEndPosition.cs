@@ -40,7 +40,7 @@ public class MazeEndPosition : MonoBehaviour
             //Debug.Log("Character : " + character.name + " distance to end position is " + dist);
             if (dist > m_endMazeDistance)
             {
-                Debug.Log("Some character has not pass the maze");
+                //Debug.Log("Some character has not pass the maze");
                 isAnyCharacNotEnded = true;
             }
         }
