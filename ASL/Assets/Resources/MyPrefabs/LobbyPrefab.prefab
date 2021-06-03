@@ -3397,7 +3397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633ae66b2985e0542baf6980fccf6d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartText: {fileID: 0}
+  StartText: {fileID: 8685589274910655089}
   teamReadyText: {fileID: 4439825853325210540}
   levelReadyText: {fileID: 8811873152371670874}
   lobbySystem: {fileID: 8811873152062385575}
