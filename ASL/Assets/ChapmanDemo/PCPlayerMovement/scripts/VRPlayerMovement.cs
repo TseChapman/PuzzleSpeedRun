@@ -46,6 +46,7 @@ public class VRPlayerMovement : MonoBehaviour{
     public bool usingASL = true;
     public int[] pickAbleLayerNum;
     private bool m_isPeerIdSet = false; // True if m_playerMeshObject is set with client's peer id
+    private float timer = 2f;
 
     void Start()
     {
@@ -95,6 +96,7 @@ public class VRPlayerMovement : MonoBehaviour{
         controller.Move(randomInitPoint);
         //playerMesh = Instantiate(PlayerMeshPrefab, randomInitPoint, Quaternion.identity);
         ASL.ASLHelper.InstantiateASLObject("PlayerMesh", randomInitPoint, Quaternion.identity, null, null, InitCallBack);
+        timer *= (float)GameLiftManager.GetInstance().m_PeerId;
     }
 
     private static void InitCallBack(GameObject _gameobject)
@@ -176,15 +178,19 @@ public class VRPlayerMovement : MonoBehaviour{
         }
         if (m_playerMeshObject != null && !m_isPeerIdSet && m_playerSystem != null && m_playerSystem.GetIsPeerIdCallBackSet())
         {
-            m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
-            m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
-            if (!m_playerPeerId.GetIsCallBackSet())
-                m_playerPeerId.SetCallBack();
-            int peerId = GameLiftManager.GetInstance().m_PeerId;
-            string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
-            //Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
-            m_playerPeerId.SetPeerId(peerId);
-            m_isPeerIdSet = true;
+            timer -= Time.smoothDeltaTime;
+            if (timer <= 0)
+            {
+                m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
+                m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+                if (!m_playerPeerId.GetIsCallBackSet())
+                    m_playerPeerId.SetCallBack();
+                int peerId = GameLiftManager.GetInstance().m_PeerId;
+                string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
+                //Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
+                m_playerPeerId.SetPeerId(peerId);
+                m_isPeerIdSet = true;
+            }
         }
 
         if (m_childPlayerMeshObject != null)
