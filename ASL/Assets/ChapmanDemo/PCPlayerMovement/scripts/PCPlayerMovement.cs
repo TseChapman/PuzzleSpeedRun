@@ -60,7 +60,10 @@ public class PCPlayerMovement : MonoBehaviour
     {
         if (spawnPointSet)
         {
-            movePlayerMovementbyKeyboard();
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                movePlayerMovementbyKeyboard();
+            }
             fallPlayer();
         }
     }
