@@ -3397,7 +3397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633ae66b2985e0542baf6980fccf6d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartText: {fileID: 8685589274910655089}
   teamReadyText: {fileID: 4439825853325210540}
   levelReadyText: {fileID: 8811873152371670874}
   lobbySystem: {fileID: 8811873152062385575}
@@ -6820,6 +6819,7 @@ GameObject:
   - component: {fileID: 8811873152062385572}
   - component: {fileID: 8811873152062385575}
   - component: {fileID: 447922649787885237}
+  - component: {fileID: 5030811079795374875}
   m_Layer: 0
   m_Name: LobbyPrefab
   m_TagString: Untagged
@@ -6871,6 +6871,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5030811079795374875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8811873152062385573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c198abb84a36b4c8f2a81da5614b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8811873152064140883
