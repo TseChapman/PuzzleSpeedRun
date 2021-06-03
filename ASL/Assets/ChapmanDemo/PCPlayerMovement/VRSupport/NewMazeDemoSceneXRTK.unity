@@ -386,9 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5b6b782734b9f468579d56044ac234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPrefabName: MediumLevel
+  levelPrefabName: LobbyPrefab
   levelType: 1
-  isDebugMode: 0
+  isDebugMode: 1
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
@@ -2381,6 +2381,7 @@ GameObject:
   - component: {fileID: 2027938371}
   - component: {fileID: 2027938370}
   - component: {fileID: 2027938369}
+  - component: {fileID: 2027938373}
   m_Layer: 0
   m_Name: UI Interactor
   m_TagString: Untagged
@@ -2797,6 +2798,19 @@ MonoBehaviour:
   m_UseForceGrab: 1
   m_RotateSpeed: 180
   m_TranslateSpeed: 1
+--- !u!114 &2027938373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027938367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c198abb84a36b4c8f2a81da5614b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIRayInteractor: {fileID: 0}
 --- !u!1 &2034036077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2929,6 +2943,7 @@ GameObject:
   - component: {fileID: 2046396751}
   - component: {fileID: 2046396752}
   - component: {fileID: 2046396753}
+  - component: {fileID: 2046396754}
   m_Layer: 17
   m_Name: VR Rig
   m_TagString: PlayerRig
@@ -3115,6 +3130,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d4383293afb4247b290e9a5dd2f31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2046396754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046396744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c198abb84a36b4c8f2a81da5614b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIRayInteractor: {fileID: 2027938367}
 --- !u!1001 &2100518123
 PrefabInstance:
   m_ObjectHideFlags: 0

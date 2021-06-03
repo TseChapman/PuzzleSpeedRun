@@ -4,25 +4,46 @@ using UnityEngine;
 
 public class VRUIRaySwitch : MonoBehaviour
 {
-    void OnEnable()
+    GameObject[] startButton;
+    public GameObject UIRayInteractor;
+    private void Start()
     {
-        GameObject VRObject = GameObject.Find("Camera Offset");
-        if (VRObject == null) return;
-        Debug.Log("UI Interactor found: camera offset");
-        GameObject VRRay = VRObject.transform.Find("UI Interactor").gameObject;
-        if (VRRay == null) return;
-        Debug.Log("UI Interactor found");
-        VRRay.SetActive(true);
+            startButton = GameObject.FindGameObjectsWithTag("LobbyStartButton");
     }
 
-    void OnDestroy()
+    private bool checkDistance()
     {
-        GameObject VRObject = GameObject.Find("Camera Offset");
-        if (VRObject == null) return;
-        Debug.Log("UI Interactor found: camera offset");
-        GameObject VRRay = VRObject.transform.Find("UI Interactor").gameObject;
-        if (VRRay == null) return;
-        Debug.Log("UI Interactor found");
-        VRRay.SetActive(false);
+        if (startButton == null)
+        {
+            Debug.Log("start button not found");
+            return false;
+        }
+        Vector3 distance = transform.position - startButton[0].transform.position;
+        if (distance.magnitude < 15f) return true; //is close enough
+        return false;
+    }
+
+    private void Update()
+    {
+      if(checkDistance() && UIRayInteractor.active == false)
+        {
+            enableRay();
+            return;
+        }
+      if (checkDistance() && UIRayInteractor.active == true)
+        {
+            disableRay();
+            return;
+        }
+    }
+
+    private void enableRay()
+    {
+        UIRayInteractor.SetActive(true);
+    }
+
+    private void disableRay()
+    {
+        UIRayInteractor.SetActive(false);
     }
 }
