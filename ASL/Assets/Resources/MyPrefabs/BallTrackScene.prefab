@@ -540,6 +540,9 @@ MonoBehaviour:
   button: {fileID: 1198142740722705479}
   input: {fileID: 0}
   startPosX: -1.811
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   posX: 1
   negX: 0
 --- !u!1 &1198142740801454742
@@ -939,6 +942,9 @@ MonoBehaviour:
   button: {fileID: 1198142740974413093}
   input: {fileID: 0}
   startPosX: -6.27
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   posX: 0
   negX: 1
 --- !u!1 &1198142740993728093
@@ -2842,6 +2848,9 @@ MonoBehaviour:
   button: {fileID: 1198142741538416199}
   input: {fileID: 0}
   startPosX: -3.57
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   posX: 0
   negX: 1
 --- !u!1 &1198142741552487856
@@ -2997,6 +3006,9 @@ MonoBehaviour:
   myEventSync: {fileID: 6967984102976737574}
   posX: 0
   negX: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
 --- !u!114 &7388697694275893572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3246,6 +3258,9 @@ MonoBehaviour:
   button: {fileID: 1198142741736746974}
   input: {fileID: 0}
   startPosX: -1.18
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   posX: 0
   negX: 1
 --- !u!1 &1198142741761128039
@@ -3550,6 +3565,9 @@ MonoBehaviour:
   button: {fileID: 1198142741791444496}
   input: {fileID: 0}
   startPosX: -6.88
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   posX: 1
   negX: 0
 --- !u!1 &1198142741796350753
@@ -5467,6 +5485,9 @@ MonoBehaviour:
   button: {fileID: 1198142742379272419}
   input: {fileID: 0}
   startPosX: -4.194
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   posX: 1
   negX: 0
 --- !u!1 &1198142742392030444

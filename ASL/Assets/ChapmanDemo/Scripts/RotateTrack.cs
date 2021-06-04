@@ -11,7 +11,7 @@ public class RotateTrack : MonoBehaviour
     public float startPosX;
     bool animation = false;
     bool clickable = true;
-
+    public LayerMask layerMask;
     //different button orreintation
     public bool posX = false;
     public bool negX = false;
@@ -29,10 +29,11 @@ public class RotateTrack : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0) && clickable)
         {
-            int layerMask = 1 << 10;
+            //int layerMask = 1 << 10;
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 3, layerMask))
             {
+                if (hit.transform.gameObject.layer != 10) return;
                 if(hit.transform == button.transform)
                 {
                     animation = true;
