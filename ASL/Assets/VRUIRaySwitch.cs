@@ -9,8 +9,9 @@ public class VRUIRaySwitch : MonoBehaviour
 
     private bool checkDistance()
     {
-
+        
         Vector3 distance = transform.position - lobbyPos;
+        Debug.Log("MAG:" + distance.magnitude);
         if (distance.magnitude < 15f) return true; //is close enough
         return false;
     }
@@ -21,8 +22,7 @@ public class VRUIRaySwitch : MonoBehaviour
         {
             enableRay();
             return;
-        }
-      if (checkDistance())
+        } else
         {
             disableRay();
             return;
