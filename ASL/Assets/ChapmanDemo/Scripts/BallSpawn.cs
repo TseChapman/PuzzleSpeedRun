@@ -17,6 +17,11 @@ public class BallSpawn : MonoBehaviour
     public bool posX = false;
     public bool negX = false;
     // Update is called once per frame
+    private void Start()
+    {
+        startPosX = transform.localPosition.x;
+    }
+
     void Update()
     {
         if (animation)
@@ -68,7 +73,7 @@ public class BallSpawn : MonoBehaviour
             timeElapsed += Time.deltaTime;
             if (timeElapsed > 0.55)
             {
-                input.localPosition = new Vector3(startPosX, input.position.y, input.position.z);
+                input.localPosition = new Vector3(startPosX, input.localPosition.y, input.localPosition.z);
                 animation = false;
                 clickable = true;
                 timeElapsed = 0f;
