@@ -21,6 +21,7 @@ public class PlayerSystem : MonoBehaviour
     private bool m_isLobbyStarted = false;
     private bool m_isPeerIdCallBackSet = false;
     private bool m_isMiddlewareCreated = false;
+    private bool m_isFloatSend = false;
     private float m_peerIdTimer = 2f;
     public bool isDebugMode = false;
 
@@ -30,6 +31,7 @@ public class PlayerSystem : MonoBehaviour
     private Dictionary<string, int> m_playerObjDict = new Dictionary<string, int>();
     private int m_playerIndex = 0;
     private static PeerIdMiddleware m_peerIdMiddleware;
+    private float middlewareTimer = 2f;
 
     public bool GetIsDebugMode()
     {
@@ -185,7 +187,12 @@ public class PlayerSystem : MonoBehaviour
         if (!m_peerIdMiddleware.GetIsLocalCallBackSet()) return;
         if (m_isPeerIdCallBackSet)
         {
-            //m_peerIdTimer -= Time.smoothDeltaTime;
+            middlewareTimer -= Time.smoothDeltaTime;
+            if (middlewareTimer <= 0 && m_isFloatSend == false)
+            {
+                m_peerIdMiddleware.SendSetCallBack(GameLiftManager.GetInstance().m_PeerId);
+                m_isFloatSend = true;
+            }
             return;
         }
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -197,7 +204,8 @@ public class PlayerSystem : MonoBehaviour
             pId.SetCallBack();
         }
         m_isPeerIdCallBackSet = true;
-        m_peerIdMiddleware.SendSetCallBack(GameLiftManager.GetInstance().m_PeerId);
+        middlewareTimer *= (float)GameLiftManager.GetInstance().m_PeerId;
+        //m_peerIdMiddleware.SendSetCallBack(GameLiftManager.GetInstance().m_PeerId);
     }
 
     private void TestSetPeerId()
