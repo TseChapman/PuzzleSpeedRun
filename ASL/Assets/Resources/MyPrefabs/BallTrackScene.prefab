@@ -2892,6 +2892,8 @@ GameObject:
   - component: {fileID: 1198142741665154009}
   - component: {fileID: 1198142741665154008}
   - component: {fileID: 3990217725034822439}
+  - component: {fileID: 7388697694275893572}
+  - component: {fileID: 6967984102976737574}
   m_Layer: 10
   m_Name: ButtonSpawnBall
   m_TagString: Untagged
@@ -2992,8 +2994,51 @@ MonoBehaviour:
   spawnArea: {fileID: 1198142741409498533}
   input: {fileID: 0}
   startPosX: -9.297
+  myEventSync: {fileID: 6967984102976737574}
   posX: 0
   negX: 0
+--- !u!114 &7388697694275893572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198142741665154015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c58412da33e154692db87cbf8c6ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6967984102976737574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198142741665154015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d83c439fea217949a76b7d7bc4e5c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - OnEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3990217725034822439}
+          m_TargetAssemblyTypeName: BallSpawn, Assembly-CSharp
+          m_MethodName: turnOnByOther
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _name: ballSpawnClicked
+    _triggerMode: 0
 --- !u!1 &1198142741730368157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4562,7 +4607,7 @@ GameObject:
   - component: {fileID: 1198142742163664718}
   - component: {fileID: 1198142742163664717}
   - component: {fileID: 1000810949268661570}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7157,6 +7202,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 2619845859390266327}
+    - target: {fileID: 6717971498120642629, guid: 29e1c87ba58555742acf9fa7af678388, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 16777216
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29e1c87ba58555742acf9fa7af678388, type: 3}
 --- !u!4 &1149323237428894376 stripped
@@ -7287,6 +7336,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
+--- !u!4 &519709517643347821 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4591042844984456902, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
+  m_PrefabInstance: {fileID: 4071474142138909099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &519709517643347730 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4591042844984456889, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
@@ -7301,11 +7355,6 @@ MonoBehaviour:
 --- !u!1 &519709518226100949 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4591042844485047166, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
-  m_PrefabInstance: {fileID: 4071474142138909099}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &519709517643347821 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4591042844984456902, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
   m_PrefabInstance: {fileID: 4071474142138909099}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7823941133587709302
