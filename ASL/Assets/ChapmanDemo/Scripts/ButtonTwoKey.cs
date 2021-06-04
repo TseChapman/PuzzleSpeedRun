@@ -120,6 +120,7 @@ public class ButtonTwoKey : MonoBehaviour
 
     public void resetKeys()
     {
+        /*
         for (int i = 0; i < keys.Length; i++)
         {
             if (keys[i] != null)
@@ -127,11 +128,11 @@ public class ButtonTwoKey : MonoBehaviour
                 keys[i].GetComponent<Renderer>().material.color = Color.white;
                 keys[i].GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
                 {
+                    Debug.Log("KEY: "+keys[i]);
                     keys[i].GetComponent<ASL.ASLObject>().SendAndSetObjectColor(Color.white, Color.white);
                 });
             }
-        }
-
+        }*/
     }
 
     private void turnOn(Transform buttonTransform)
