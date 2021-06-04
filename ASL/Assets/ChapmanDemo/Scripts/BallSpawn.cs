@@ -12,7 +12,7 @@ public class BallSpawn : MonoBehaviour
     private float timeElapsed = 0f;
     bool animation = false;
     bool clickable = true;
-
+    public EventSync myEventSync;
     //different button orreintation
     public bool posX = false;
     public bool negX = false;
@@ -39,6 +39,8 @@ public class BallSpawn : MonoBehaviour
                     clickable = false;
                     input = hit.transform;
                     ball.transform.position = spawnArea.transform.position;
+                    if (myEventSync)
+                        myEventSync.Activate("ballSpawnClicked");
                 }
 
             }
@@ -51,8 +53,20 @@ public class BallSpawn : MonoBehaviour
             clickable = false;
             input = transform;
             ball.transform.position = spawnArea.transform.position;
+        if (myEventSync)
+            myEventSync.Activate("ballSpawnClicked");
+    }
+
+    public void turnOnByOther()
+    {
+        Debug.Log("TURN ON BY OTHER");
+        animation = true;
+        clickable = false;
+        input = transform;
+        ball.transform.position = spawnArea.transform.position;
 
     }
+
 
     public void buttonAnimation(Transform input)
     {
