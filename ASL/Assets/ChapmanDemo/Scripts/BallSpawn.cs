@@ -40,6 +40,15 @@ public class BallSpawn : MonoBehaviour
         }
     }
 
+    private void turnOn()
+    {
+            animation = true;
+            clickable = false;
+            input = transform;
+            ball.transform.position = spawnArea.transform.position;
+
+    }
+
     public void buttonAnimation(Transform input)
     {
         if (timeElapsed < 0.1)
@@ -70,6 +79,15 @@ public class BallSpawn : MonoBehaviour
     public void moveZ(float addition, Transform input)
     {
         input.localPosition += new Vector3(0, 0, addition);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRY CLICK!");
+        if (other.gameObject.layer == 18)
+        {
+            turnOn();
+        }
     }
 
 }

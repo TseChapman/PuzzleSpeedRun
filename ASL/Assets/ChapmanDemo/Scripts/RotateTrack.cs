@@ -45,6 +45,19 @@ public class RotateTrack : MonoBehaviour
         }
     }
 
+    private void turnOn()
+    {
+        animation = true;
+        clickable = false;
+        input = transform;
+        track.transform.Rotate(0, 90, 0);
+        track.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+        {
+            track.GetComponent<ASL.ASLObject>().SendAndSetWorldRotation(track.transform.rotation);
+        });
+    }
+
+
     public void buttonAnimation(Transform input)
     {
         if (timeElapsed < 0.1)
@@ -91,4 +104,12 @@ public class RotateTrack : MonoBehaviour
         input.localPosition += new Vector3(addition, 0, 0);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRY CLICK!");
+        if (other.gameObject.layer == 18)
+        {
+            turnOn();
+        }
+    }
 }
