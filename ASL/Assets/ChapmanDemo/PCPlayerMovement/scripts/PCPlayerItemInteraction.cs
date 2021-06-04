@@ -78,7 +78,7 @@ public class PCPlayerItemInteraction : MonoBehaviour {
         pushingItem.transform.position = pushingItem.transform.position + move;
         prevPlayerPos = transform.position;
         Vector2 mouseOffset = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        pushingItem.transform.RotateAround(pushingItem.transform.position,  Vector3.up, -5 * mouseOffset.x);
+        pushingItem.transform.RotateAround(pushingItem.transform.position,  Vector3.up, -15 * mouseOffset.x);
     }
     void rotateMirrorMirror()
     {
