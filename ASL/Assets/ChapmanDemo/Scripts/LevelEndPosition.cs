@@ -37,13 +37,13 @@ public class LevelEndPosition : MonoBehaviour
 
         if (numPlayerInLevel <= 0) { return; }
         
-        if (m_playerSystem.GetIsDebugMode())
-        {
-            DebugDelayTimer -= Time.smoothDeltaTime;
-            if (DebugDelayTimer < 0)
-                m_isLevelEnded = true;
-            return;
-        }
+        //if (m_playerSystem.GetIsDebugMode())
+        //{
+         //   DebugDelayTimer -= Time.smoothDeltaTime;
+          //  if (DebugDelayTimer < 0)
+           //     m_isLevelEnded = true;
+            //return;
+        //}
         bool isAnyCharacNotEnded = false;
         for (int i = 0; i < numPlayerInLevel; i++)
         {

@@ -30,7 +30,7 @@ public class PlayerDetectionTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        myEventSync.Activate("DisplayWinMessage");
+        OnPlayerEntered.Invoke();
         //active event 
     }
 
