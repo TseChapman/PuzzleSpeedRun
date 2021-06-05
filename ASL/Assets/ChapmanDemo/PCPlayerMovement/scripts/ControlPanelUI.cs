@@ -82,7 +82,7 @@ public class ControlPanelUI : MonoBehaviour
 
     public void ToggleControlsPanelClick()
     {
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.lockState = CursorLockMode.None;
         bool isActive = mainPanel.activeSelf;
 
         mainPanel.SetActive(!isActive);
