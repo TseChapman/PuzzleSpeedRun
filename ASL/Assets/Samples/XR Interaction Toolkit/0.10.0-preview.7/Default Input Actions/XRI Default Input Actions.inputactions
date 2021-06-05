@@ -354,17 +354,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0e817174-2fa3-4495-954f-8a2dbec21748",
-                    "path": "<ValveIndexController>/thumbstickClicked",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UI Open",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "10214fcb-eee1-4ce1-a07a-dff097ce76e5",
                     "path": "<ViveController>/menu",
                     "interactions": "",
@@ -686,28 +675,6 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Object Pusing",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "574fdce5-fba2-407a-b2f7-6b31f60fc515",
-                    "path": "<XRController>{RightHand}/thumbstickClicked",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "UI Open",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "37076fc2-ef19-4813-9f4f-955391f57c70",
-                    "path": "<ViveController>/menu",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UI Open",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
