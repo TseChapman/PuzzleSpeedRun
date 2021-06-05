@@ -11251,7 +11251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662476698252910121, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7662476698252910121, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -11263,11 +11263,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662476698252910121, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: timerOff
       objectReference: {fileID: 0}
     - target: {fileID: 7662476698252910121, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: ControlPanelUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7662476698252910121, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument

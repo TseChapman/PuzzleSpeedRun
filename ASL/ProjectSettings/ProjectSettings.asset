@@ -145,6 +145,9 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 3822939426521331382, guid: 4e93221e1e72993418f9a29640c1f898, type: 2}
   - {fileID: -4954083692503614620, guid: 9884d9205f7a5604c9da4d3f97b10a5e, type: 2}
   metroInputSource: 0
@@ -767,7 +770,11 @@ PlayerSettings:
       OfflineMapsManagement: False
       BackgroundMediaPlayback: False
       Objects3D: False
+<<<<<<< Updated upstream
       Proximity: False
+=======
+      InternetClient: True
+>>>>>>> Stashed changes
       RemoteSystem: False
       BlockedChatMessages: False
       PhoneCall: False
@@ -789,7 +796,10 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
+<<<<<<< Updated upstream
       InternetClient: True
+=======
+>>>>>>> Stashed changes
       Proximity: False
       CodeGeneration: False
       BackgroundMediaPlayback: False

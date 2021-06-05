@@ -7,6 +7,8 @@ public class ControlPanelUI : MonoBehaviour
 {
     public float timeValue = 0;
     public Text timerText;
+    public bool incTime = false;
+    public GameObject pcPlayer;
     public GameObject panel;
     public GameObject mainPanel;
     public GameObject controlsPanel;
@@ -14,7 +16,8 @@ public class ControlPanelUI : MonoBehaviour
     void Update()
     {
         timeValue += Time.deltaTime;
-        DisplayTime(timeValue);
+        toggleTimer();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Cursor.lockState == CursorLockMode.Locked)
@@ -36,6 +39,19 @@ public class ControlPanelUI : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void toggleTimer()
+    {
+        if (pcPlayer.transform.position.x <= 20 || pcPlayer.transform.position.z <= 20)
+        {
+            timeValue = 0;
+            DisplayTime(timeValue);
+        }
+        else
+        {
+            DisplayTime(timeValue);
+        }
     }
 
     public void TogglePanel()
