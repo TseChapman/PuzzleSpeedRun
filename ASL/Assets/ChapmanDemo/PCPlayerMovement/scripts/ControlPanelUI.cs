@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class ControlPanelUI : MonoBehaviour
 {
     public float timeValue = 0;
-    public Text timerText;
+    public TMP_Text timerText;
     public bool incTime = false;
     public GameObject pcPlayer;
     public GameObject panel;
@@ -56,7 +56,8 @@ public class ControlPanelUI : MonoBehaviour
 
     public void TogglePanel()
     {
-        if(panel != null)
+
+        if (panel != null)
         {
             bool isActive = panel.activeSelf;
 
@@ -81,6 +82,7 @@ public class ControlPanelUI : MonoBehaviour
 
     public void ToggleControlsPanelClick()
     {
+        Cursor.lockState = CursorLockMode.None;
         bool isActive = mainPanel.activeSelf;
 
         mainPanel.SetActive(!isActive);
