@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPrefabName: LobbyPrefab
   levelType: 1
-  isDebugMode: 0
+  isDebugMode: 1
 --- !u!4 &319858491
 Transform:
   m_ObjectHideFlags: 0
