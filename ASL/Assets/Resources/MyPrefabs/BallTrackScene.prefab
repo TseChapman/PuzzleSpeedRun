@@ -7435,7 +7435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5597783492510836443, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5597783492510836443, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7473,6 +7473,10 @@ PrefabInstance:
       propertyPath: m_mazeSystem
       value: 
       objectReference: {fileID: 6751829857105838661}
+    - target: {fileID: 7662476698252910121, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
+      propertyPath: endLevelDistance
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4912b5f66711a94fa9b01e2b655584b, type: 3}
 --- !u!4 &6581752090695047806 stripped
