@@ -5,7 +5,11 @@ using ASL;
 using System.Text;
 public class PCPlayerMovement : MonoBehaviour
 {
-    private static Transform playerMeshTransform;
+    public static Transform playerMeshTransform;
+    public static GameObject m_playerMeshObject;
+    private GameObject m_childPlayerMeshObject;
+    private PlayerPeerId m_playerPeerId;
+    private PlayerSystem m_playerSystem;
     public Vector3 spawnPoint = Vector3.zero;   //Base point of the player spawn point (Player will be spawned randomly within playerRandomSpwanRange from this point)
     public float movementSensitivity = 10f; //Walking sensitivity
     //public float jumpForce = 6f; //Jump functionality closed
@@ -25,10 +29,13 @@ public class PCPlayerMovement : MonoBehaviour
     private VRPresence vrPresence;
     public int[] pickAbleLayerNum;
     private bool spawnPointSet = false; //True if player System set its spawn point
+    private bool m_isPeerIdSet = false; // True if m_playerMeshObject is set with client's peer id
     private Vector3 move;
     public bool usingASL = true;
+
     void Start()
     {
+        m_playerSystem = GameObject.FindObjectOfType<PlayerSystem>();
         controller = GetComponent<CharacterController>();
         pcPlayerItemInteraction = GetComponent<PCPlayerItemInteraction>();
         //calculate spawn point
@@ -77,6 +84,8 @@ public class PCPlayerMovement : MonoBehaviour
     {
         Debug.Log("PLAYER MESH INIT2");
         playerMeshTransform = _gameobject.transform;
+        m_playerMeshObject = _gameobject;
+        _gameobject.transform.GetChild(1).GetComponent<PlayerPeerId>().SetPeerId(GameLiftManager.GetInstance().m_PeerId);
     }
   
     //This will look for any playerMesh initiate and store it to the playerMeshTransform
@@ -110,8 +119,9 @@ public class PCPlayerMovement : MonoBehaviour
     void fallPlayer()
     {
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
-        onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
-       
+        //onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
+
+        //Debug.Log("Grounded: "+grounded);
         if (grounded)
             fallingSpeed = 0;
         else
@@ -142,7 +152,50 @@ public class PCPlayerMovement : MonoBehaviour
                 playerMeshTransform.rotation = transform.rotation;
             }
         }
-      
+        if (m_playerMeshObject != null && !m_isPeerIdSet && m_playerSystem != null && m_playerSystem.GetIsPeerIdCallBackSet())
+        {
+            m_childPlayerMeshObject = m_playerMeshObject.transform.GetChild(0).gameObject;
+            m_playerPeerId = m_playerMeshObject.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            if (!m_playerPeerId.GetIsCallBackSet())
+                m_playerPeerId.SetCallBack();
+            int peerId = GameLiftManager.GetInstance().m_PeerId;
+            string id = m_playerMeshObject.GetComponent<ASL.ASLObject>().m_Id;
+            //Debug.Log("Before Send Peer Id to PlayerPeerId: peerid = " + peerId + " obj id = " + id);
+            m_playerPeerId.SetPeerId(peerId);
+            m_isPeerIdSet = true;
+            
+        }
+        /*
+        else
+        {
+            if (m_playerMeshObject == null)
+            {
+                Debug.Log("PlayerMeshObject is null");
+            }
+            if (m_playerSystem == null)
+            {
+                Debug.Log("PlayerSystem is Null");
+            }
+            else
+            {
+                //Debug.Log("GetIsPeerIdCallBackSet() return: " + m_playerSystem.GetIsPeerIdCallBackSet().ToString());
+            }
+        }
+        */
+        if (m_childPlayerMeshObject != null)
+        {
+            PlayerTeleport plyTeleport = m_childPlayerMeshObject.GetComponent<PlayerTeleport>();
+            if (plyTeleport != null && plyTeleport.GetIsSignalTeleport())
+            {
+                Debug.Log("Get Pos from PC");
+                Vector3 newPos = plyTeleport.GetPos();
+                controller.enabled = false;
+                this.gameObject.transform.position = newPos;
+                controller.enabled = true;
+                plyTeleport.ResetSignal();
+            }
+        }
+
     }
 
 

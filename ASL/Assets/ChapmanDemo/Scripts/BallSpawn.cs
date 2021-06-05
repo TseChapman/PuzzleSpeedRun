@@ -12,11 +12,17 @@ public class BallSpawn : MonoBehaviour
     private float timeElapsed = 0f;
     bool animation = false;
     bool clickable = true;
-
+    public EventSync myEventSync;
     //different button orreintation
     public bool posX = false;
     public bool negX = false;
+    public LayerMask layerMask;
     // Update is called once per frame
+    private void Start()
+    {
+        startPosX = transform.localPosition.x;
+    }
+
     void Update()
     {
         if (animation)
@@ -24,21 +30,46 @@ public class BallSpawn : MonoBehaviour
             buttonAnimation(input.transform);
         }
         else if (Input.GetMouseButtonDown(0) && clickable)
-        {   int layerMask = 1 << 10;
+        {
+            //int layerMask = 1 << 10;
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 3, layerMask))
             {
+                if (hit.transform.gameObject.layer != 10) return;
                 if (hit.transform == button.transform)
                 {
                     animation = true;
                     clickable = false;
                     input = hit.transform;
                     ball.transform.position = spawnArea.transform.position;
+                    if (myEventSync)
+                        myEventSync.Activate("ballSpawnClicked");
                 }
 
             }
         }
     }
+
+    private void turnOn()
+    {
+            animation = true;
+            clickable = false;
+            input = transform;
+            ball.transform.position = spawnArea.transform.position;
+        if (myEventSync)
+            myEventSync.Activate("ballSpawnClicked");
+    }
+
+    public void turnOnByOther()
+    {
+        Debug.Log("TURN ON BY OTHER");
+        animation = true;
+        clickable = false;
+        input = transform;
+        ball.transform.position = spawnArea.transform.position;
+
+    }
+
 
     public void buttonAnimation(Transform input)
     {
@@ -59,7 +90,7 @@ public class BallSpawn : MonoBehaviour
             timeElapsed += Time.deltaTime;
             if (timeElapsed > 0.55)
             {
-                input.localPosition = new Vector3(startPosX, input.position.y, input.position.z);
+                input.localPosition = new Vector3(startPosX, input.localPosition.y, input.localPosition.z);
                 animation = false;
                 clickable = true;
                 timeElapsed = 0f;
@@ -70,6 +101,15 @@ public class BallSpawn : MonoBehaviour
     public void moveZ(float addition, Transform input)
     {
         input.localPosition += new Vector3(0, 0, addition);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRY CLICK!");
+        if (other.gameObject.layer == 18)
+        {
+            turnOn();
+        }
     }
 
 }

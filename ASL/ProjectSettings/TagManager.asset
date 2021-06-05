@@ -11,8 +11,11 @@ TagManager:
   - KeyMaze
   - KeyDoor
   - New tag
-  - ColorPad
+  - Team
+  - LobbyLevelSelectButton
+  - LobbyStartButton
   - ColorCube
+  - ColorPad
   - PlayerRig
   - LaserMirror
   layers:
@@ -40,7 +43,7 @@ TagManager:
   - GrabIgnore
   - VRHandle
   - BoundaryTrigger
-  - 
+  - Ball
   - 
   - 
   - 

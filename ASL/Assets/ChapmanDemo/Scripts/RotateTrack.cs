@@ -11,11 +11,15 @@ public class RotateTrack : MonoBehaviour
     public float startPosX;
     bool animation = false;
     bool clickable = true;
-
+    public LayerMask layerMask;
     //different button orreintation
     public bool posX = false;
     public bool negX = false;
     // Update is called once per frame
+    private void Start()
+    {
+        startPosX = transform.localPosition.x;
+    }
 
     void Update()
     {
@@ -25,10 +29,11 @@ public class RotateTrack : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0) && clickable)
         {
-            int layerMask = 1 << 10;
+            //int layerMask = 1 << 10;
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 3, layerMask))
             {
+                if (hit.transform.gameObject.layer != 10) return;
                 if(hit.transform == button.transform)
                 {
                     animation = true;
@@ -44,6 +49,19 @@ public class RotateTrack : MonoBehaviour
             }
         }
     }
+
+    private void turnOn()
+    {
+        animation = true;
+        clickable = false;
+        input = transform;
+        track.transform.Rotate(0, 90, 0);
+        track.GetComponent<ASL.ASLObject>().SendAndSetClaim(() =>
+        {
+            track.GetComponent<ASL.ASLObject>().SendAndSetWorldRotation(track.transform.rotation);
+        });
+    }
+
 
     public void buttonAnimation(Transform input)
     {
@@ -78,7 +96,7 @@ public class RotateTrack : MonoBehaviour
             timeElapsed += Time.deltaTime;
             if (timeElapsed > 0.55)
             {
-                input.localPosition = new Vector3(startPosX, input.position.y, input.position.z);
+                input.localPosition = new Vector3(startPosX, input.localPosition.y, input.localPosition.z);
                 animation = false;
                 clickable = true;
                 timeElapsed = 0f;
@@ -91,4 +109,12 @@ public class RotateTrack : MonoBehaviour
         input.localPosition += new Vector3(addition, 0, 0);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRY CLICK!");
+        if (other.gameObject.layer == 18)
+        {
+            turnOn();
+        }
+    }
 }

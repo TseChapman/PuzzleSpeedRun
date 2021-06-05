@@ -12,11 +12,17 @@ public class MovingPlatform : MonoBehaviour
     public float RelativePosition;
     private float fromTime;
     private bool delayed;
+    public float CharacterOffset = 0.55f;
 
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+    private Vector3 lastTransformPos;
+
+    private void FixedUpdate()
+    {
     }
 
     // Update is called once per frame
@@ -109,7 +115,7 @@ public class MovingPlatform : MonoBehaviour
 
         RelativePosition = NextRelativePosition;
 
-        Debug.Log("USER ID = " + ASLUserID.ID());
+        //Debug.Log("USER ID = " + ASLUserID.ID());
         if (ASLUserID.ID() == 0)
         {
             GetComponent<ASLObject>().SendAndSetClaim(() => {
@@ -121,5 +127,36 @@ public class MovingPlatform : MonoBehaviour
                 GetComponent<ASLObject>().SendAndSetWorldPosition(newPos);
             });
         }
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("PlayerRig"))
+        {
+            if (obj.GetComponent<CharacterController>() == null)
+            {
+                continue;
+            }
+            Vector3 p = obj.GetComponent<CharacterController>().transform.position;
+            p = new Vector3(p.x, p.y - obj.GetComponent<CharacterController>().height + CharacterOffset, p.z);
+            //Debug.Log(GetComponent<BoxCollider>().bounds + " " + p);
+            Debug.DrawLine(p, obj.GetComponent<CharacterController>().transform.position);
+            if (GetComponent<BoxCollider>().bounds.Contains(p))
+            {
+                Vector3 deltaPos = (transform.position - lastTransformPos);
+                Vector3 p2 = obj.GetComponent<CharacterController>().transform.position;
+                obj.GetComponent<CharacterController>().enabled = false;
+                p2 = p2 + deltaPos;
+                GameObject vrRig = GameObject.Find("VRRigContainer");
+                if (vrRig != null)
+                {
+                    vrRig.transform.position += deltaPos;
+                }
+                else
+                {
+                    obj.GetComponent<CharacterController>().transform.position = p2;
+                }
+                obj.GetComponent<CharacterController>().enabled = true;
+            }
+        }
+
+        lastTransformPos = transform.position;
     }
 }

@@ -12,27 +12,55 @@ public enum LevelType
 
 public class PlayerSystem : MonoBehaviour
 {
+    public string levelPrefabName = "LobbyPrefab";
     public LevelType levelType = LevelType.DOUBLE_FLOOR;
-    public string levelPrefabName = "";
     private bool m_isHost = false;
     private bool m_isInit = false;
-    private bool m_isMazeInit = false;
-    private static bool m_isMazeStored = false;
-    private bool m_isMazeStarted = false;
+    private bool m_isLobbyInit = false;
+    private static bool m_isLobbyStored = false;
+    private bool m_isLobbyStarted = false;
+    private bool m_isPeerIdCallBackSet = false;
+    private bool m_isMiddlewareCreated = false;
+    private bool m_isFloatSend = false;
+    private float m_peerIdTimer = 2f;
+    public bool isDebugMode = false;
 
     // TODO: Allow teams. Maybe List<List<GameObject>> ?
-    private static GameObject maze;
+    private static GameObject lobby;
     private List<GameObject> m_playerList = new List<GameObject>();
     private Dictionary<string, int> m_playerObjDict = new Dictionary<string, int>();
     private int m_playerIndex = 0;
+    private static PeerIdMiddleware m_peerIdMiddleware;
+    private float middlewareTimer = 2f;
+
+    public bool GetIsDebugMode()
+    {
+        return isDebugMode;
+    }
+
+    public bool GetIsPeerIdCallBackSet() 
+    {
+        /*
+        if (m_peerIdTimer > 0)
+            return false;
+        */
+        if (m_peerIdMiddleware == null)
+        {
+            Debug.Log("PlayerSystem: GetIsPeerIdCallBack(): m_peerIdMiddleware is null");
+            m_peerIdMiddleware = GameObject.FindObjectOfType<PeerIdMiddleware>();
+            return false;
+        }
+        return m_peerIdMiddleware.IsAllClientSet();
+        //return m_isPeerIdCallBackSet;
+    }
 
     //TODO: Maybe move it to a level system
     /// <param name="_gameObject">The gameobject that was created</param>
-    public static void StoreMaze(GameObject _gameObject)
+    public static void StoreLobby(GameObject _gameObject)
     {
         //An example of how we can get a handle to our object that we just created but want to use later
-        maze = _gameObject;
-        m_isMazeStored = true;
+        lobby = _gameObject;
+        m_isLobbyStored = true;
     }
 
     /// <param name="_id">The id of the object who's claim was rejected</param>
@@ -60,34 +88,40 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
-    public void InitializeMaze()
+    public void InitializeLobby()
     {
         if (!m_isInit) return;
-        if (m_isMazeInit) return;
+        if (m_isLobbyInit) return;
         // Instantiate the maze prefab
         if (levelPrefabName == "")
         {
-            Debug.Log("Error: PlayerSystem: Empty LevelPrefabName");
-            return;
+            Debug.Log("Error: PlayerSystem: Empty LevelPrefabName, set to default LobbyPrefab");
+            levelPrefabName = "LobbyPrefab";
         }
         ASL.ASLHelper.InstantiateASLObject(levelPrefabName,
                                    new Vector3(0f, 0f, 0f), // TODO: Should have a parameter object
                                    Quaternion.identity, "", "",
-                                   StoreMaze,
+                                   StoreLobby,
                                    ClaimRecoveryFunction,
                                    MyFloatsFunction);
-        m_isMazeInit = true;
+        m_isLobbyInit = true;
     }
 
+    /*
     public void StartMaze()
     {
+        if (!m_isLobbyStored) return;
+        if (m_isLobbyStarted) return;
+        lobby.GetComponent<LobbySystem>().InitMaze();
+        m_isLobbyStarted = true;
         if (levelType != LevelType.DOUBLE_FLOOR) return;
         if (!m_isMazeStored) return;
         if (m_isMazeStarted) return;
         maze.GetComponent<MazeSystem>().InitMaze();
         m_isMazeStarted = true;
     }
-
+    */
+    /*
     public void StartSingleFloor()
     {
         if (levelType != LevelType.SINGLE_FLOOR) return;
@@ -96,7 +130,7 @@ public class PlayerSystem : MonoBehaviour
         maze.GetComponent<SingleFloorSystem>().InitFloor();
         m_isMazeStarted = true;
     }
-
+    */
     public bool GetIsHost() { return m_isHost; }
 
     public int GetNumPlayers() { return m_playerList.Count; }
@@ -126,10 +160,10 @@ public class PlayerSystem : MonoBehaviour
         if (m_isInit) return;
         //Debug.Log("I am the Host");
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); // TODO: Switch to the player script
-        Debug.Log("Num player in PlayerSystem ASL = " + GameLiftManager.GetInstance().m_Players.Count);
-        Debug.Log("Num player in players  = " + players.Length);
+        //Debug.Log("Num player in PlayerSystem ASL = " + GameLiftManager.GetInstance().m_Players.Count);
+        //Debug.Log("Num player in players  = " + players.Length);
         if (players.Length < GameLiftManager.GetInstance().m_Players.Count) return;
-        Debug.Log("Num player in PlayerSystem = " + players.Length);
+        //Debug.Log("Num player in PlayerSystem = " + players.Length);
         foreach (GameObject characterObj in players)
         {
             string id = characterObj.GetComponent<ASL.ASLObject>().m_Id;
@@ -142,8 +176,66 @@ public class PlayerSystem : MonoBehaviour
             }
             //Debug.Log("Character Object name: " + characterObj.name);
         }
-        Debug.Log("Num player added to the list: " + m_playerList.Count);
+        //Debug.Log("Num player added to the list: " + m_playerList.Count);
+        CreatePeerIdMiddleware();
         m_isInit = true;
+    }
+
+    private void InitPeerIdCallBack()
+    {
+        if (m_peerIdMiddleware == null) return;
+        if (!m_peerIdMiddleware.GetIsLocalCallBackSet()) return;
+        if (m_isPeerIdCallBackSet)
+        {
+            middlewareTimer -= Time.smoothDeltaTime;
+            if (middlewareTimer <= 0 && m_isFloatSend == false)
+            {
+                m_peerIdMiddleware.SendSetCallBack(GameLiftManager.GetInstance().m_PeerId);
+                m_isFloatSend = true;
+            }
+            return;
+        }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length < GameLiftManager.GetInstance().m_Players.Count) return;
+        foreach (GameObject g in players)
+        {
+            PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            //Debug.Log("PlayerSystem: InitPeerIdCallBack(): Set callback function");
+            pId.SetCallBack();
+        }
+        m_isPeerIdCallBackSet = true;
+        middlewareTimer *= (float)GameLiftManager.GetInstance().m_PeerId;
+        //m_peerIdMiddleware.SendSetCallBack(GameLiftManager.GetInstance().m_PeerId);
+    }
+
+    private void TestSetPeerId()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
+        {
+            GameObject g = players[i];
+            PlayerPeerId pId = g.transform.GetChild(1).gameObject.GetComponent<PlayerPeerId>();
+            Debug.Log("PlayerSystem: TestSetPeerId(): Test Set peer id = " + (100+i));
+            pId.SetPeerId(100 + i);
+        }
+    }
+
+    /// <param name="_gameObject">The gameobject that was created</param>
+    public static void StoreMiddleware(GameObject _gameObject)
+    {
+        //An example of how we can get a handle to our object that we just created but want to use later
+        m_peerIdMiddleware = _gameObject.GetComponent<PeerIdMiddleware>();
+    }
+
+    private void CreatePeerIdMiddleware()
+    {
+        if (m_isMiddlewareCreated) return;
+        Debug.Log("Create Middleware");
+        ASL.ASLHelper.InstantiateASLObject("PeerIdMiddleware",
+                                   new Vector3(1f, 0f, 0f), // TODO: Should have a parameter object
+                                   Quaternion.identity, "", "",
+                                   StoreMiddleware);
+        m_isMiddlewareCreated = true;
     }
 
     // Start is called before the first frame update
@@ -155,10 +247,23 @@ public class PlayerSystem : MonoBehaviour
     private void Update()
     {
         m_isHost = GameLiftManager.GetInstance().AmLowestPeer();
+        if (m_peerIdMiddleware == null)
+        {
+            m_peerIdMiddleware = GameObject.FindObjectOfType<PeerIdMiddleware>();
+        }
         InitPlayers();
+        InitPeerIdCallBack();
         // Testing
-        InitializeMaze();
-        StartMaze();
-        StartSingleFloor();
+        InitializeLobby();
+        /*
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TestSetPeerId();
+        }
+        */
+        return;
+        //StartMaze();
+        //InitializeMaze();
+        //StartSingleFloor();
     }
 }

@@ -145,6 +145,8 @@ public class EventSync : MonoBehaviour
     {
         for (int i = 0; i < Events.Count; ++i)
         {
+            if (eventNameIDMapping.ContainsKey(Events[i].Name))
+                Debug.Log("EventSync: Start(): Event name = " + Events[i].Name);
             eventNameIDMapping.Add(Events[i].Name, i);
         }
         if (eventNameIDMapping.Count != Events.Count)
