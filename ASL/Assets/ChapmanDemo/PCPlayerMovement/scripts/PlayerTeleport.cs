@@ -40,4 +40,18 @@ public class PlayerTeleport : MonoBehaviour
         pos = this.gameObject.transform.position;
         this.gameObject.GetComponent<ASL.ASLObject>()._LocallySetFloatCallback(FloatCallback);
     }
+
+    private void winMessagePopup()
+    {
+        GameObject[] UICanvas = GameObject.FindGameObjectsWithTag("UI");
+        foreach (GameObject canvas in UICanvas)
+        {
+            Transform winMessage = canvas.transform.Find("winMessage");
+            if (winMessage != null)
+            {
+                winMessage.gameObject.SetActive(true);
+            }
+        }
+
+    }
 }

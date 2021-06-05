@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MouseFirstPersonView : MonoBehaviour
 {
-    public float mouseSensitivity = 700f; //This is sensitivity for mouse 
+    public float mouseSensitivity = 1f; //This is sensitivity for mouse 
+    public Slider mouseSens;
     public Transform Rig; //This store parent (player object)
     float xRotation = 0f;   //This store calculated X Rotation by mouse
     // Start is called before the first frame update
@@ -28,5 +30,13 @@ public class MouseFirstPersonView : MonoBehaviour
                 Rig.Rotate(Vector3.up * mouseX);
         }
         
+    }
+
+    public void updateMouseSens(Slider changer)
+    {
+        mouseSens = changer;
+        Debug.Log((float)mouseSens.value);
+        float input = (float)mouseSens.value;
+        mouseSensitivity = input;
     }
 }

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 700
-  cameraHeight: 0.59
+  mouseSens: {fileID: 0}
   Rig: {fileID: 2800118942192953693}
 --- !u!1 &2800118942192953688
 GameObject:
@@ -156,15 +156,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {x: 0, y: 0, z: 0}
   movementSensitivity: 6
-  jumpForce: 4
-  playerRandomSpwanRange: 6
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
   playerMeshLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  pickAbleItemLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  pickAbleItemChildLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   gravity: -9.81
+  vrPresenceObject: {fileID: 0}
+  pickAbleLayerNum: 
+  usingASL: 1
 --- !u!114 &2800118942192953683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,12 +185,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUpItem: {fileID: 0}
+  pushingItem: {fileID: 0}
   pickUpDistance: 5
+  distanceBetweenPlayerAndObject: 3
   throwingYDirection: 0.3
   throwingForce: 1000
   pickableLayer:
     serializedVersion: 2
     m_Bits: 128
+  pickableChildLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  pushAbleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  mirrorLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  nonInterativeLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  mouseSensitivity: 0
+  pushingMovementSensitivity: 1
 --- !u!143 &1968195816894900924
 CharacterController:
   m_ObjectHideFlags: 0
