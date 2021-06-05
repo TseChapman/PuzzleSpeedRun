@@ -92,12 +92,12 @@ public class LevelEndPosition : MonoBehaviour
             m_lobbySystem.ReturnToLobby(character);
         }
 
-
         // Destroy the level
         LobbyStartButton button = GameObject.FindObjectOfType<LobbyStartButton>();
         button.DestroyPrefab(m_mazeSystem.GetTeamId());
         m_isPlayerTeleportBack = true;
     }
+ 
 
     // Update is called once per frame
     private void Update()
