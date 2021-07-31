@@ -62,7 +62,7 @@ public class PCPlayerMovement : MonoBehaviour
         {
             if (Cursor.lockState == CursorLockMode.Locked)
             {
-                movePlayerMovementbyKeyboard();
+                //movePlayerMovementbyKeyboard();
             }
             fallPlayer();
         }
@@ -97,22 +97,6 @@ public class PCPlayerMovement : MonoBehaviour
         {
             playerMeshTransform = hitColliders[0].transform;      
         }       
-    }
-
-
-
-    //This method will allow the user to move the player with their keyboard
-    void movePlayerMovementbyKeyboard() {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-
-        /*rigid body movement system was changed to CharacterController system
-        Vector3 movePos = transform.right * x + transform.forward * y;
-        Vector3 newMovePos = new Vector3(movePos.x, playerBody.velocity.y, movePos.z);
-        playerBody.velocity = newMovePos;
-        transform.position = playerBody.position;*/
-        move = transform.right * x + transform.forward * y;
-        controller.Move(move * movementSensitivity * Time.fixedDeltaTime);        
     }
 
     //This method will make player to fall to the ground if the player is not on the ground

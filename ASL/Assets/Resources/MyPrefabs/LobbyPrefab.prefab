@@ -6969,7 +6969,7 @@ GameObject:
   - component: {fileID: 8811873152170399908}
   - component: {fileID: 8811873152170399909}
   - component: {fileID: 170865676960977071}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8192,6 +8192,10 @@ PrefabInstance:
     - target: {fileID: 4591042844984456903, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
       propertyPath: m_Name
       value: SpawnArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591042844984456903, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4591042846179278698, guid: d33f3b3ac7d421c47bebca8088926b02, type: 3}
       propertyPath: m_Materials.Array.data[0]

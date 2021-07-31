@@ -18,6 +18,7 @@ TagManager:
   - ColorPad
   - PlayerRig
   - LaserMirror
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -44,7 +45,7 @@ TagManager:
   - VRHandle
   - BoundaryTrigger
   - Ball
-  - 
+  - MOB
   - 
   - 
   - 
