@@ -20,12 +20,19 @@ public class MobHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //if (transform.GetComponent<Rigidbody>().isKinematic == true)
+        //{
+        //    transform.GetComponent<Rigidbody>().isKinematic = false;
+        //}
     }
 
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.setHealth(currentHealth);
+        if (currentHealth <= 0)
+        {
+            Destroy(transform.gameObject);
+        }
     }
 }

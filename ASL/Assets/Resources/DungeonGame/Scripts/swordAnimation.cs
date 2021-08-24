@@ -5,6 +5,7 @@ using UnityEngine;
 public class swordAnimation : MonoBehaviour
 {
     Animator animator;
+    public int power = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,27 @@ public class swordAnimation : MonoBehaviour
         else
         {
             animator.ResetTrigger("swingSword");
+        }
+    }
+
+    //void OnCollisionEnter(Collision col)
+    //{
+    //    //col.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    //    //col.transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+    //    //layer 25 is MOB
+    //    if (col.gameObject.layer == 25  && this.animator.GetCurrentAnimatorStateInfo(0).IsName("swing"))
+    //    {
+    //        col.transform.GetComponent<MobHealth>().takeDamage(power);
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRIGGER");
+        if (other.gameObject.layer == 25 && this.animator.GetCurrentAnimatorStateInfo(0).IsName("swing"))
+        {
+            other.transform.GetComponent<MobHealth>().takeDamage(power);
         }
     }
 }

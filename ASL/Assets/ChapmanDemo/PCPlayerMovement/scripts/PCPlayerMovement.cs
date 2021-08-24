@@ -102,15 +102,21 @@ public class PCPlayerMovement : MonoBehaviour
     //This method will make player to fall to the ground if the player is not on the ground
     void fallPlayer()
     {
-        grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, groundLayerMask);
+        grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z), .5f, groundLayerMask);
         //onObject = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), .5f, pickAbleItemLayerMask);
 
         //Debug.Log("Grounded: "+grounded);
         if (grounded)
+        {
             fallingSpeed = 0;
+            //transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        }
         else
+        {
             fallingSpeed += gravity * Time.fixedDeltaTime;
-        controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+            controller.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+        }
+            
         if (transform.position.y < -99f)
         {
             transform.position = spawnPoint;
@@ -127,7 +133,7 @@ public class PCPlayerMovement : MonoBehaviour
         {
             if (!playerMeshTransform.GetComponent<ASLPlayerSync>())
             {
-                transform.position = playerMeshTransform.position + new Vector3(0,2,0);
+                transform.position = playerMeshTransform.position + new Vector3(0,1,0);
             }
             else
             {

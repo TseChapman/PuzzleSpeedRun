@@ -23,17 +23,13 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100.0f, Color.yellow);
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            takeDamage(20);
-        }
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 50f, 1 << LayerMask.NameToLayer("MOB")))
             {
-                hit.transform.GetComponent<MobHealth>().takeDamage(power);
+                //hit.transform.GetComponent<MobHealth>().takeDamage(power);
             }
         }
     }
@@ -43,4 +39,5 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         healthBar.setHealth(currentHealth);
     }
+
 }
